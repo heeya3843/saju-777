@@ -1945,7 +1945,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var dayStemIdx = STEMS.indexOf(ds);
   var allStars = pillars.map(function(p){
     var s=getTenStar(ds,p.stem);
-    var b=getTenStar(ds,JIGANJI[p.branch]?JIGANJI[p.branch][0]:'');
+    var b=getTenStar(ds,HIDDEN[p.branch]?HIDDEN[p.branch][0]:'');
     return [s,b];
   }).reduce(function(a,b){return a.concat(b);},[]).filter(Boolean);
   var hasJJae = allStars.some(function(s){return s==='정재';});
