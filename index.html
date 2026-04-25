@@ -1220,60 +1220,6 @@ var STAGE_MEANING={
 // ================================================
 //  메인 실행
 // ================================================
-async function startReport() {
-  var name  = document.getElementById('f-name').value.trim();
-  var yearIn= parseInt(document.getElementById('f-year').value)  || 0;
-  var monthIn=parseInt(document.getElementById('f-month').value) || 0;
-  var dayIn = parseInt(document.getElementById('f-day').value)   || 0;
-  var hour  = parseInt(document.getElementById('f-hour').value);
-  var city  = document.getElementById('f-city').value;
-  var isLeap= document.getElementById('f-leap').checked;
-
-  if (!name) { alert('이름을 입력해 주세요.'); return; }
-  if (yearIn<1930||yearIn>2010) { alert('생년은 1930~2010 사이로 입력해 주세요.'); return; }
-  if (monthIn<1||monthIn>12)   { alert('월은 1~12 사이로 입력해 주세요.'); return; }
-  if (dayIn<1||dayIn>30)       { alert('일은 1~30 사이로 입력해 주세요.'); return; }
-  if (!selectedGender)         { alert('성별을 선택해 주세요.'); return; }
-
-  var year=yearIn, month=monthIn, day=dayIn;
-  var isLunarInput = (calMode === 'lunar');
-  var lunarYMD = null;
-
-  if (isLunarInput) {
-    // 음력→양력 변환
-    var solar = lunarToSolar(yearIn, monthIn, dayIn, isLeap);
-    if (!solar) { alert('해당 음력 날짜를 변환할 수 없습니다. 날짜를 확인해 주세요.'); return; }
-    lunarYMD = [yearIn, monthIn, dayIn, isLeap];
-    year=solar[0]; month=solar[1]; day=solar[2];
-  }
-
-  currentInput={name,gender:selectedGender,year,month,day,hour,city,isLunarInput,lunarYMD,origYear:yearIn,origMonth:monthIn,origDay:dayIn};
-
-  document.getElementById('pg-intro').style.display='none';
-  document.getElementById('pg-report').style.display='none';
-  var lp=document.getElementById('pg-loading');
-  lp.style.display='flex';
-  for(var i=1;i<=7;i++) document.getElementById('step'+i).className='step-item';
-
-  await delay(400); markStep(1);
-  await delay(500); markStep(2);
-  await delay(500); markStep(3);
-  await delay(500); markStep(4);
-  await delay(500); markStep(5);
-  await delay(400); markStep(6);
-  await delay(400); markStep(7);
-  await delay(300);
-
-  lp.style.display='none';
-  buildReport(name,selectedGender,year,month,day,hour,city,lunarYMD);
-  document.getElementById('pg-report').style.display='block';
-  window.scrollTo(0,0);
-}
-
-
-// =====================================================
-//  buildReport v5 — PDF 스타일 완전 재설계
-// =====================================================
 function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   // ── 기본 계산 ──
   var yp=getYearPillar(year,month,day);
@@ -1978,7 +1924,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
 }
 
 function delay(ms){return new Promise(function(r){setTimeout(r,ms);})}
-async function markStep(n){document.getElementById('step'+n).className='step-item done';}
+function markStep(n){document.getElementById('step'+n).className='step-item done';}
 function goBack(){document.getElementById('pg-report').style.display='none';document.getElementById('pg-intro').style.display='flex';}
 
 // ── 이벤트 리스너 ──
