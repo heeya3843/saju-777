@@ -1242,7 +1242,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var yongshin=str==='신강(身强)'?{elem:EL_CTR[de],type:'관성(官星)'}:{elem:EL_GEN_R[de],type:'인성(印星)'};
   var ssal=calcSsal(dp,yp,mp,hp);
   var zod=getSunSign(month,day);
-  var rising=hour>=0?getRising(month,day,hour,city):null;
+  var rising=hour>=0?getRisingSign(month,day,hour,city):null;
   var cityName={seoul:'서울',busan:'부산',daegu:'대구',gwangju:'광주',daejeon:'대전',jeju:'제주',tokyo:'도쿄',beijing:'베이징',shanghai:'상하이',newyork:'뉴욕',la:'LA',london:'런던',sydney:'시드니'}[city]||city;
 
   // 십성 분석
@@ -1268,10 +1268,10 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var hasDohwa=ssal.dohwa.where.length>0;
 
   // 2026 세운 기운 분석
-  var세운stem='병', 세운branch='오'; // 2026=병오년
-  var 세운ts=getTenStar(ds,세운stem);
-  var 세운elem=S_ELEM[STEMS.indexOf(세운stem)];
-  var 세운isGood=(세운elem===yongshin.elem);
+  var se_stem='병', se_branch='오'; // 2026=병오년
+  var se_ts=getTenStar(ds,se_stem);
+  var se_elem=S_ELEM[STEMS.indexOf(se_stem)];
+  var se_isGood=(se_elem===yongshin.elem);
 
   // 수비학
   var lifePath=getLifePath(year,month,day);
@@ -1372,7 +1372,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   H+='<tr><td class="row-label">12운성</td>';
   pillarData.forEach(function(p,i){
     if(!p){H+='<td>—</td>';return;}
-    var t12=getT12(ds,p.branch);
+    var t12=getTwelveStage(ds,p.branch);
     H+='<td'+(i===1?' style="background:#fdf8ec"':'')+'><span class="t12-pill">'+t12+'</span></td>';
   });
   H+='</tr>';
@@ -1489,7 +1489,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var jobRes, jobMsg;
   if(curTsIsGwan&&hasYeokma){
     jobRes='yes'; jobMsg='현재 '+curDu.stem+curDu.branch+' 대운에 관성(官星)이 흐르고 역마살(이동의 별)이 있습니다. <strong>2026년은 직장 이동·부서 변경·승진의 황금 타이밍</strong>입니다. 머뭇거리지 말고 적극적으로 기회를 잡으세요.';
-  } else if(curTsIsGwan||세운ts==='정관'||세운ts==='편관'){
+  } else if(curTsIsGwan||se_ts==='정관'||se_ts==='편관'){
     jobRes='wait'; jobMsg='관성 기운이 있어 변화의 씨앗은 있습니다. 다만 <strong>타이밍을 더 잘 잡아야 합니다</strong>. 2026년 하반기(丙午 세운 화기 강해지는 시점)에 결정을 내리는 것이 유리합니다.';
   } else {
     jobRes='no'; jobMsg='현재 대운('+curDu.stem+curDu.branch+')은 이동보다 <strong>내공을 쌓는 시기</strong>입니다. 무리한 이직보다 현재 자리에서 전문성을 높이는 데 집중하세요. 다음 대운('+( daeun.list[daeun.list.indexOf(curDu)+1]||{stem:'',branch:''}).stem+(daeun.list[daeun.list.indexOf(curDu)+1]||{stem:'',branch:''}).branch+')이 변화의 시기입니다.';
@@ -1497,7 +1497,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
 
   // 2. 이사/이동
   var moveRes, moveMsg;
-  if(hasYeokma&&(curTsIsGwan||세운isGood)){
+  if(hasYeokma&&(curTsIsGwan||se_isGood)){
     moveRes='yes'; moveMsg='역마살(驛馬殺)이 사주에 있고 현재 대운 기운이 이동을 지지합니다. <strong>이사·해외 이동·지방 이동이 길합니다</strong>. 용신 방향('+({'목':'동쪽(東)','화':'남쪽(南)','토':'중앙','금':'서쪽(西)','수':'북쪽(北)'})[yongshin.elem]+')으로 이동하면 더욱 좋습니다.';
   } else if(hasYeokma){
     moveRes='wait'; moveMsg='역마살이 있어 이동의 기질이 있습니다. 2026년 안에 한 번은 큰 이동의 기회가 오지만, <strong>충동적인 결정보다 신중한 준비 후 이동</strong>하세요. 봄(3~4월) 또는 가을(9~10월)이 이동에 유리합니다.';
@@ -1507,10 +1507,10 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
 
   // 3. 재물운 2026
   var wealthRes, wealthMsg;
-  var wPct=Math.min(95,50+jaeCount*10+(세운isGood?15:0));
-  if(세운isGood&&(hasJJae||hasPJae)){
+  var wPct=Math.min(95,50+jaeCount*10+(se_isGood?15:0));
+  if(se_isGood&&(hasJJae||hasPJae)){
     wealthRes='yes'; wealthMsg='2026 병오년(丙午年)의 기운이 용신('+yongshin.elem+')과 일치하고, 사주에 재성이 있습니다. <strong>올해는 재물운이 열리는 해</strong>입니다. 상반기부터 적극적인 투자와 수입 확대를 노려보세요.';
-  } else if(세운isGood||(hasJJae||hasPJae)){
+  } else if(se_isGood||(hasJJae||hasPJae)){
     wealthRes='wait'; wealthMsg='재물의 씨앗은 있습니다. 다만 <strong>큰 수익보다 준비와 기반 구축</strong>에 집중해야 합니다. 성급한 투자보다 하반기(7~9월)에 집중하면 결실을 볼 수 있습니다.';
   } else {
     wealthRes='no'; wealthMsg='2026년은 <strong>재물보다 자기계발과 실력 쌓기</strong>에 더 맞는 해입니다. 무리한 투자나 사업 확장보다 종잣돈을 키우고 투자 공부를 하는 시기로 활용하세요.';
@@ -1520,7 +1520,7 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var loveRes, loveMsg;
   var loveStar=gdr==='M'?'정재':'정관';
   var hasLoveStar=allStars.some(function(s){return s===loveStar||s==='편재'||s==='편관';});
-  var 세운loveStar=getTenStar(ds,세운stem)===loveStar||getTenStar(ds,세운stem)===(gdr==='M'?'편재':'편관');
+  var 세운loveStar=getTenStar(ds,se_stem)===loveStar||getTenStar(ds,se_stem)===(gdr==='M'?'편재':'편관');
   if(hasDohwa&&(hasLoveStar||세운loveStar)){
     loveRes='yes'; loveMsg='도화살(桃花殺)이 있고 이성 인연의 별('+loveStar+')이 활성화되어 있습니다. <strong>2026년에 특별한 인연이 찾아올 가능성이 높습니다</strong>. 적극적으로 활동하면 좋은 만남이 이루어집니다.';
   } else if(hasLoveStar||세운loveStar||hasDohwa){
@@ -1740,12 +1740,23 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var 세운ThemeMap={'비견':'경쟁·독립·자기주도의 한 해','겁재':'승부·모험·도전의 한 해','식신':'창작·표현·안정의 한 해','상관':'혁신·자유·변화의 한 해','편재':'투자·사업·기회의 한 해','정재':'안정·착실·성실의 한 해','편관':'도전·압박·강인함의 한 해','정관':'명예·책임·승진의 한 해','편인':'연구·직관·내면의 한 해','정인':'학습·귀인·준비의 한 해'};
   H+='<div style="background:#fffbec;border:2px solid #f5c842;border-radius:12px;padding:16px;margin-bottom:14px">';
   H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin-bottom:8px">2026 병오년(丙午年) 핵심 키워드</h4>';
-  H+='<p style="font-size:13px;line-height:1.8">세운 천간 <strong>병화(丙火)</strong>와 일간의 관계: <strong>'+세운ts+'</strong> — '+( 세운ThemeMap[세운ts]||'변화의 한 해')+'<br>';
-  H+='세운이 용신('+yongshin.elem+')과의 관계: '+(세운isGood?'<strong style="color:#27ae60">✅ 용신 운 — 기운이 열리는 해입니다</strong>':'<strong style="color:#c0392b">주의 — 용신과 충돌하는 에너지이므로 신중하게</strong>')+'</p>';
+  H+='<p style="font-size:13px;line-height:1.8">세운 천간 <strong>병화(丙火)</strong>와 일간의 관계: <strong>'+se_ts+'</strong> — '+( 세운ThemeMap[se_ts]||'변화의 한 해')+'<br>';
+  H+='세운이 용신('+yongshin.elem+')과의 관계: '+(se_isGood?'<strong style="color:#27ae60">✅ 용신 운 — 기운이 열리는 해입니다</strong>':'<strong style="color:#c0392b">주의 — 용신과 충돌하는 에너지이므로 신중하게</strong>')+'</p>';
   H+='</div>';
 
   // 월운
-  var monthData=calcMonthun(dp,year,2026);
+  var monthData=(function(){
+    var arr=[];
+    // 2026년 병오년 - 1월(인월)부터 12개월
+    // 월간은 세운 천간(병)에서 지지 인묘진사오미신유술해자축 순서
+    var se_year_stem='병';
+    var baseMonthStemIdx=(STEMS.indexOf(se_year_stem)*2)%10; // 병년 인월 = 무인
+    var baseMonthBranchIdx=2; // 인(寅) = index 2
+    for(var mi=0;mi<12;mi++){
+      arr.push({stem:STEMS[(baseMonthStemIdx+mi)%10],branch:BRANCHES[(baseMonthBranchIdx+mi)%12]});
+    }
+    return arr;
+  })();
   H+='<div class="month-grid">';
   var curMonth=new Date().getMonth()+1;
   monthData.forEach(function(m,i){
@@ -1763,8 +1774,8 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   });
   H+='</div>';
   H+='<div class="daemansin-quote"><blockquote>';
-  H+='2026 병오년(丙午年)은 '+name+'에게 <strong style="color:#f0d080">'+(세운isGood?'기운이 열리는 해':세운ts+' 에너지의 해')+'</strong>이니라.<br>';
-  H+=(세운isGood?'씨앗을 뿌리면 반드시 결실이 맺히는 해다. 망설이지 말고 한 발 앞으로 나아가거라.':'흐름에 억지로 거스르지 말고, 준비와 내공 쌓기에 집중하면 다음 해에 더 큰 기회가 온다.');
+  H+='2026 병오년(丙午年)은 '+name+'에게 <strong style="color:#f0d080">'+(se_isGood?'기운이 열리는 해':se_ts+' 에너지의 해')+'</strong>이니라.<br>';
+  H+=(se_isGood?'씨앗을 뿌리면 반드시 결실이 맺히는 해다. 망설이지 말고 한 발 앞으로 나아가거라.':'흐름에 억지로 거스르지 말고, 준비와 내공 쌓기에 집중하면 다음 해에 더 큰 기회가 온다.');
   H+='</blockquote><div class="qa-author">— 대만신의 2026 조언</div></div>';
   H+='</div>';
 
