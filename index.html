@@ -3,202 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대만신(大萬神) 종합 사주 보고서 v4</title>
+<title>대만신(大萬神) 프리미엄 사주 리포트 v5</title>
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f8f6f0;color:#222}
-#pg-intro{min-height:100vh;background:linear-gradient(155deg,#1a0a3d 0%,#2d1b69 55%,#1a3a5c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
-.logo-diamond{width:76px;height:76px;background:linear-gradient(135deg,#f0d080,#c9a84c);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(201,168,76,.6);margin-bottom:28px}
-.logo-diamond span{transform:rotate(-45deg);font-size:32px}
-.intro-title{font-size:36px;color:#f0d080;letter-spacing:8px;margin-bottom:6px}
-.intro-sub{font-size:13px;color:rgba(255,255,255,.4);letter-spacing:3px;margin-bottom:34px}
-.form-box{background:rgba(255,255,255,.08);border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:28px;width:100%;max-width:520px}
-.form-box h2{color:#f0d080;font-size:17px;margin-bottom:16px;text-align:center;letter-spacing:2px}
-.cal-toggle{display:flex;gap:0;margin-bottom:14px;border:1px solid rgba(201,168,76,.3);border-radius:8px;overflow:hidden}
-.cal-btn{flex:1;padding:10px;text-align:center;cursor:pointer;color:rgba(255,255,255,.5);font-size:14px;background:transparent;border:none;font-family:inherit;transition:all .2s}
-.cal-btn.active{background:rgba(201,168,76,.25);color:#f0d080;font-weight:bold}
-.fgroup{margin-bottom:13px}
-.fgroup label{display:block;color:rgba(255,255,255,.6);font-size:12px;margin-bottom:5px;letter-spacing:.5px}
-.finput,.fselect{width:100%;padding:10px 12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:14px;outline:none;font-family:inherit;transition:border-color .2s}
+body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#ede9e1;color:#1a1a2e;line-height:1.6}
+/* ── COVER ── */
+#pg-intro{min-height:100vh;background:linear-gradient(155deg,#0d0620 0%,#1a0a3d 55%,#0d1a3d 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+.logo-wrap{width:70px;height:70px;margin-bottom:20px}
+.logo-wrap svg{width:100%;height:100%}
+.intro-brand{color:rgba(201,168,76,.5);font-size:11px;letter-spacing:5px;margin-bottom:18px}
+.intro-main-title{font-size:32px;color:#f0d080;letter-spacing:6px;margin-bottom:6px;text-align:center}
+.intro-sub{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:3px;margin-bottom:30px}
+.form-card{background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:18px;padding:28px 24px;width:100%;max-width:500px}
+.form-card h2{color:#f0d080;font-size:15px;text-align:center;letter-spacing:2px;margin-bottom:18px}
+.cal-toggle{display:flex;border:1px solid rgba(201,168,76,.3);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.cal-btn{flex:1;padding:10px;text-align:center;cursor:pointer;color:rgba(255,255,255,.45);font-size:13px;background:transparent;border:none;font-family:inherit;transition:all .2s}
+.cal-btn.active{background:rgba(201,168,76,.2);color:#f0d080;font-weight:700}
+.fgroup{margin-bottom:12px}
+.fgroup label{display:block;color:rgba(255,255,255,.55);font-size:11px;margin-bottom:5px;letter-spacing:.5px}
+.finput,.fselect{width:100%;padding:9px 12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#fff;font-size:13px;outline:none;font-family:inherit}
 .finput:focus,.fselect:focus{border-color:#c9a84c}
-.finput::placeholder{color:rgba(255,255,255,.3)}
-.fselect option{background:#2d1b69;color:#fff}
+.finput::placeholder{color:rgba(255,255,255,.25)}
+.fselect option{background:#1a0a3d}
 .date-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px}
-.leap-row{display:flex;align-items:center;gap:10px;margin-bottom:13px}
-.leap-row input[type=checkbox]{width:16px;height:16px;accent-color:#c9a84c}
-.leap-row label{color:rgba(255,255,255,.6);font-size:13px;cursor:pointer}
-.gender-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}
-.gbtn{padding:10px 8px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.55);cursor:pointer;text-align:center;font-size:14px;transition:all .2s;user-select:none;font-family:inherit}
-.gbtn.selected{border-color:#c9a84c;background:rgba(201,168,76,.2);color:#f0d080;font-weight:bold}
-.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#c9a84c,#a07030);border:none;border-radius:10px;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;letter-spacing:2px;font-family:inherit;margin-top:14px;transition:opacity .2s}
-.submit-btn:hover{opacity:.88}
-#pg-loading{display:none;min-height:100vh;background:linear-gradient(155deg,#1a0a3d,#2d1b69);flex-direction:column;align-items:center;justify-content:center}
-.spinner{width:52px;height:52px;border:3px solid rgba(201,168,76,.25);border-top-color:#c9a84c;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:28px}
+.leap-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.leap-row input{width:15px;height:15px;accent-color:#c9a84c}
+.leap-row label{color:rgba(255,255,255,.55);font-size:12px;cursor:pointer}
+.gender-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gbtn{padding:10px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;text-align:center;font-size:13px;transition:all .2s;user-select:none}
+.gbtn.selected{border-color:#c9a84c;background:rgba(201,168,76,.18);color:#f0d080;font-weight:700}
+.submit-btn{width:100%;padding:13px;background:linear-gradient(135deg,#c9a84c,#a07030);border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:2px;font-family:inherit;margin-top:12px}
+/* ── LOADING ── */
+#pg-loading{display:none;min-height:100vh;background:linear-gradient(155deg,#0d0620,#1a0a3d);flex-direction:column;align-items:center;justify-content:center}
+.spinner{width:48px;height:48px;border:3px solid rgba(201,168,76,.2);border-top-color:#c9a84c;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.load-title{color:#f0d080;font-size:18px;margin-bottom:24px;letter-spacing:3px}
-.step-list{list-style:none;width:300px}
-.step-item{padding:9px 0;color:rgba(255,255,255,.3);font-size:13px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
-.step-item::before{content:"○";font-size:16px;min-width:20px}
-.step-item.done{color:rgba(255,255,255,.85)}
-.step-item.done::before{content:"✓";color:#c9a84c}
-#pg-report{display:none;max-width:920px;margin:0 auto;padding:20px 16px}
-.back-btn{margin-bottom:20px;padding:10px 20px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;color:#c9a84c;cursor:pointer;font-family:inherit;font-size:14px}
-.cover{background:linear-gradient(155deg,#1a0a3d,#2d1b69 55%,#1a3a5c);border-radius:20px;padding:48px 36px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
-.cover::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 70% 30%,rgba(201,168,76,.08) 0%,transparent 60%);pointer-events:none}
-.cover-brand{color:rgba(201,168,76,.6);font-size:12px;letter-spacing:4px;margin-bottom:24px}
-.cover-diamond{width:60px;height:60px;background:linear-gradient(135deg,#f0d080,#c9a84c);transform:rotate(45deg);margin:0 auto 24px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(201,168,76,.4)}
-.cover-diamond span{transform:rotate(-45deg);font-size:24px}
-.cover-name{font-size:44px;color:#f0d080;letter-spacing:6px;margin-bottom:8px;font-weight:300}
-.cover-sub{color:rgba(255,255,255,.4);font-size:13px;letter-spacing:3px;margin-bottom:24px}
-.cover-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px}
-.ctag{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:5px 14px;color:#f0d080;font-size:12px}
-.cover-quote{color:rgba(255,255,255,.72);font-size:13.5px;line-height:2.2;max-width:520px;margin:0 auto 20px;font-style:italic}
-.cover-date{color:rgba(255,255,255,.25);font-size:11px;letter-spacing:2px}
-.section{background:#fff;border-radius:16px;padding:26px 22px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.sec-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f0ebe0}
-.sec-num{width:42px;height:42px;background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;flex-shrink:0}
-.sec-title{font-size:18px;font-weight:700;color:#1a0a3d}
-.sec-desc{font-size:12px;color:#888;margin-top:3px}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);margin:4px 0 20px}
-.ptable{width:100%;border-collapse:collapse;font-size:13px}
-.ptable th,.ptable td{border:1px solid #e8e0d0;padding:10px 12px;text-align:center;vertical-align:middle}
-.ptable thead th{background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080;font-weight:600;font-size:12px;letter-spacing:1px}
-.ptable tbody tr:nth-child(even){background:#faf8f4}
-.ptable tbody td:first-child{background:#f5f0e8;font-weight:600;font-size:12px;color:#555}
-.stem-txt{font-size:30px;font-weight:700;line-height:1.2}
-.branch-txt{font-size:26px;font-weight:600;line-height:1.2}
-.elem-txt{font-size:11px;color:#888;margin-top:2px}
-.star-pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.stage-txt{font-size:12px;color:#444}
-.el-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.el-name{width:28px;font-size:11px;color:#666;font-weight:600}
-.el-emoji{width:24px;font-size:16px}
-.el-track{flex:1;height:30px;background:#f0ebe0;border-radius:6px;overflow:hidden}
-.el-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:12px;font-weight:600}
-.el-cnt{width:32px;text-align:right;font-size:13px;font-weight:700}
-.gauge-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.gauge-lbl{width:60px;font-size:12px;color:#555}
-.gauge-track{flex:1;height:18px;background:#f0ebe0;border-radius:10px;overflow:hidden}
-.gauge-fill{height:100%;border-radius:10px}
-.gauge-pct{width:40px;text-align:right;font-size:13px;font-weight:700;color:#1a0a3d}
-.dark-card{background:linear-gradient(135deg,#1a0a3d,#2d1b69);border-radius:12px;padding:20px;color:rgba(255,255,255,.88);margin-top:14px}
-.dark-card h3{color:#f0d080;font-size:14px;margin-bottom:10px;letter-spacing:1px}
-.dark-card p{font-size:13px;line-height:1.95;margin-bottom:6px}
-.dark-card ul{margin-top:8px;padding-left:18px}
-.dark-card li{font-size:13px;line-height:1.85;margin-bottom:4px}
-.ast-card{background:linear-gradient(135deg,#0a1a3d,#1a2d6b);border-radius:12px;padding:20px;color:rgba(255,255,255,.88);margin-top:14px}
-.ast-card h3{color:#7ec8e3;font-size:14px;margin-bottom:10px;letter-spacing:1px}
-.ast-card p{font-size:13px;line-height:1.95;margin-bottom:6px}
-.ast-card ul{padding-left:18px;margin-top:8px}
-.ast-card li{font-size:13px;line-height:1.85;margin-bottom:4px}
-.zodiac-big{font-size:60px;display:block;margin-bottom:8px}
-.zodiac-name{color:#f0d080;font-size:22px;font-weight:700;margin-bottom:6px}
-.zodiac-sub{color:rgba(255,255,255,.5);font-size:12px;margin-bottom:14px}
-.timeline{display:flex;flex-direction:column;gap:10px}
-.tl-item{display:flex;gap:12px}
-.tl-left{display:flex;flex-direction:column;align-items:center;gap:0}
-.tl-dot{width:14px;height:14px;border-radius:50%;background:#e0d8cc;flex-shrink:0}
-.tl-dot.active{background:#c9a84c;box-shadow:0 0 10px rgba(201,168,76,.5)}
-.tl-bar{width:2px;flex:1;background:#e0d8cc;margin:2px auto}
-.tl-bar.active{background:#c9a84c}
-.tl-body{flex:1;padding:14px 16px;background:#faf8f4;border-radius:12px;border:1px solid #e8e0d0;margin-bottom:0}
-.tl-body.active{background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#fff;border-color:#c9a84c}
-.tl-age{font-size:11px;color:#888;margin-bottom:3px}
-.tl-body.active .tl-age{color:rgba(255,255,255,.5)}
-.tl-ganji{font-size:22px;font-weight:700;color:#1a0a3d;margin-bottom:3px}
-.tl-body.active .tl-ganji{color:#f0d080}
-.tl-elem{font-size:11px;color:#888}
-.tl-body.active .tl-elem{color:rgba(255,255,255,.6)}
-.tl-desc{font-size:12px;color:#555;margin-top:6px;line-height:1.7}
-.tl-body.active .tl-desc{color:rgba(255,255,255,.75)}
-.year-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:8px}
-.year-card{background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:12px;text-align:center}
-.year-card.cur{background:linear-gradient(135deg,#1a0a3d,#2d1b69);border-color:#c9a84c}
-.yc-year{font-size:11px;color:#888;margin-bottom:4px}
-.year-card.cur .yc-year{color:rgba(255,255,255,.5)}
-.yc-ganji{font-size:18px;font-weight:700;color:#1a0a3d;margin-bottom:4px}
-.year-card.cur .yc-ganji{color:#f0d080}
-.yc-star{font-size:11px;color:#666}
-.year-card.cur .yc-star{color:rgba(255,255,255,.65)}
-.ssal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.load-title{color:#f0d080;font-size:16px;margin-bottom:20px;letter-spacing:2px}
+.step-list{list-style:none;width:280px}
+.step-item{padding:8px 0;color:rgba(255,255,255,.3);font-size:12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.05)}
+.step-item::before{content:"○";font-size:14px;min-width:18px}
+.step-item.done{color:rgba(255,255,255,.8)}.step-item.done::before{content:"✓";color:#c9a84c}
+/* ── REPORT ── */
+#pg-report{display:none;background:#ede9e1;min-height:100vh}
+.report-wrap{max-width:860px;margin:0 auto;padding:20px 16px}
+/* toolbar */
+.report-toolbar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tbtn{display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;border:none;transition:all .2s}
+.tbtn-back{background:rgba(26,10,61,.1);border:1px solid rgba(26,10,61,.2)!important;color:#1a0a3d}
+.tbtn-pdf{background:linear-gradient(135deg,#c0392b,#96281b);color:#fff}
+.tbtn-share{background:linear-gradient(135deg,#1a6b3c,#0f4025);color:#fff}
+.tbtn-copy{background:linear-gradient(135deg,#1a3a6b,#0f2040);color:#fff}
+.tbtn:hover{opacity:.85;transform:translateY(-1px)}
+/* COVER 카드 */
+.r-cover{background:linear-gradient(155deg,#0d0620,#1a0a3d 60%,#0d1a3d);border-radius:20px;padding:48px 36px;text-align:center;margin-bottom:20px;position:relative;overflow:hidden}
+.r-cover::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(201,168,76,.07),transparent 65%);pointer-events:none}
+.r-cover-brand{color:rgba(201,168,76,.5);font-size:10px;letter-spacing:5px;margin-bottom:20px}
+.r-cover-diamond{font-size:52px;display:block;margin-bottom:12px}
+.r-cover-title{font-size:14px;color:rgba(255,255,255,.4);letter-spacing:4px;margin-bottom:24px}
+.r-cover-name{font-size:48px;font-weight:300;color:#f0d080;letter-spacing:8px;margin-bottom:6px}
+.r-cover-info{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px}
+.r-cover-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
+.r-ctag{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:5px 14px;color:#f0d080;font-size:11px}
+.r-cover-quote{color:rgba(255,255,255,.7);font-size:14px;line-height:2.2;max-width:500px;margin:0 auto 16px;font-style:italic}
+.r-cover-quote-author{color:rgba(255,255,255,.3);font-size:11px}
+/* STEP 카드 */
+.step-card{background:#fff;border-radius:18px;padding:28px 24px;margin-bottom:18px;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.step-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;padding-bottom:16px;border-bottom:2px solid #f0ebe0}
+.step-badge{min-width:48px;height:48px;background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:1px;flex-direction:column}
+.step-badge span{font-size:7px;opacity:.7;letter-spacing:2px}
+.step-title{font-size:19px;font-weight:700;color:#1a0a3d;margin-bottom:4px}
+.step-desc{font-size:12px;color:#888}
+/* 사주팔자 테이블 */
+.saju-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.saju-table th,.saju-table td{border:1px solid #e8e0d0;padding:11px 10px;text-align:center;vertical-align:middle}
+.saju-table thead th{background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080;font-size:11px;letter-spacing:1px}
+.saju-table tbody tr:nth-child(even){background:#faf8f4}
+.saju-table .row-label{background:#f5f0e8;font-weight:600;font-size:11px;color:#666;text-align:left;padding-left:14px}
+.stem-big{font-size:28px;font-weight:700;line-height:1.2}
+.branch-big{font-size:24px;font-weight:600;line-height:1.2}
+.star-pill{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600}
+.t12-pill{font-size:11px;color:#666}
+/* 오행 바 */
+.el-section{margin:16px 0}
+.el-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.el-name{width:24px;font-size:12px;font-weight:700;color:#555}
+.el-emoji{width:22px;font-size:15px}
+.el-track{flex:1;height:28px;background:#f0ebe0;border-radius:6px;overflow:hidden}
+.el-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:12px;font-weight:700;transition:width .8s}
+.el-count{width:28px;text-align:right;font-size:14px;font-weight:700;color:#1a0a3d}
+.summary-box{background:linear-gradient(135deg,#f8f5ee,#f0ebe0);border:1px solid #e0d8c0;border-radius:10px;padding:14px 16px;margin-top:12px;font-size:13px;line-height:1.8}
+.summary-box strong{color:#1a0a3d}
+/* 일간 카드 */
+.trait-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.trait-card{background:#f8f6f2;border:1px solid #e8e0d0;border-radius:12px;padding:16px;text-align:center}
+.trait-card .tc-icon{font-size:26px;margin-bottom:8px}
+.trait-card .tc-title{font-size:12px;font-weight:700;color:#888;margin-bottom:6px}
+.trait-card .tc-body{font-size:13px;color:#333;line-height:1.7}
+/* 신강/신약 카드 */
+.ss-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.ss-card{border-radius:10px;padding:14px 16px}
+.ss-card.pos{background:#e8f5e9;border:1px solid #a5d6a7}
+.ss-card.neg{background:#fde8e8;border:1px solid #f5a0a0}
+.ss-card h4{font-size:12px;font-weight:700;margin-bottom:8px}
+.ss-card.pos h4{color:#1b5e20}
+.ss-card.neg h4{color:#7f0000}
+.ss-card li{font-size:12px;line-height:1.8;color:#333;margin-left:14px}
+/* 체크리스트 (STEP 03) */
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check-item{border-radius:12px;padding:16px;border:2px solid transparent}
+.check-item.ci-yes{background:#eefbf3;border-color:#52c97a}
+.check-item.ci-wait{background:#fffbec;border-color:#f5c842}
+.check-item.ci-no{background:#fff2f2;border-color:#f07070}
+.ci-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.ci-indicator{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ci-yes .ci-indicator{background:#52c97a}
+.ci-wait .ci-indicator{background:#f5c842}
+.ci-no .ci-indicator{background:#f07070}
+.ci-label{font-size:13px;font-weight:700;color:#1a1a2e}
+.ci-verdict{font-size:11px;font-weight:700;border-radius:20px;padding:2px 10px;display:inline-block;margin-bottom:6px}
+.ci-yes .ci-verdict{background:#52c97a;color:#fff}
+.ci-wait .ci-verdict{background:#f5c842;color:#333}
+.ci-no .ci-verdict{background:#f07070;color:#fff}
+.ci-reason{font-size:12px;color:#555;line-height:1.7}
+/* 힘이 되는 말 */
+.daemansin-quote{background:linear-gradient(135deg,#1a0a3d,#2d1b69);border-radius:12px;padding:20px 22px;margin-top:18px}
+.daemansin-quote blockquote{font-size:13.5px;line-height:2.2;color:rgba(255,255,255,.88);font-style:italic}
+.daemansin-quote .qa-author{font-size:11px;color:#c9a84c;margin-top:10px}
+/* 타임라인 */
+.tl-wrap{display:flex;flex-direction:column;gap:0}
+.tl-row{display:flex;gap:14px;align-items:stretch}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:14px}
+.tl-dot{width:14px;height:14px;border-radius:50%;background:#ddd;flex-shrink:0;margin-top:4px}
+.tl-dot.cur{background:#c9a84c;box-shadow:0 0 12px rgba(201,168,76,.5)}
+.tl-line{width:2px;background:#e8e0d0;flex:1;margin:3px auto}
+.tl-body{flex:1;background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.tl-body.cur{background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#fff;border-color:#c9a84c}
+.tl-period{font-size:11px;color:#888;margin-bottom:3px}
+.tl-body.cur .tl-period{color:rgba(255,255,255,.5)}
+.tl-ganji{font-size:22px;font-weight:700;color:#1a0a3d;margin-bottom:2px}
+.tl-body.cur .tl-ganji{color:#f0d080}
+.tl-theme{font-size:12px;color:#555;line-height:1.6}
+.tl-body.cur .tl-theme{color:rgba(255,255,255,.75)}
+/* 월운 그리드 */
+.month-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.month-card{background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:12px}
+.month-card.mc-cur{background:linear-gradient(135deg,#1a0a3d,#2d1b69);border-color:#c9a84c;color:#fff}
+.mc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.mc-num{font-size:11px;color:#aaa}
+.mc-card.mc-cur .mc-num{color:rgba(255,255,255,.5)}
+.mc-ganji{font-size:14px;font-weight:700;color:#1a0a3d}
+.month-card.mc-cur .mc-ganji{color:#f0d080}
+.mc-score-bar{height:5px;background:#f0ebe0;border-radius:3px;margin-top:6px;overflow:hidden}
+.mc-score-fill{height:100%;border-radius:3px}
+.mc-desc{font-size:11px;color:#666;margin-top:5px;line-height:1.6}
+.month-card.mc-cur .mc-desc{color:rgba(255,255,255,.7)}
+/* 점성술 */
+.ast-hero{background:linear-gradient(135deg,#0a1a3d,#162d6b);border-radius:14px;padding:24px;display:flex;align-items:center;gap:20px;margin-bottom:14px;flex-wrap:wrap}
+.ast-sign-big{font-size:64px;flex-shrink:0}
+.ast-info h3{color:#7ec8e3;font-size:20px;font-weight:700;margin-bottom:4px}
+.ast-info p{color:rgba(255,255,255,.7);font-size:13px;line-height:1.7}
+.ast-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ast-tag{background:rgba(126,200,227,.15);border:1px solid rgba(126,200,227,.3);border-radius:20px;padding:3px 10px;color:#7ec8e3;font-size:11px}
+.ast-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0}
+.ast-card-item{background:#0a1a3d;border-radius:10px;padding:14px}
+.ast-card-item h4{color:#7ec8e3;font-size:12px;margin-bottom:6px}
+.ast-card-item p{color:rgba(255,255,255,.75);font-size:12px;line-height:1.7}
+/* 수비학 */
+.numo-hero{background:linear-gradient(135deg,#1a0a3d,#2d1b69);border-radius:14px;padding:22px;display:flex;align-items:center;gap:18px;margin-bottom:14px;flex-wrap:wrap}
+.numo-num-big{font-size:64px;font-weight:900;line-height:1;flex-shrink:0}
+.numo-info h3{color:#f0d080;font-size:18px;font-weight:700;margin-bottom:4px}
+.numo-info p{color:rgba(255,255,255,.75);font-size:13px;line-height:1.7}
+.numo-cycle{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.nc-item{text-align:center;padding:8px 10px;border-radius:8px;min-width:54px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)}
+.nc-item.cur{background:rgba(201,168,76,.25);color:#f0d080;font-weight:700}
+.nc-year{font-size:10px}
+.nc-num{font-size:20px;font-weight:700}
+/* 신살 */
+.ssal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px}
 .ssal-card{background:#faf8f4;border:2px solid #e8e0d0;border-radius:10px;padding:14px;text-align:center}
 .ssal-card.has{border-color:#c9a84c;background:rgba(201,168,76,.07)}
-.ssal-card.has-red{border-color:#e74c3c;background:rgba(231,76,60,.05)}
+.ssal-card.has-strong{border-color:#e74c3c;background:rgba(231,76,60,.05)}
 .ssal-name{font-size:13px;font-weight:700;color:#1a0a3d;margin-bottom:6px}
-.ssal-val{font-size:20px;font-weight:700;margin-bottom:4px}
-.ssal-where{font-size:11px;color:#888}
-.ssal-none{font-size:20px;color:#ccc}
-.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.rel-card{background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:14px}
-.rel-card h4{font-size:12px;font-weight:700;color:#1a0a3d;margin-bottom:8px}
-.rel-item{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
-.rel-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;min-width:36px;text-align:center}
-.badge-hap{background:#e8f5e9;color:#2d8a4e}
-.badge-chung{background:#fde8e8;color:#c0392b}
-.badge-hyung{background:#fef3e8;color:#e67e22}
-.badge-pa{background:#e8f0fe;color:#3b5bdb}
-.badge-hae{background:#fce8f6;color:#9c27b0}
-.badge-sam{background:#e3f2fd;color:#1565c0}
-.month-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
-.month-card{background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:12px}
-.month-card.cur-m{border-color:#c9a84c;background:rgba(201,168,76,.07)}
-.mc-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.mc-num{font-size:11px;color:#888}
-.mc-ganji{font-size:14px;font-weight:700;color:#1a0a3d}
-.mc-score-bar{height:6px;background:#f0ebe0;border-radius:3px;margin-top:6px;overflow:hidden}
-.mc-score-fill{height:100%;border-radius:3px}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:14px}
-.stat-card{background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:14px;text-align:center}
-.stat-label{font-size:11px;color:#888;margin-bottom:6px}
-.stat-val{font-size:15px;font-weight:700;color:#1a0a3d;margin-bottom:4px}
-.stat-sub{font-size:11px;color:#666}
-.info-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
-.info-table th{background:#f5f0e8;padding:8px 10px;text-align:left;border:1px solid #e0d8cc;font-size:11px;color:#555;width:30%}
-.info-table td{padding:8px 10px;border:1px solid #e0d8cc;font-size:13px}
-/* PDF 저장 버튼 스타일 */
-.report-toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-.tbtn{display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;transition:all .2s;border:none}
-.tbtn-back{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4)!important;color:#c9a84c}
-.tbtn-pdf{background:linear-gradient(135deg,#c0392b,#96281b);color:#fff;box-shadow:0 2px 8px rgba(192,57,43,.3)}
-.tbtn-share{background:linear-gradient(135deg,#2d6a4f,#1b4332);color:#fff;box-shadow:0 2px 8px rgba(45,106,79,.3)}
-.tbtn-copy{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;box-shadow:0 2px 8px rgba(21,101,192,.3)}
-.tbtn:hover{opacity:.85;transform:translateY(-1px)}
+.ssal-icon{font-size:24px;margin:4px 0}
+.ssal-where{font-size:11px;color:#888;margin-bottom:4px}
+.ssal-meaning{font-size:11px;color:#555;line-height:1.6}
+/* 정보 테이블 */
+.info-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+.info-table th{background:#f5f0e8;padding:9px 12px;text-align:left;border:1px solid #e0d8cc;font-size:11px;color:#666;width:35%}
+.info-table td{padding:9px 12px;border:1px solid #e0d8cc}
+/* 종합 메시지 */
+.final-letter{background:linear-gradient(155deg,#0d0620,#1a0a3d,#0d1a3d);border-radius:16px;padding:32px;color:rgba(255,255,255,.9);font-size:14px;line-height:2.4;margin-bottom:14px}
+.final-letter strong{color:#f0d080}
+.final-letter .letter-name{font-size:20px;color:#f0d080;font-weight:700;display:block;margin-bottom:16px}
+.action-list{counter-reset:actions}
+.action-item{display:flex;gap:14px;align-items:flex-start;padding:12px;background:#faf8f4;border-radius:10px;border:1px solid #e8e0d0;margin-bottom:8px}
+.action-num{min-width:28px;height:28px;background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.action-text{font-size:13px;color:#333;line-height:1.7}
 /* 공유 모달 */
-#share-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center}
+#share-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;align-items:center;justify-content:center}
 #share-modal.open{display:flex}
-.share-box{background:#fff;border-radius:16px;padding:28px;width:340px;max-width:92vw;text-align:center}
-.share-box h3{font-size:17px;font-weight:700;color:#1a0a3d;margin-bottom:6px}
-.share-box p{font-size:13px;color:#666;margin-bottom:20px}
-.share-options{display:flex;flex-direction:column;gap:10px}
-.share-opt{padding:13px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;border:none;font-family:inherit;transition:all .2s}
-.share-opt:hover{opacity:.85}
+.share-box{background:#fff;border-radius:16px;padding:28px;width:320px;text-align:center}
+.share-box h3{font-size:16px;font-weight:700;color:#1a0a3d;margin-bottom:6px}
+.share-box p{font-size:12px;color:#666;margin-bottom:18px}
+.share-options{display:flex;flex-direction:column;gap:8px}
+.share-opt{padding:12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;border:none;font-family:inherit}
 .sopt-html{background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080}
-.sopt-txt{background:linear-gradient(135deg,#2d6a4f,#1b4332);color:#fff}
+.sopt-txt{background:linear-gradient(135deg,#1a3a1a,#2d6a2d);color:#fff}
 .sopt-close{background:#f0ebe0;color:#555;margin-top:4px}
-/* toast */
-#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a0a3d;color:#f0d080;padding:12px 24px;border-radius:30px;font-size:14px;opacity:0;transition:all .35s;z-index:10000;pointer-events:none}
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#1a0a3d;color:#f0d080;padding:10px 22px;border-radius:28px;font-size:13px;opacity:0;transition:all .3s;z-index:10000;pointer-events:none}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-/* 인쇄(PDF) 전용 스타일 */
-@media print{
-  #pg-intro,#pg-loading{display:none!important}
-  #pg-report{display:block!important}
-  .report-toolbar{display:none!important}
-  #share-modal,#toast{display:none!important}
-  body{background:#fff!important}
-  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:12px}
-  .section{break-inside:avoid;box-shadow:none;border:1px solid #e0d8cc}
-  .dark-card,.ast-card,.tl-body.active,.year-card.cur{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  @page{margin:15mm 12mm;size:A4}
-}
-@media(max-width:600px){.date-row{grid-template-columns:1fr 1fr}.ptable{font-size:11px}.stem-txt{font-size:22px}.branch-txt{font-size:18px}.month-grid{grid-template-columns:repeat(2,1fr)}.rel-grid{grid-template-columns:1fr}}
+@media print{#pg-intro,#pg-loading,#share-modal,#toast,.report-toolbar{display:none!important}#pg-report{display:block!important}.step-card{break-inside:avoid;box-shadow:none;border:1px solid #e0d8cc}.r-cover,.tl-body.cur,.daemansin-quote,.final-letter{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:12mm;size:A4}}
+@media(max-width:600px){.trait-grid,.ss-grid,.checklist-grid,.ast-cards,.month-grid{grid-template-columns:1fr}.r-cover-name{font-size:36px}}
+
 </style>
 </head>
 <body>
+
+<!-- 입력 폼 -->
 <div id="pg-intro">
-  <div class="logo-diamond"><span>✦</span></div>
-  <div class="intro-title">大萬神</div>
-  <div class="intro-sub">만세력 · 점성술 종합 사주 연구원</div>
-  <div class="form-box">
+  <div class="logo-wrap">
+    <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="35,2 68,20 68,50 35,68 2,50 2,20" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+      <text x="35" y="42" text-anchor="middle" font-size="22" fill="#f0d080">💎</text>
+    </svg>
+  </div>
+  <div class="intro-brand">DAEMANSIN · PREMIUM SAJU REPORT</div>
+  <div class="intro-main-title">대만신(大萬神)</div>
+  <div class="intro-sub">프리미엄 종합 사주 리포트 · 완전판 13단계</div>
+  <div class="form-card">
     <h2>✦ 사주팔자 종합 분석 ✦</h2>
     <div class="cal-toggle">
       <button class="cal-btn active" id="btn-solar">☀️ 양력 (서력)</button>
@@ -218,7 +250,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f8
     </div>
     <div class="leap-row" id="leap-row" style="display:none">
       <input type="checkbox" id="f-leap">
-      <label for="f-leap">윤달 (閏月) — 이달이 윤달이면 체크</label>
+      <label for="f-leap">윤달(閏月) — 이달이 윤달이면 체크</label>
     </div>
     <div class="fgroup">
       <label>태어난 시간</label>
@@ -241,12 +273,12 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f8
     <div class="fgroup">
       <label>성별</label>
       <div class="gender-row">
-        <div class="gbtn" id="gbtn-M" >♂ 남성</div>
-        <div class="gbtn" id="gbtn-F" >♀ 여성</div>
+        <div class="gbtn" id="gbtn-M">♂ 남성</div>
+        <div class="gbtn" id="gbtn-F">♀ 여성</div>
       </div>
     </div>
-    <div class="fgroup" style="margin-top:10px">
-      <label>출생 도시 (상승궁 계산용)</label>
+    <div class="fgroup">
+      <label>출생 도시 (상승궁 계산)</label>
       <select class="fselect" id="f-city">
         <option value="seoul">서울/경기/인천</option>
         <option value="busan">부산/울산</option>
@@ -268,30 +300,31 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f8
   </div>
 </div>
 
+<!-- 로딩 -->
 <div id="pg-loading" style="display:none;flex-direction:column;align-items:center;justify-content:center">
   <div class="spinner"></div>
   <div class="load-title">✦ 천명(天命)을 살피는 중 ✦</div>
-  <ul class="step-list" id="step-list">
+  <ul class="step-list">
     <li class="step-item" id="step1">만세력 기준 사주팔자 산출</li>
     <li class="step-item" id="step2">오행 분포 및 신강·신약 판별</li>
     <li class="step-item" id="step3">십성·십이운성 분석</li>
     <li class="step-item" id="step4">신살·합충형파해 분석</li>
     <li class="step-item" id="step5">대운·세운·월운 계산</li>
-    <li class="step-item" id="step6">서양 점성술 분석</li>
+    <li class="step-item" id="step6">서양 점성술 · 수비학 분석</li>
     <li class="step-item" id="step7">종합 상담 리포트 완성</li>
   </ul>
 </div>
 
+<!-- 리포트 -->
 <div id="pg-report" style="display:none">
-  <div style="max-width:920px;margin:0 auto;padding:20px 16px">
+  <div class="report-wrap">
     <div class="report-toolbar">
       <button class="tbtn tbtn-back" id="back-btn-main">← 처음으로</button>
-      <button class="tbtn tbtn-pdf" id="pdf-btn-main">🖨 PDF로 저장</button>
+      <button class="tbtn tbtn-pdf" id="pdf-btn-main">🖨 PDF 저장</button>
       <button class="tbtn tbtn-share" id="share-btn-main">📤 리포트 공유</button>
       <button class="tbtn tbtn-copy" id="copy-btn-main">📋 요약 복사</button>
     </div>
     <div id="report-body"></div>
-    <div style="text-align:center;padding:30px 0;color:#aaa;font-size:12px">✦ 대만신 사주 연구원 | 입춘 절기 기준 · 정밀 만세력 · 서양 점성술 융합 ✦</div>
   </div>
 </div>
 
@@ -299,19 +332,27 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f8
 <div id="share-modal">
   <div class="share-box">
     <h3>📤 리포트 공유하기</h3>
-    <p>아래 방법으로 사주 리포트를<br>다른 사람과 나눌 수 있어요</p>
+    <p>아래 방법으로 사주 리포트를 나눌 수 있어요</p>
     <div class="share-options">
-      <button class="share-opt sopt-html" id="sopt-html">💾 HTML 파일로 저장<br><small style="font-weight:400;opacity:.8">리포트를 완전한 파일로 다운로드</small></button>
-      <button class="share-opt sopt-txt" id="sopt-txt">📝 텍스트 요약 복사<br><small style="font-weight:400;opacity:.8">사주 핵심 정보를 클립보드에 복사</small></button>
+      <button class="share-opt sopt-html" id="sopt-html">💾 HTML 파일로 저장<br><small style="font-weight:400;opacity:.8">완전한 리포트 파일 다운로드</small></button>
+      <button class="share-opt sopt-txt" id="sopt-txt">📝 요약 텍스트 복사<br><small style="font-weight:400;opacity:.8">핵심 정보 클립보드 복사</small></button>
       <button class="share-opt sopt-close" id="sopt-close">닫기</button>
     </div>
   </div>
 </div>
-
-<!-- 토스트 알림 -->
 <div id="toast"></div>
 
 <script>
+var selectedGender=null;
+var calMode='solar';
+var currentInput=null;
+function selectGender(g){
+  selectedGender=g;
+  document.getElementById('gbtn-M').className='gbtn'+(g==='M'?' selected':'');
+  document.getElementById('gbtn-F').className='gbtn'+(g==='F'?' selected':'');
+}
+selectGender('F');
+
 var LUNAR_DATA = {"1930":{"start":[1930,1,30],"months":[29,30,30,29,29,30,29,29,30,29,30,30,29],"leap":6},"1931":{"start":[1931,2,17],"months":[30,30,30,29,29,30,29,29,30,29,30,29],"leap":0},"1932":{"start":[1932,2,6],"months":[30,30,30,29,30,29,30,29,29,30,29,30],"leap":0},"1933":{"start":[1933,1,26],"months":[29,30,30,29,30,30,29,30,29,30,29,29,30],"leap":5},"1934":{"start":[1934,2,14],"months":[29,30,29,30,30,29,30,30,29,30,29,30],"leap":0},"1935":{"start":[1935,2,4],"months":[29,29,30,29,30,29,30,30,29,30,30,29],"leap":0},"1936":{"start":[1936,1,24],"months":[30,29,29,30,29,30,29,30,29,30,30,30,29],"leap":3},"1937":{"start":[1937,2,11],"months":[30,29,29,30,29,29,30,29,30,30,30,29],"leap":0},"1938":{"start":[1938,1,31],"months":[30,30,29,29,30,29,29,30,29,30,30,29,30],"leap":7},"1939":{"start":[1939,2,19],"months":[30,30,29,29,30,29,29,30,29,30,29,30],"leap":0},"1940":{"start":[1940,2,8],"months":[30,30,29,30,29,30,29,29,30,29,30,29],"leap":0},"1941":{"start":[1941,1,27],"months":[30,30,29,30,30,29,30,29,29,30,29,30,29],"leap":6},"1942":{"start":[1942,2,15],"months":[30,29,30,30,29,30,30,29,30,29,29,30],"leap":0},"1943":{"start":[1943,2,5],"months":[29,30,29,30,29,30,30,29,30,30,29,30],"leap":0},"1944":{"start":[1944,1,26],"months":[29,29,30,29,30,29,30,29,30,30,29,30,30],"leap":4},"1945":{"start":[1945,2,13],"months":[29,29,30,29,29,30,29,30,30,30,29,30],"leap":0},"1946":{"start":[1946,2,2],"months":[30,29,29,30,29,29,30,29,30,30,29,30],"leap":0},"1947":{"start":[1947,1,22],"months":[30,30,29,29,30,29,29,30,29,30,29,30,30],"leap":2},"1948":{"start":[1948,2,10],"months":[30,29,30,29,30,29,29,30,29,30,29,30],"leap":0},"1949":{"start":[1949,1,29],"months":[30,30,29,30,29,30,29,29,30,29,30,29,30],"leap":7},"1950":{"start":[1950,2,17],"months":[30,29,30,30,29,30,29,29,30,29,30,29],"leap":0},"1951":{"start":[1951,2,6],"months":[30,29,30,30,29,30,29,30,29,30,29,30],"leap":0},"1952":{"start":[1952,1,27],"months":[29,30,29,30,29,30,30,29,30,29,30,29,30],"leap":5},"1953":{"start":[1953,2,14],"months":[29,30,29,29,30,30,29,30,30,29,30,30],"leap":0},"1954":{"start":[1954,2,4],"months":[29,29,30,29,29,30,29,30,30,29,30,30],"leap":0},"1955":{"start":[1955,1,24],"months":[30,29,29,30,29,29,30,29,30,29,30,30,30],"leap":3},"1956":{"start":[1956,2,12],"months":[29,30,29,30,29,29,30,29,30,29,30,30],"leap":0},"1957":{"start":[1957,1,31],"months":[30,29,30,29,30,29,29,30,29,30,29,30,30],"leap":8},"1958":{"start":[1958,2,19],"months":[29,30,30,29,30,29,29,30,29,30,29,30],"leap":0},"1959":{"start":[1959,2,8],"months":[29,30,30,29,30,29,30,29,30,29,30,29],"leap":0},"1960":{"start":[1960,1,28],"months":[30,29,30,29,30,30,29,30,29,30,29,30,29],"leap":6},"1961":{"start":[1961,2,15],"months":[30,29,30,29,30,29,30,30,29,30,29,30],"leap":0},"1962":{"start":[1962,2,5],"months":[29,30,29,29,30,29,30,30,29,30,30,29],"leap":0},"1963":{"start":[1963,1,25],"months":[30,29,30,29,29,30,29,30,29,30,30,30,29],"leap":4},"1964":{"start":[1964,2,13],"months":[30,29,30,29,29,30,29,30,29,30,30,30],"leap":0},"1965":{"start":[1965,2,2],"months":[29,30,29,30,29,29,30,29,29,30,30,30],"leap":0},"1966":{"start":[1966,1,22],"months":[29,30,30,29,30,29,29,30,29,29,30,30,29],"leap":3},"1967":{"start":[1967,2,9],"months":[30,30,29,30,30,29,29,30,29,30,29,30],"leap":0},"1968":{"start":[1968,1,30],"months":[29,30,30,29,30,29,30,29,30,29,30,29,30],"leap":7},"1969":{"start":[1969,2,17],"months":[29,30,29,30,29,30,30,29,30,29,30,29],"leap":0},"1970":{"start":[1970,2,6],"months":[30,29,29,30,30,29,30,29,30,30,29,30],"leap":0},"1971":{"start":[1971,1,27],"months":[29,30,29,29,30,29,30,29,30,30,30,29,30],"leap":5},"1972":{"start":[1972,2,15],"months":[29,30,29,29,30,29,30,29,30,30,30,29],"leap":0},"1973":{"start":[1973,2,3],"months":[30,29,30,29,29,30,29,29,30,30,30,29],"leap":0},"1974":{"start":[1974,1,23],"months":[30,30,29,30,29,29,30,29,29,30,30,29,30],"leap":4},"1975":{"start":[1975,2,11],"months":[30,30,29,30,29,29,30,29,29,30,29,30],"leap":0},"1976":{"start":[1976,1,31],"months":[30,30,29,30,29,30,29,30,29,30,29,29,30],"leap":8},"1977":{"start":[1977,2,18],"months":[30,29,30,30,29,30,29,30,29,30,29,29],"leap":0},"1978":{"start":[1978,2,7],"months":[30,30,29,30,29,30,30,29,30,29,30,29],"leap":0},"1979":{"start":[1979,1,28],"months":[30,29,29,30,29,30,30,29,30,30,29,30,29],"leap":6},"1980":{"start":[1980,2,16],"months":[30,29,29,30,29,30,29,30,30,29,30,30],"leap":0},"1981":{"start":[1981,2,5],"months":[29,30,29,29,30,29,29,30,30,29,30,30],"leap":0},"1982":{"start":[1982,1,25],"months":[30,29,30,29,29,30,29,29,30,30,29,30,30],"leap":4},"1983":{"start":[1983,2,13],"months":[30,29,30,29,29,30,29,29,30,29,30,30],"leap":0},"1984":{"start":[1984,2,2],"months":[30,29,30,30,29,29,30,29,29,30,29,30,30],"leap":10},"1985":{"start":[1985,2,20],"months":[29,30,30,29,30,29,30,29,29,30,29,30],"leap":0},"1986":{"start":[1986,2,9],"months":[29,30,30,29,30,30,29,30,29,30,29,29],"leap":0},"1987":{"start":[1987,1,29],"months":[30,29,30,30,29,30,29,30,30,29,30,29,30],"leap":6},"1988":{"start":[1988,2,18],"months":[29,29,30,29,30,29,30,30,29,30,30,29],"leap":0},"1989":{"start":[1989,2,6],"months":[30,29,29,30,29,30,29,30,30,29,30,30],"leap":0},"1990":{"start":[1990,1,27],"months":[29,30,29,29,30,29,29,30,30,29,30,30,30],"leap":5},"1991":{"start":[1991,2,15],"months":[29,30,29,29,30,29,29,30,29,30,30,30],"leap":0},"1992":{"start":[1992,2,4],"months":[29,30,30,29,29,30,29,29,30,29,30,30],"leap":0},"1993":{"start":[1993,1,23],"months":[29,30,30,29,30,29,30,29,29,30,29,30,29],"leap":3},"1994":{"start":[1994,2,10],"months":[30,30,30,29,30,29,30,29,29,30,29,30],"leap":0},"1995":{"start":[1995,1,31],"months":[29,30,30,29,30,30,29,30,29,30,29,29,30],"leap":8},"1996":{"start":[1996,2,19],"months":[29,30,29,30,30,29,30,29,30,30,29,30],"leap":0},"1997":{"start":[1997,2,8],"months":[29,29,30,29,30,29,30,30,29,30,30,29],"leap":0},"1998":{"start":[1998,1,28],"months":[30,29,29,30,29,29,30,30,29,30,30,30,29],"leap":5},"1999":{"start":[1999,2,16],"months":[30,29,29,30,29,29,30,29,30,30,30,29],"leap":0},"2000":{"start":[2000,2,5],"months":[30,30,29,29,30,29,29,30,29,30,30,29],"leap":0},"2001":{"start":[2001,1,24],"months":[30,30,30,29,29,30,29,29,30,29,30,29,30],"leap":4},"2002":{"start":[2002,2,12],"months":[30,30,29,30,29,30,29,29,30,29,30,29],"leap":0},"2003":{"start":[2003,2,1],"months":[30,30,29,30,30,29,30,29,29,30,29,30],"leap":0},"2004":{"start":[2004,1,22],"months":[29,30,29,30,30,29,30,29,30,29,30,29,30],"leap":2},"2005":{"start":[2005,2,9],"months":[29,30,29,30,29,30,30,29,30,30,29,29],"leap":0},"2006":{"start":[2006,1,29],"months":[30,29,30,29,30,29,30,29,30,30,29,30,30],"leap":7},"2007":{"start":[2007,2,18],"months":[29,29,30,29,29,30,29,30,30,30,29,30],"leap":0},"2008":{"start":[2008,2,7],"months":[30,29,29,30,29,29,30,29,30,30,29,30],"leap":0},"2009":{"start":[2009,1,26],"months":[30,30,29,29,30,29,29,30,29,30,29,30,30],"leap":5},"2010":{"start":[2010,2,14],"months":[30,29,30,29,30,29,29,30,29,30,29,30],"leap":0},"2011":{"start":[2011,2,3],"months":[30,29,30,30,29,30,29,29,30,29,30,29],"leap":0},"2012":{"start":[2012,1,23],"months":[30,29,30,30,30,29,30,29,29,30,29,30,29],"leap":3},"2013":{"start":[2013,2,10],"months":[30,29,30,30,29,30,29,30,29,30,29,30],"leap":0},"2014":{"start":[2014,1,31],"months":[29,30,29,30,29,30,29,30,30,29,30,29,30],"leap":9},"2015":{"start":[2015,2,19],"months":[29,30,29,29,30,29,30,30,30,29,30,29],"leap":0},"2016":{"start":[2016,2,8],"months":[30,29,30,29,29,30,29,30,30,29,30,30],"leap":0},"2017":{"start":[2017,1,28],"months":[29,30,29,30,29,29,30,29,30,29,30,30,30],"leap":5},"2018":{"start":[2018,2,16],"months":[29,30,29,30,29,29,30,29,30,29,30,30],"leap":0},"2019":{"start":[2019,2,5],"months":[30,29,30,29,30,29,29,30,29,30,29,30],"leap":0},"2020":{"start":[2020,1,25],"months":[30,29,30,30,29,30,29,29,30,29,30,29,30],"leap":4},"2021":{"start":[2021,2,12],"months":[29,30,30,29,30,29,30,29,30,29,30,29],"leap":0},"2022":{"start":[2022,2,1],"months":[30,29,30,29,30,30,29,30,29,30,29,30],"leap":0},"2023":{"start":[2023,1,22],"months":[29,30,29,30,29,30,29,30,30,29,30,29,30],"leap":2},"2024":{"start":[2024,2,10],"months":[29,30,29,29,30,29,30,30,29,30,30,29],"leap":0},"2025":{"start":[2025,1,29],"months":[30,29,30,29,29,30,29,30,29,30,30,30,29],"leap":6},"2026":{"start":[2026,2,17],"months":[30,29,30,29,29,30,29,30,29,30,30,30],"leap":0},"2027":{"start":[2027,2,7],"months":[29,30,29,30,29,29,30,29,29,30,30,30],"leap":0},"2028":{"start":[2028,1,27],"months":[29,30,30,29,30,29,29,30,29,29,30,30,29],"leap":5},"2029":{"start":[2029,2,13],"months":[30,30,29,30,30,29,29,30,29,29,30,30],"leap":0},"2030":{"start":[2030,2,3],"months":[29,30,29,30,30,29,30,29,30,29,30,29],"leap":0}}
 ;
 
@@ -1229,17 +1270,19 @@ async function startReport() {
   window.scrollTo(0,0);
 }
 
+
+// =====================================================
+//  buildReport v5 — PDF 스타일 완전 재설계
+// =====================================================
 function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
-  // --- 사주 계산 ---
+  // ── 기본 계산 ──
   var yp=getYearPillar(year,month,day);
   var mp=getMonthPillar(year,month,day);
   var dp=getDayPillar(year,month,day);
   var hp=getHourPillar(dp.stem,hour);
-
   var ds=dp.stem, db=dp.branch;
   var de=S_ELEM[STEMS.indexOf(ds)];
   var dmi=DM_DATA[ds];
-
   var allPillars=[yp,mp,dp,hp];
   var pillars=allPillars.filter(Boolean);
   var els=calcElements(pillars);
@@ -1247,1252 +1290,827 @@ function buildReport(name,gdr,year,month,day,hour,city,lunarYMD) {
   var daeun=calcDaeun(yp,mp,gdr,year,month,day);
   var curAge=2026-year;
   var curDu=daeun.list.find(function(u){return curAge>=u.age&&curAge<=u.end;})||daeun.list[0];
-
   var elArr=['목','화','토','금','수'];
-  var elSorted=[...elArr].sort(function(a,b){return els[b]-els[a];});
+  var elSorted=[].concat(elArr).sort(function(a,b){return els[b]-els[a];});
   var domEl=elSorted[0], wkEl=elSorted[4];
-
-  var yongshin;
-  if(str==='신강(身强)') {
-    // 신강: 관성·재성이 용신
-    yongshin={elem:EL_CTR[de],type:'관성(官星)'};
-  } else {
-    // 신약: 인성·비겁이 용신
-    yongshin={elem:EL_GEN_R[de],type:'인성(印星)'};
-  }
-
-  var stars={
-    yr:getTenStar(ds,yp.stem),
-    mo:getTenStar(ds,mp.stem),
-    hr:hp?getTenStar(ds,hp.stem):null
-  };
-  var st12={
-    yr:getTwelveStage(ds,yp.branch),
-    mo:getTwelveStage(ds,mp.branch),
-    dy:getTwelveStage(ds,db),
-    hr:hp?getTwelveStage(ds,hp.branch):null
-  };
-
-  // 신살
-  var ssal=calcSsal(allPillars,ds);
-  // 공망
-  var gmIdx=getGongmang(STEMS.indexOf(ds),BRANCHES.indexOf(db));
-  var gmBranches=[BRANCHES[gmIdx[0]],BRANCHES[gmIdx[1]]];
-
-  // 합충형파해
-  var rels=analyzeRelations(allPillars);
-
-  // 점성술
+  var yongshin=str==='신강(身强)'?{elem:EL_CTR[de],type:'관성(官星)'}:{elem:EL_GEN_R[de],type:'인성(印星)'};
+  var ssal=calcSsal(dp,yp,mp,hp);
   var zod=getSunSign(month,day);
-  var rising=getRisingSign(zod,hour,city);
+  var rising=hour>=0?getRising(month,day,hour,city):null;
+  var cityName={seoul:'서울',busan:'부산',daegu:'대구',gwangju:'광주',daejeon:'대전',jeju:'제주',tokyo:'도쿄',beijing:'베이징',shanghai:'상하이',newyork:'뉴욕',la:'LA',london:'런던',sydney:'시드니'}[city]||city;
 
-  // 지장간 십성 (모든 지장간)
-  var hiddenStars=[];
-  allPillars.forEach(function(p,pi){
-    if(!p) return;
-    var pnames=['년주','월주','일주','시주'];
-    (HIDDEN[p.branch]||[]).forEach(function(h){
-      hiddenStars.push({pillar:pnames[pi],branch:p.branch,hidden:h,star:getTenStar(ds,h)});
-    });
-  });
+  // 십성 분석
+  var allStars=pillars.map(function(p){
+    var s=getTenStar(ds,p.stem);
+    var b=HIDDEN[p.branch]?getTenStar(ds,HIDDEN[p.branch][0]):'';
+    return [s,b];
+  }).reduce(function(a,b){return a.concat(b);},[]).filter(Boolean);
+  var hasJJae=allStars.some(function(s){return s==='정재';});
+  var hasPJae=allStars.some(function(s){return s==='편재';});
+  var hasGwan=allStars.some(function(s){return s==='정관'||s==='편관';});
+  var hasSik=allStars.some(function(s){return s==='식신'||s==='상관';});
+  var jaeCount=allStars.filter(function(s){return s==='정재'||s==='편재';}).length;
 
-  // 연운 2024~2035
-  var yfs=[];
-  for(var yr=2024;yr<=2035;yr++){
-    var yf=getYearFortune(yr);
-    yfs.push({yr,stem:yf.stem,branch:yf.branch,star:getTenStar(ds,yf.stem),stage:getTwelveStage(ds,yf.branch)});
-  }
+  // 대운 십성
+  var curTs=getTenStar(ds,curDu.stem);
+  var curTsIsGwan=(curTs==='정관'||curTs==='편관');
+  var curTsIsJae=(curTs==='정재'||curTs==='편재');
+  var curTsIsSik=(curTs==='식신'||curTs==='상관');
 
-  // 월운 (현재 년)
-  var mfs=[];
-  for(var mn=1;mn<=12;mn++){
-    var mf=getMonthFortune(mp,mn);
-    mfs.push({mn,stem:mf.stem,branch:mf.branch,star:getTenStar(ds,mf.stem)});
-  }
+  // 역마살 여부
+  var hasYeokma=ssal.yeokma.where.length>0;
+  var hasDohwa=ssal.dohwa.where.length>0;
 
-  var gdrT=(gdr==='M')?'남성':'여성';
-  var cityNames={seoul:'서울',busan:'부산',daegu:'대구',gwangju:'광주',daejeon:'대전',jeju:'제주',tokyo:'도쿄',beijing:'베이징',shanghai:'상하이',newyork:'뉴욕',la:'LA',london:'런던',sydney:'시드니',other:'기타'};
-  var cityName=cityNames[city]||'서울';
+  // 2026 세운 기운 분석
+  var세운stem='병', 세운branch='오'; // 2026=병오년
+  var 세운ts=getTenStar(ds,세운stem);
+  var 세운elem=S_ELEM[STEMS.indexOf(세운stem)];
+  var 세운isGood=(세운elem===yongshin.elem);
 
-  // 테이블 열 구성
-  var pcols=[
-    {lb:'시주(時柱)',p:hp, star:stars.hr, s12:st12.hr, idx:3},
-    {lb:'일주(日柱)',p:dp, star:'일간',   s12:st12.dy, idx:2},
-    {lb:'월주(月柱)',p:mp, star:stars.mo, s12:st12.mo, idx:1},
-    {lb:'년주(年柱)',p:yp, star:stars.yr, s12:st12.yr, idx:0}
-  ].filter(function(x){return !!x.p;});
+  // 수비학
+  var lifePath=getLifePath(year,month,day);
+  var personalYear=getPersonalYear(month,day,2026);
+  var nmData=NUMO_DATA[lifePath]||NUMO_DATA[9];
+  var pyData=NUMO_DATA[personalYear]||NUMO_DATA[1];
+
+  // 공망
+  var gongmang=getGongmang(yp,dp);
+
+  // 오행 총계
+  var gTotal=0; elArr.forEach(function(e){gTotal+=els[e];}); if(gTotal<1)gTotal=1;
 
   var H='';
-  var curYearFortune=getYearFortune(2026);
-  var gTotal=Object.values(els).reduce(function(a,b){return a+b;},0);
 
-  // ═══════════════════════════════════════════
-  //  커버
-  // ═══════════════════════════════════════════
-  H+='<div class="cover">';
-  H+='<div class="cover-brand">大萬神 사주 연구원 ✦ 정밀 만세력 · 서양 점성술 융합</div>';
-  H+='<div class="cover-diamond"><span>✦</span></div>';
-  H+='<div class="cover-name">'+name+'</div>';
-  H+='<div class="cover-sub">종합 사주 · 점성술 · 운명 보고서</div>';
-  H+='<div class="cover-tags">';
-  if(lunarYMD){
-    H+='<span class="ctag">음력 '+lunarYMD[0]+'년 '+lunarYMD[1]+'월 '+lunarYMD[2]+'일'+(lunarYMD[3]?' (윤달)':'')+'</span>';
-    H+='<span class="ctag">양력 '+year+'년 '+month+'월 '+day+'일</span>';
-  } else {
-    H+='<span class="ctag">양력 '+year+'년 '+month+'월 '+day+'일</span>';
-  }
-  H+='<span class="ctag">'+gdrT+'</span>';
-  if(hour>=0) H+='<span class="ctag">'+cityName+'</span>';
-  H+='<span class="ctag">'+dmi.em+' '+dmi.n+'</span>';
-  H+='<span class="ctag">'+str+'</span>';
-  H+='<span class="ctag">'+zod.s+' '+zod.k+'</span>';
-  if(rising) H+='<span class="ctag">↑ '+rising.k+'</span>';
+  // ──────────────────────────────────────────────
+  // COVER
+  // ──────────────────────────────────────────────
+  var ageNow=2026-year;
+  var birthStr=year+'년 '+month+'월 '+day+'일';
+  var lunarStr=lunarYMD?'(음) '+lunarYMD[0]+'년 '+lunarYMD[1]+'월 '+lunarYMD[2]+'일':'';
+  var coverQuote;
+  var dmQuotes={
+    갑:'"큰 나무는 폭풍 속에서도 꺾이지 않는다.<br>'+name+'여, 그대의 곧은 기상이 세상을 버티게 하는 기둥이 된다."',
+    을:'"유연함이 강함이다.<br>흔들려도 꺾이지 않는 풀처럼, '+name+'의 생명력은 그 어떤 시련도 이겨낸다."',
+    병:'"태양은 모든 이에게 빛을 준다.<br>'+name+'여, 그대의 따뜻한 빛이 세상에 닿기를."',
+    정:'"촛불은 어둠에서 빛난다.<br>'+name+'의 섬세한 불꽃은 가장 깊은 어둠을 밝힐 것이다."',
+    무:'"산은 흔들리지 않는다.<br>'+name+'여, 그대의 묵직한 기상이 모든 이의 안식처가 된다."',
+    기:'"비옥한 땅은 모든 씨앗을 품는다.<br>'+name+'의 포용력이 세상의 꽃을 피워낼 것이다."',
+    경:'"강철은 담금질을 통해 빛난다.<br>'+name+'여, 시련 속에서 더욱 단단해지는 그대가 진짜 영웅이다."',
+    신:'"보석은 원석 상태에서는 빛나지 않는단다. 갈고 닦는 과정이 있어야 비로소 세상이 눈을 뗄 수 없는 빛을 발한단다."',
+    임:'"큰 강은 막힘없이 흐른다.<br>'+name+'의 지혜는 어떤 장애도 돌아서 나아가는 법을 안다."',
+    계:'"고요한 샘물은 깊은 곳에서 솟는다.<br>'+name+'의 감수성은 세상을 적시는 생명의 원천이다."'
+  };
+  coverQuote=dmQuotes[ds]||'"하늘이 주신 팔자는 청사진이지 감옥이 아니니라."';
+
+  H+='<div class="r-cover">';
+  H+='<div class="r-cover-brand">DAEMANSIN · PREMIUM SAJU REPORT</div>';
+  H+='<div class="r-cover-diamond">💎</div>';
+  H+='<div class="r-cover-title">대만신(大萬神) 프리미엄 종합 사주 리포트</div>';
+  H+='<div style="color:rgba(201,168,76,.6);font-size:12px;margin-bottom:10px">'+ds+db+' 일주 · '+curDu.stem+curDu.branch+' 대운</div>';
+  H+='<div class="r-cover-name">'+name+'</div>';
+  H+='<div class="r-cover-info">(양) '+birthStr+' · '+ageNow+'세'+(lunarStr?' · '+lunarStr:'')+'</div>';
+  H+='<div class="r-cover-tags">';
+  H+='<span class="r-ctag">'+ds+db+' 일주</span>';
+  H+='<span class="r-ctag">'+str+'</span>';
+  H+='<span class="r-ctag">'+curDu.stem+curDu.branch+' 대운 진행중</span>';
+  if(hasDohwa) H+='<span class="r-ctag">도화살 보유</span>';
+  if(hasYeokma) H+='<span class="r-ctag">역마살 보유</span>';
+  H+='<span class="r-ctag">공망 '+gongmang.map(function(b){return BRANCHES[b];}).join('·')+'</span>';
   H+='</div>';
-  H+='<div class="cover-quote">'+dmi.em+' <strong style="color:#f0d080">'+dmi.kw+'</strong>의 기운을 타고난 <strong style="color:#f0d080">'+name+'</strong>이여,<br>';
-  H+='만세력과 점성술을 함께 살펴 너의 팔자를 낱낱이 풀어두었느니라.<br>';
-  H+='이 보고서가 너의 삶을 밝히는 나침반이 되어주길 바라노라.</div>';
-  H+='<div class="cover-date">생성일: '+new Date().toLocaleDateString('ko-KR')+' | 대만신 사주 연구원</div>';
+  H+='<div class="r-cover-quote">'+coverQuote+'</div>';
+  H+='<div class="r-cover-quote-author">— 대만신(大萬神)</div>';
   H+='</div>';
 
-  // ═══════════════════════════════════════════
-  //  01. 사주팔자
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">01</div><div><div class="sec-title">사주팔자(四柱八字) 만세력</div><div class="sec-desc">입춘(立春) 절기 기준 · 지장간 포함 · 정밀 만세력 · 공망 표시</div></div></div>';
-  H+='<div style="overflow-x:auto"><table class="ptable"><thead><tr><th style="width:80px">구분</th>';
-  pcols.forEach(function(x){ H+='<th>'+x.lb+'</th>'; });
+  // ──────────────────────────────────────────────
+  // STEP 01 — 사주팔자 명식
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>01</div><div><div class="step-title">사주팔자(四柱八字) 명식</div><div class="step-desc">입춘 절기 기준 만세력 · 오행 분포 · 신강/신약 핵심 분석</div></div></div>';
+
+  // 사주 테이블
+  var pillarLabels=['시주(時柱)','일주(日柱) 나','월주(月柱)','년주(年柱)'];
+  var pillarData=[hp,dp,mp,yp];
+  H+='<div style="overflow-x:auto"><table class="saju-table"><thead><tr><th style="width:90px">구분</th>';
+  pillarLabels.forEach(function(l,i){H+='<th'+(i===1?' style="color:#f0d080"':'')+'>'+l+'</th>';});
   H+='</tr></thead><tbody>';
 
-  // 천간행
-  H+='<tr><td>천간(天干)</td>';
-  pcols.forEach(function(x){
-    var e=S_ELEM[STEMS.indexOf(x.p.stem)];
-    H+='<td><div class="stem-txt" style="color:'+EL_COLOR[e]+'">'+x.p.stem+'</div><div class="elem-txt">'+e+'('+({'목':'甲乙','화':'丙丁','토':'戊己','금':'庚辛','수':'壬癸'})[e]+')</div></td>';
+  // 천간 행
+  H+='<tr><td class="row-label">천간</td>';
+  pillarData.forEach(function(p,i){
+    if(!p){H+='<td><span style="color:#ccc">—</span></td>';return;}
+    var elem=S_ELEM[STEMS.indexOf(p.stem)];
+    H+='<td'+(i===1?' style="background:#fdf8ec"':'')+' ><div class="stem-big" style="color:'+EL_COLOR[elem]+'">'+p.stem+'</div><div style="font-size:10px;color:#aaa">'+elem+'('+(['양','양','양','양','양','음','음','음','음','음'][STEMS.indexOf(p.stem)]||'')+')</div></td>';
   });
   H+='</tr>';
 
-  // 지지행
-  H+='<tr><td>지지(地支)</td>';
-  pcols.forEach(function(x){
-    var e=B_ELEM[BRANCHES.indexOf(x.p.branch)];
-    var isGm=gmBranches.indexOf(x.p.branch)>=0;
-    H+='<td><div class="branch-txt" style="color:'+(isGm?'#aaa':EL_COLOR[e])+'">'+x.p.branch+(isGm?' ✕':'')+' </div><div class="elem-txt">'+e+(isGm?' (공망)':'')+'</div></td>';
+  // 지지 행
+  H+='<tr><td class="row-label">지지</td>';
+  pillarData.forEach(function(p,i){
+    if(!p){H+='<td><span style="color:#ccc">—</span></td>';return;}
+    var elem=B_ELEM[BRANCHES.indexOf(p.branch)];
+    var isGM=gongmang.includes(BRANCHES.indexOf(p.branch));
+    H+='<td'+(i===1?' style="background:#fdf8ec"':'')+'><div class="branch-big" style="color:'+EL_COLOR[elem]+'">'+(isGM?'<span title="공망" style="font-size:12px;color:#e74c3c;vertical-align:super">✕</span>':'')+p.branch+'</div><div style="font-size:10px;color:#aaa">'+elem+'</div></td>';
   });
   H+='</tr>';
 
-  // 지장간행
-  H+='<tr><td>지장간<br>(地藏干)</td>';
-  pcols.forEach(function(x){
-    var hd=HIDDEN[x.p.branch]||[];
-    var ratio=HIDDEN_RATIO[x.p.branch]||[];
-    H+='<td style="font-size:12px;line-height:1.8">';
-    ratio.forEach(function(r,i){
-      var e2=S_ELEM[STEMS.indexOf(r[1])];
-      H+='<span style="color:'+EL_COLOR[e2]+'">'+r[1]+'</span>';
-      if(i<ratio.length-1) H+='<br>';
-    });
-    H+='</td>';
+  // 십성 행
+  H+='<tr><td class="row-label">십성</td>';
+  pillarData.forEach(function(p,i){
+    if(!p){H+='<td>—</td>';return;}
+    var ts=i===1?'나 / '+getTenStar(ds,p.stem):getTenStar(ds,p.stem)+' / '+getTenStar(ds,p.branch);
+    H+='<td'+(i===1?' style="background:#fdf8ec;font-weight:700"':'')+'><span class="star-pill" style="background:'+(STAR_COLOR[getTenStar(ds,p.stem)]||'#888')+'20;color:'+(STAR_COLOR[getTenStar(ds,p.stem)]||'#333')+'">'+ts+'</span></td>';
   });
   H+='</tr>';
 
-  // 십성행
-  H+='<tr><td>십성(十星)</td>';
-  pcols.forEach(function(x){
-    if(x.star==='일간'){
-      H+='<td><span class="star-pill" style="background:#e8f5e9;color:#2d8a4e">일간 ★</span></td>';
-    } else if(x.star){
-      H+='<td><span class="star-pill" style="background:#f0e8ff;color:#6a1b9a">'+x.star+'</span></td>';
-    } else {
-      H+='<td>-</td>';
-    }
+  // 12운성 행
+  H+='<tr><td class="row-label">12운성</td>';
+  pillarData.forEach(function(p,i){
+    if(!p){H+='<td>—</td>';return;}
+    var t12=getT12(ds,p.branch);
+    H+='<td'+(i===1?' style="background:#fdf8ec"':'')+'><span class="t12-pill">'+t12+'</span></td>';
   });
   H+='</tr>';
 
-  // 십이운성행
-  H+='<tr><td>십이운성<br>(十二運星)</td>';
-  pcols.forEach(function(x){
-    var s12v=x.s12||'-';
-    var s12color={'장생':'#2d8a4e','건록':'#c9a84c','제왕':'#e74c3c','목욕':'#3498db','관대':'#27ae60','쇠':'#7f8c8d','병':'#bdc3c7','사':'#95a5a6','묘':'#7f8c8d','절':'#bdc3c7','태':'#3498db','양':'#27ae60'};
-    H+='<td><span class="stage-txt" style="color:'+(s12color[s12v]||'#555')+'">'+s12v+'</span><br><span style="font-size:10px;color:#aaa">'+(STAGE_MEANING[s12v]||'').substring(0,8)+'</span></td>';
+  // 지장간 행
+  H+='<tr><td class="row-label">지장간</td>';
+  pillarData.forEach(function(p,i){
+    if(!p){H+='<td>—</td>';return;}
+    var hd=HIDDEN[p.branch]||[];
+    H+='<td'+(i===1?' style="background:#fdf8ec"':'')+'><span style="font-size:12px;color:#888">'+hd.join(' · ')+'</span></td>';
   });
   H+='</tr>';
-
   H+='</tbody></table></div>';
 
-  // 기본 정보 스탯
-  H+='<div class="stat-grid">';
-  H+='<div class="stat-card"><div class="stat-label">일간(日干)</div><div class="stat-val" style="color:'+EL_COLOR[de]+'">'+dmi.em+' '+dmi.n+'</div><div class="stat-sub">'+de+' 오행</div></div>';
-  H+='<div class="stat-card"><div class="stat-label">신강/신약</div><div class="stat-val" style="font-size:13px">'+str+'</div><div class="stat-sub">'+(str==='신강(身强)'?'일간이 강함':'일간이 약함')+'</div></div>';
-  H+='<div class="stat-card"><div class="stat-label">용신(用神)</div><div class="stat-val" style="color:'+EL_COLOR[yongshin.elem]+'">'+EL_EMOJI[yongshin.elem]+' '+yongshin.elem+'</div><div class="stat-sub">'+yongshin.type+'</div></div>';
-  H+='<div class="stat-card"><div class="stat-label">공망(空亡)</div><div class="stat-val">'+gmBranches.join('·')+'</div><div class="stat-sub">일주 기준</div></div>';
-  H+='<div class="stat-card"><div class="stat-label">현재 대운</div><div class="stat-val">'+(curDu?curDu.stem+curDu.branch:'-')+'</div><div class="stat-sub">'+(curDu?curDu.age+'~'+curDu.end+'세':'')+'</div></div>';
-  H+='<div class="stat-card"><div class="stat-label">2026 세운</div><div class="stat-val">'+curYearFortune.stem+curYearFortune.branch+'</div><div class="stat-sub">'+getTenStar(ds,curYearFortune.stem)+'</div></div>';
-  H+='</div>';
-
-  H+='<div class="dark-card">';
-  H+='<h3>'+dmi.em+' 일간(日干) — '+dmi.n+' ('+dmi.kw+')</h3>';
-  H+='<p>'+dmi.ch+'</p>';
-  H+='<p style="margin-top:10px;opacity:.8">⚡ 용신 조언: '+(str==='신강(身强)'?'강한 '+de+' 기운을 조절해주는 <strong>'+yongshin.elem+'</strong> 기운을 가까이 하면 운이 열립니다.':'약한 일간을 도와주는 <strong>'+yongshin.elem+'</strong> 기운을 보충하면 삶이 한층 순탄해집니다.')+'</p>';
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  02. 오행 분포
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">02</div><div><div class="sec-title">음양오행(陰陽五行) 분포 분석</div><div class="sec-desc">천간(2점)·지지(2점)·지장간(1점) 합산 분포 — 사주 전체의 에너지 지도</div></div></div>';
-
-  ['목','화','토','금','수'].forEach(function(e){
-    var w=Math.min(100,Math.round((els[e]||0)/gTotal*130));
+  // 오행 분포
+  H+='<div class="el-section">';
+  var elMax=Math.max.apply(null,elArr.map(function(e){return els[e];}));
+  if(elMax<1)elMax=1;
+  elArr.forEach(function(e){
     H+='<div class="el-row">';
-    H+='<div class="el-emoji">'+EL_EMOJI[e]+'</div>';
-    H+='<div class="el-name" style="color:'+EL_COLOR[e]+'">'+e+'</div>';
-    H+='<div class="el-track"><div class="el-fill" style="width:'+w+'%;background:'+EL_CSS[e]+'">'+((els[e]||0)>1?(els[e]||0):'')+'</div></div>';
-    H+='<div class="el-cnt" style="color:'+EL_COLOR[e]+'">'+(els[e]||0)+'</div>';
-    H+='</div>';
-  });
-
-  H+='<div class="dark-card">';
-  H+='<h3>📊 오행 균형 심층 해석</h3>';
-  H+='<p>'+name+'의 사주 전체(천간+지지+지장간) 오행을 합산하면 <strong style="color:'+EL_COLOR[domEl]+'">'+EL_EMOJI[domEl]+' '+domEl+'</strong>이 가장 강하고, <strong style="color:'+EL_COLOR[wkEl]+'">'+EL_EMOJI[wkEl]+' '+wkEl+'</strong>이 가장 약하느니라.</p>';
-  H+='<p>용신 <strong style="color:'+EL_COLOR[yongshin.elem]+'">'+yongshin.elem+'</strong> 기운을 의식적으로 보충하면 운이 열린다.</p>';
-  H+='<p>행운의 색: <strong>'+({'목':'초록·파랑·청색','화':'빨강·주황·분홍','토':'노랑·갈색·황토색','금':'흰색·은색·회색','수':'검정·남색·진파랑'})[yongshin.elem]+'</strong> | 행운의 방향: <strong>'+({'목':'동(東)쪽','화':'남(南)쪽','토':'중앙(中央)','금':'서(西)쪽','수':'북(北)쪽'})[yongshin.elem]+'</strong></p>';
-
-  var elBalance='';
-  if(els[de]>=(gTotal*0.4)) elBalance='일간과 같은 '+de+' 기운이 과다하여 신강한 경향이 있습니다. ';
-  if(els[wkEl]===0) elBalance+='특히 '+wkEl+' 기운이 전혀 없으니 이를 보충해야 균형이 잡힙니다. ';
-  if(elBalance) H+='<p style="margin-top:8px">⚠️ '+elBalance+'</p>';
-
-  H+='<p style="margin-top:10px"><strong>음양 균형:</strong> 양간(갑·병·무·경·임)과 음간(을·정·기·신·계)의 비율도 중요합니다. ';
-  var yangCount=pillars.reduce(function(n,p){return n+(STEMS.indexOf(p.stem)%2===0?1:0);},0);
-  var yinCount=pillars.length-yangCount;
-  H+=yangCount>yinCount?'현재 양(陽)의 기운이 더 강하여 적극적·외향적 성향이 두드러집니다.':yangCount<yinCount?'현재 음(陰)의 기운이 더 강하여 내성적·직관적 성향이 두드러집니다.':'음양이 균형을 이루어 유연한 대응력을 지녔습니다.';
-  H+='</p>';
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  03. 일간 심층 분석
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">03</div><div><div class="sec-title">일간(日干) 심층 분석</div><div class="sec-desc">천성·기질·직업·재물·연애·건강의 모든 것</div></div></div>';
-
-  H+='<div class="dark-card"><h3>'+dmi.em+' 본성과 기질</h3>';
-  H+='<p>'+dmi.nature+'</p><p style="margin-top:10px">'+dmi.ch+'</p></div>';
-
-  H+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">';
-  H+='<div class="dark-card" style="margin-top:0"><h3>🏢 직업과 적성</h3><p>'+dmi.job+'</p></div>';
-  H+='<div class="dark-card" style="margin-top:0"><h3>💰 재물 기질</h3><p>'+dmi.wealth+'</p></div>';
-  H+='<div class="dark-card" style="margin-top:0"><h3>💕 연애와 결혼</h3><p>'+dmi.love+'</p></div>';
-  H+='<div class="dark-card" style="margin-top:0"><h3>🌿 건강 지침</h3><p>'+dmi.health+'</p></div>';
-  H+='</div>';
-
-  H+='<div class="dark-card"><h3>⚖️ 신강·신약 상세 판별</h3>';
-  H+='<p>'+name+'의 사주는 <strong>'+str+'</strong>이니라. ';
-  if(str==='신강(身强)'){
-    H+='일간의 기운이 강하므로, 이를 흘려보내거나 극제(克制)하는 방향으로 쓰는 것이 이롭다. ';
-    H+='관성(官星·'+EL_CTR[de]+')으로 통제하거나, 식상(食傷·'+EL_GEN[de]+')으로 발산하거나, ';
-    H+='재성(財星·'+EL_CTR[de]+')으로 활용하는 것이 운의 흐름에 부합한다.';
-  } else {
-    H+='일간의 기운이 약하므로, 인성(印星·'+EL_GEN_R[de]+')으로 자양하거나 ';
-    H+='비겁(比劫·'+de+')으로 도움을 받는 것이 이롭다. ';
-    H+='관성이 너무 강하면 일간이 더 약해지므로 주의가 필요하다.';
-  }
-  H+='</p></div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  04. 십성 분석
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">04</div><div><div class="sec-title">십성(十星) 전체 분석</div><div class="sec-desc">천간 십성 + 지장간 십성 — 내 사주 안의 모든 성분</div></div></div>';
-
-  // 천간 십성 테이블
-  H+='<h4 style="color:#1a0a3d;margin-bottom:10px;font-size:13px">▣ 천간(天干) 십성</h4>';
-  H+='<div style="overflow-x:auto"><table class="ptable"><thead><tr><th>위치</th><th>간지</th><th>십성</th><th style="text-align:left;padding-left:14px">의미와 영향</th></tr></thead><tbody>';
-  [{lb:'년주',p:yp,st:stars.yr},{lb:'월주',p:mp,st:stars.mo},{lb:'일주',p:dp,st:'일간'},{lb:'시주',p:hp,st:stars.hr}].forEach(function(x){
-    if(!x.p) return;
-    H+='<tr><td>'+x.lb+'</td><td><strong>'+x.p.stem+x.p.branch+'</strong></td>';
-    if(x.st==='일간'){
-      H+='<td><span class="star-pill" style="background:#e8f5e9;color:#2d8a4e">일간 ★</span></td>';
-      H+='<td style="text-align:left;font-size:12px;padding:10px 14px">나 자신의 기운 — 모든 것의 중심이 되는 일간이니라.</td></tr>';
-    } else if(x.st){
-      H+='<td><span class="star-pill" style="background:#f0e8ff;color:'+( STAR_COLOR[x.st]||'#6a1b9a')+'">'+x.st+'</span></td>';
-      H+='<td style="text-align:left;font-size:12px;padding:10px 14px">'+(STAR_MEAN[x.st]||'')+'</td></tr>';
-    } else {
-      H+='<td>-</td><td style="text-align:left;font-size:12px;padding:10px 14px">-</td></tr>';
-    }
-  });
-  H+='</tbody></table></div>';
-
-  // 지장간 십성
-  H+='<h4 style="color:#1a0a3d;margin:16px 0 10px;font-size:13px">▣ 지장간(地藏干) 십성 — 숨겨진 기운</h4>';
-  H+='<div style="overflow-x:auto"><table class="ptable"><thead><tr><th>위치</th><th>지지</th><th>지장간</th><th>십성</th><th style="text-align:left;padding-left:14px">의미</th></tr></thead><tbody>';
-  hiddenStars.forEach(function(hs){
-    H+='<tr><td>'+hs.pillar+'</td><td>'+hs.branch+'</td><td style="color:'+EL_COLOR[S_ELEM[STEMS.indexOf(hs.hidden)]]+'"><strong>'+hs.hidden+'</strong></td>';
-    if(hs.star){
-      H+='<td><span class="star-pill" style="background:#f8f4ff;color:'+(STAR_COLOR[hs.star]||'#6a1b9a')+'">'+hs.star+'</span></td>';
-      H+='<td style="text-align:left;font-size:11px;padding:8px 14px;color:#555">'+(STAR_MEAN[hs.star]||'').substring(0,40)+'</td>';
-    } else {
-      H+='<td>-</td><td></td>';
-    }
-    H+='</tr>';
-  });
-  H+='</tbody></table></div>';
-
-  // 십성 분포 요약
-  var starCount={};
-  [stars.yr,stars.mo,stars.hr].forEach(function(s){ if(s) starCount[s]=(starCount[s]||0)+1; });
-  hiddenStars.forEach(function(hs){ if(hs.star) starCount[hs.star]=(starCount[hs.star]||0)+1; });
-  H+='<div class="dark-card"><h3>⭐ 십성 분포 요약 & 핵심 성향</h3>';
-  H+='<p>'+name+'의 사주에서 가장 많이 보이는 십성: ';
-  var starEntries=Object.entries(starCount).sort(function(a,b){return b[1]-a[1];});
-  if(starEntries.length>0){
-    H+='<strong>'+starEntries[0][0]+'</strong>('+starEntries[0][1]+'개)';
-    if(starEntries[1]) H+=', '+starEntries[1][0]+'('+starEntries[1][1]+'개)';
-    H+='</p><p style="margin-top:8px">핵심 성향: '+( STAR_MEAN[starEntries[0][0]]||'')+' — 이 기운이 전체 삶의 방향을 이끌어 가느니라.</p>';
-  } else {
-    H+='<p>다양한 기운이 고루 분포되어 있느니라.</p>';
-  }
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  05. 십이운성
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">05</div><div><div class="sec-title">십이운성(十二運星) 분석</div><div class="sec-desc">일간이 각 지지와 만나는 생명의 12단계 — 각 기둥별 에너지 상태</div></div></div>';
-
-  var s12cols=[
-    {lb:'시주',p:hp,s12:st12.hr},{lb:'일주',p:dp,s12:st12.dy},
-    {lb:'월주',p:mp,s12:st12.mo},{lb:'년주',p:yp,s12:st12.yr}
-  ].filter(function(x){return !!x.p;});
-
-  H+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:4px">';
-  s12cols.forEach(function(x){
-    var sv=x.s12||'-';
-    var scolor={'장생':'#2d8a4e','건록':'#c9a84c','제왕':'#e74c3c','목욕':'#3498db','관대':'#27ae60','쇠':'#7f8c8d','병':'#aaa','사':'#aaa','묘':'#aaa','절':'#aaa','태':'#3498db','양':'#27ae60'};
-    H+='<div style="background:#faf8f4;border:1px solid #e8e0d0;border-radius:10px;padding:14px;text-align:center">';
-    H+='<div style="font-size:11px;color:#888;margin-bottom:4px">'+x.lb+' ('+x.p.stem+x.p.branch+')</div>';
-    H+='<div style="font-size:24px;font-weight:700;color:'+(scolor[sv]||'#1a0a3d')+';margin-bottom:6px">'+sv+'</div>';
-    H+='<div style="font-size:11px;color:#555;line-height:1.6">'+(STAGE_MEANING[sv]||'')+'</div>';
+    H+='<span class="el-emoji">'+EL_EMOJI[e]+'</span>';
+    H+='<span class="el-name">'+e+'</span>';
+    H+='<div class="el-track"><div class="el-fill" style="width:'+Math.round(els[e]/gTotal*100)+'%;background:'+EL_COLOR[e]+'">'+( els[e]>0?els[e]+'개':'')+'</div></div>';
+    H+='<span class="el-count">'+(els[e]===0?'<span style="color:#ddd">0</span>':els[e])+'</span>';
     H+='</div>';
   });
   H+='</div>';
 
-  H+='<div class="dark-card"><h3>🔄 십이운성 종합 해석</h3>';
-  var strongStages=['장생','관대','건록','제왕'];
-  var weakStages=['쇠','병','사','묘','절'];
-  var strongCount=s12cols.filter(function(x){return strongStages.indexOf(x.s12)>=0;}).length;
-  var weakCount=s12cols.filter(function(x){return weakStages.indexOf(x.s12)>=0;}).length;
-  H+='<p>4기둥의 십이운성을 종합하면: 강한 단계(장생·관대·건록·제왕) '+strongCount+'개, 약한 단계(쇠·병·사·묘·절) '+weakCount+'개.</p>';
-  if(st12.dy==='건록'||st12.dy==='제왕') H+='<p style="margin-top:8px">일주(日柱)의 십이운성이 <strong>'+st12.dy+'</strong>이니 일간의 힘이 매우 강하느니라. 독립심이 강하고 스스로 일을 해나가는 능력이 뛰어나다.</p>';
-  else if(st12.dy==='장생'||st12.dy==='관대') H+='<p style="margin-top:8px">일주(日柱)의 십이운성이 <strong>'+st12.dy+'</strong>이니 성장과 발전의 기운이 강하느니라. 새로운 시작과 도전에 유리한 기운이다.</p>';
-  else if(st12.dy==='절'||st12.dy==='태') H+='<p style="margin-top:8px">일주(日柱)의 십이운성이 <strong>'+st12.dy+'</strong>이니 변화와 전환의 기운이 강하느니라. 새로운 출발을 향한 준비 단계이다.</p>';
-  else H+='<p style="margin-top:8px">일주(日柱)의 십이운성 <strong>'+st12.dy+'</strong>은 '+( STAGE_MEANING[st12.dy]||'현재의 상태')+'를 나타낸다.</p>';
+  H+='<div class="summary-box">';
+  H+='<strong>오행 요약:</strong> 木 '+els['목']+' · 火 '+els['화']+' · 土 '+els['토']+' · 金 '+els['금']+' · 水 '+els['수']+' — ';
+  H+='<strong>'+EL_EMOJI[domEl]+' '+domEl+'('+domEl.toUpperCase()+')</strong>이 가장 강하고, ';
+  if(els[wkEl]===0) H+='<strong style="color:#c0392b">'+wkEl+'가 전혀 없어</strong> 부족한 기운을 의식적으로 보충해야 한다. ';
+  else H+='<strong>'+wkEl+'</strong>이 가장 약하다. ';
+  H+=str==='신강(身强)'?'<strong>신강(身强) 사주</strong> — 자신의 기운이 강하니 관성(官)과 재성(財)으로 조절이 필요하다.':'<strong>신약(身弱) 사주</strong> — 인성(印)과 비겁(比)의 도움을 받아야 더 잘 빛난다.';
   H+='</div>';
-  H+='</div><div class="divider"></div>';
 
-  // ═══════════════════════════════════════════
-  //  06. 신살
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">06</div><div><div class="sec-title">신살(神殺) 분석</div><div class="sec-desc">도화살·역마살·화개살·양인살·공망 — 타고난 기운의 특별한 별자리</div></div></div>';
+  H+='<div class="daemansin-quote"><blockquote>';
+  var sajuTheme={
+    갑:'큰 나무처럼 하늘을 향해 곧게 뻗어 올라가는 것이 '+name+'의 천명(天命)이니라. 목표를 향해 꺾이지 않는 추진력이 가장 큰 무기이다.',
+    을:'부드럽지만 결코 꺾이지 않는 생명력이 '+name+'의 본질이니라. 유연하게 적응하면서도 자신의 뿌리를 잃지 않는 것이 핵심이다.',
+    병:'태양처럼 모든 이에게 빛과 온기를 주는 것이 '+name+'의 사명이니라. 무대 위에서 빛날수록 더 많은 이가 따르게 된다.',
+    정:'은은하지만 깊고 지속적인 빛을 발하는 촛불처럼, '+name+'의 집중력과 전문성은 세상 어디서도 대체할 수 없는 가치가 된다.',
+    무:'산처럼 묵직하고 든든한 기상으로 주변을 감싸는 것이 '+name+'의 천성이니라. 신뢰와 포용력이 가장 큰 자산이다.',
+    기:'비옥한 밭처럼 무엇이든 잘 키워내는 포용력으로, '+name+'의 꼼꼼함과 성실함이 가장 확실한 성공의 씨앗이 된다.',
+    경:'단단한 강철처럼, '+name+'은 담금질을 거칠수록 더 빛나는 기질을 지녔느니라. 시련 속에서 진가가 드러나는 팔자이다.',
+    신:'이미 정제된 보석처럼, '+name+'은 세공만 잘 되면 세상이 눈을 뗄 수 없는 빛을 발하는 운명이니라. 전문성이 인생을 바꾸는 열쇠이다.',
+    임:'도도히 흐르는 강물처럼, '+name+'의 지혜와 적응력은 어떤 장애도 돌아서 나아가는 힘이 된다. 큰 그림을 그리는 능력이 천하를 움직인다.',
+    계:'고요한 샘물처럼 조용히 스며드는 '+name+'의 영향력은 눈에 보이지 않지만 가장 깊고 오래간다. 감수성과 창의력이 보물이다.'
+  };
+  H+=(sajuTheme[ds]||'하늘이 주신 팔자는 청사진이지 감옥이 아니니라.');
+  H+='</blockquote><div class="qa-author">— 대만신의 '+ds+db+' 풀이</div></div>';
+  H+='</div>';
 
-  H+='<div class="ssal-grid">';
+  // ──────────────────────────────────────────────
+  // STEP 02 — 나의 기질 & 운명 테마
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>02</div><div><div class="step-title">'+dmi.em+' '+dmi.n+' — 나의 기질과 운명</div><div class="step-desc">일간 심층 분석 · 신강/신약 특성 · 용신 핵심</div></div></div>';
 
-  // 도화살
-  H+='<div class="ssal-card '+(ssal.dohwa.where.length>0?'has':'')+'">';
-  H+='<div class="ssal-name">🌸 도화살(桃花殺)</div>';
-  if(ssal.dohwa.where.length>0){
-    H+='<div class="ssal-val" style="color:#e74c3c">'+ssal.dohwa.val+'</div>';
-    H+='<div class="ssal-where">'+ssal.dohwa.where.join('·')+'에 존재</div>';
+  // 일간 설명
+  H+='<p style="font-size:14px;line-height:1.9;margin-bottom:16px">'+dmi.ch+'</p>';
+
+  // 3카드
+  H+='<div class="trait-grid">';
+  H+='<div class="trait-card"><div class="tc-icon">💡</div><div class="tc-title">핵심 기질</div><div class="tc-body">'+dmi.kw+'<br><br>'+dmi.nature+'</div></div>';
+  H+='<div class="trait-card"><div class="tc-icon">⚡</div><div class="tc-title">강점</div><div class="tc-body">';
+  var strMap={갑:'명확한 목표 의식, 우직한 추진력, 원칙주의, 강한 리더십',을:'섬세한 감수성, 뛰어난 적응력, 인간관계 능력, 예술적 재능',병:'카리스마, 빠른 결단력, 소통 능력, 열정과 에너지',정:'날카로운 직관, 깊은 집중력, 예술적 완성도, 전문성',무:'든든한 신뢰감, 넓은 포용력, 끈질긴 인내력, 조직 관리',기:'섬세한 배려, 현실적 판단력, 꼼꼼한 성실함, 풍부한 공감 능력',경:'강인한 결단력, 높은 자존감, 원칙 수호, 날카로운 분석',신:'탁월한 심미안, 날카로운 통찰, 완벽주의적 전문성, 섬세한 감각',임:'깊은 전략적 사고, 뛰어난 적응력, 폭넓은 지식, 유연한 문제해결',계:'풍부한 감수성, 깊은 직관력, 창의적 상상력, 공감 능력'};
+  H+=(strMap[ds]||dmi.kw);
+  H+='</div></div>';
+  H+='<div class="trait-card"><div class="tc-icon">🎯</div><div class="tc-title">과제 & 보완점</div><div class="tc-body">';
+  var weakMap={갑:'지나친 고집, 협력 부족, 인내심 부족할 때 있음',을:'우유부단, 타인 눈치 지나치게 봄, 거절 어려움',병:'감정적 기복, 지속력 부족, 번아웃 주의',정:'지나친 완벽주의, 번아웃, 표현 부족',무:'변화 거부, 완고함, 지나치게 느린 결정',기:'걱정이 많음, 지나친 배려로 자기소진, 결단력 부족',경:'지나친 완벽주의, 유연성 부족, 융통성 없는 원칙주의',신:'자존심 강해 타협 어려움, 완벽주의 스트레스, 냉소',임:'집중력 분산, 지나친 사색, 결단 지연',계:'경계 없음, 현실 감각 부족, 감정 기복'};
+  H+=(weakMap[ds]||'유연성 키우기')+'<br><br>'+( wkEl+' 기운이 부족하니 의식적으로 보충하라.');
+  H+='</div></div>';
+  H+='</div>';
+
+  // 신강/신약
+  H+='<div style="background:#f8f6f2;border-radius:12px;padding:16px;margin:12px 0">';
+  H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin-bottom:10px">⚖️ '+str+' 사주 분석</h4>';
+  var myStrengthEl='', myWeakEl='';
+  var helpEls=[]; var hurtEls=[];
+  elArr.forEach(function(e){
+    var cnt=els[e]; if(cnt===0)return;
+    if(e===de||EL_GEN_R[de]===e) helpEls.push(e+'('+cnt+'개)');
+    if(EL_CTR[de]===e||EL_GEN[de]===e) hurtEls.push(e+'('+cnt+'개)');
+  });
+  H+='<p style="font-size:13px;margin-bottom:10px">나를 돕는 오행: <strong>'+( helpEls.length?helpEls.join(' + '):de+' 자체')+'</strong> | 나를 소모시키는 오행: <strong>'+( hurtEls.length?hurtEls.join(' + '):'없음')+'</strong></p>';
+  H+='<div class="ss-grid">';
+  var ssPos=str==='신강(身强)'?['자기 확신과 추진력이 강함','어지간한 압박에도 흔들리지 않음','체력과 에너지가 기본적으로 강함','리더십과 카리스마가 있음']:['끈질기고 성실하며 세심함','남의 이야기를 잘 들어주는 공감 능력','협력을 통해 더 큰 일을 이룰 수 있음','귀인의 도움을 잘 받는 체질'];
+  var ssNeg=str==='신강(身强)'?['너무 강해 부러질 위험 존재','타인 의견을 받아들이기 어려울 때','재성('+EL_CTR[de]+') 기운으로 조절 필요','고집이 지나치면 고립될 수 있음']:['자신감이 흔들릴 때가 있음','에너지 소모 후 회복에 시간 필요','의지력 약해지는 시기에 귀인 필요','인성('+EL_GEN_R[de]+') 기운으로 자신을 보충해야'];
+  H+='<div class="ss-card pos"><h4>✅ '+str+'의 강점</h4><ul>';
+  ssPos.forEach(function(s){H+='<li>'+s+'</li>';});
+  H+='</ul></div>';
+  H+='<div class="ss-card neg"><h4>⚠️ '+str+'의 보완점</h4><ul>';
+  ssNeg.forEach(function(s){H+='<li>'+s+'</li>';});
+  H+='</ul></div>';
+  H+='</div>';
+  H+='<div style="background:#fff;border:1px solid #e0d8c0;border-radius:8px;padding:12px;margin-top:10px;font-size:13px">';
+  H+='<strong>핵심:</strong> 이 사주는 <strong>'+yongshin.elem+EL_EMOJI[yongshin.elem]+'('+yongshin.type+')</strong>이 용신(用神)이다. '+yongshin.elem+' 기운이 강한 해와 장소, 사람과 함께할 때 인생이 열리기 시작한다.';
+  H+='</div></div>';
+
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+=dmi.ch;
+  H+='</blockquote><div class="qa-author">— 대만신의 '+dmi.n+' 풀이</div></div>';
+  H+='</div>';
+
+  // ──────────────────────────────────────────────
+  // STEP 03 — 지금 내 삶의 체크리스트
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>03</div><div><div class="step-title">🔮 지금 내 삶의 체크리스트</div><div class="step-desc">직장 이동 · 이사 · 재물 · 연애 · 창업 · 건강 — 지금 타이밍인가?</div></div></div>';
+
+  // ── 6개 체크 항목 계산 ──
+  // 1. 직장/부서 이동
+  var jobRes, jobMsg;
+  if(curTsIsGwan&&hasYeokma){
+    jobRes='yes'; jobMsg='현재 '+curDu.stem+curDu.branch+' 대운에 관성(官星)이 흐르고 역마살(이동의 별)이 있습니다. <strong>2026년은 직장 이동·부서 변경·승진의 황금 타이밍</strong>입니다. 머뭇거리지 말고 적극적으로 기회를 잡으세요.';
+  } else if(curTsIsGwan||세운ts==='정관'||세운ts==='편관'){
+    jobRes='wait'; jobMsg='관성 기운이 있어 변화의 씨앗은 있습니다. 다만 <strong>타이밍을 더 잘 잡아야 합니다</strong>. 2026년 하반기(丙午 세운 화기 강해지는 시점)에 결정을 내리는 것이 유리합니다.';
   } else {
-    H+='<div class="ssal-none">없음</div><div class="ssal-where">해당 없음</div>';
+    jobRes='no'; jobMsg='현재 대운('+curDu.stem+curDu.branch+')은 이동보다 <strong>내공을 쌓는 시기</strong>입니다. 무리한 이직보다 현재 자리에서 전문성을 높이는 데 집중하세요. 다음 대운('+( daeun.list[daeun.list.indexOf(curDu)+1]||{stem:'',branch:''}).stem+(daeun.list[daeun.list.indexOf(curDu)+1]||{stem:'',branch:''}).branch+')이 변화의 시기입니다.';
   }
-  H+='</div>';
 
-  // 역마살
-  H+='<div class="ssal-card '+(ssal.yeokma.where.length>0?'has':'')+'">';
-  H+='<div class="ssal-name">🐎 역마살(驛馬殺)</div>';
-  if(ssal.yeokma.where.length>0){
-    H+='<div class="ssal-val" style="color:#3498db">'+ssal.yeokma.val+'</div>';
-    H+='<div class="ssal-where">'+ssal.yeokma.where.join('·')+'에 존재</div>';
+  // 2. 이사/이동
+  var moveRes, moveMsg;
+  if(hasYeokma&&(curTsIsGwan||세운isGood)){
+    moveRes='yes'; moveMsg='역마살(驛馬殺)이 사주에 있고 현재 대운 기운이 이동을 지지합니다. <strong>이사·해외 이동·지방 이동이 길합니다</strong>. 용신 방향('+({'목':'동쪽(東)','화':'남쪽(南)','토':'중앙','금':'서쪽(西)','수':'북쪽(北)'})[yongshin.elem]+')으로 이동하면 더욱 좋습니다.';
+  } else if(hasYeokma){
+    moveRes='wait'; moveMsg='역마살이 있어 이동의 기질이 있습니다. 2026년 안에 한 번은 큰 이동의 기회가 오지만, <strong>충동적인 결정보다 신중한 준비 후 이동</strong>하세요. 봄(3~4월) 또는 가을(9~10월)이 이동에 유리합니다.';
   } else {
-    H+='<div class="ssal-none">없음</div><div class="ssal-where">해당 없음</div>';
+    moveRes='no'; moveMsg='역마살이 없어 현재는 <strong>안정과 정착의 팔자</strong>입니다. 무리한 이사·이동은 오히려 에너지 소모가 됩니다. 현재 환경에서 뿌리를 내리는 것이 더 길합니다.';
   }
-  H+='</div>';
 
-  // 화개살
-  H+='<div class="ssal-card '+(ssal.hwagae.where.length>0?'has':'')+'">';
-  H+='<div class="ssal-name">🌸 화개살(華蓋殺)</div>';
-  if(ssal.hwagae.where.length>0){
-    H+='<div class="ssal-val" style="color:#9c27b0">'+ssal.hwagae.val+'</div>';
-    H+='<div class="ssal-where">'+ssal.hwagae.where.join('·')+'에 존재</div>';
+  // 3. 재물운 2026
+  var wealthRes, wealthMsg;
+  var wPct=Math.min(95,50+jaeCount*10+(세운isGood?15:0));
+  if(세운isGood&&(hasJJae||hasPJae)){
+    wealthRes='yes'; wealthMsg='2026 병오년(丙午年)의 기운이 용신('+yongshin.elem+')과 일치하고, 사주에 재성이 있습니다. <strong>올해는 재물운이 열리는 해</strong>입니다. 상반기부터 적극적인 투자와 수입 확대를 노려보세요.';
+  } else if(세운isGood||(hasJJae||hasPJae)){
+    wealthRes='wait'; wealthMsg='재물의 씨앗은 있습니다. 다만 <strong>큰 수익보다 준비와 기반 구축</strong>에 집중해야 합니다. 성급한 투자보다 하반기(7~9월)에 집중하면 결실을 볼 수 있습니다.';
   } else {
-    H+='<div class="ssal-none">없음</div><div class="ssal-where">해당 없음</div>';
+    wealthRes='no'; wealthMsg='2026년은 <strong>재물보다 자기계발과 실력 쌓기</strong>에 더 맞는 해입니다. 무리한 투자나 사업 확장보다 종잣돈을 키우고 투자 공부를 하는 시기로 활용하세요.';
   }
-  H+='</div>';
 
-  // 양인살
-  H+='<div class="ssal-card '+(ssal.yangin.where.length>0?'has-red':'')+'">';
-  H+='<div class="ssal-name">⚔️ 양인살(羊刃殺)</div>';
-  if(ssal.yangin.where.length>0){
-    H+='<div class="ssal-val" style="color:#e74c3c">'+ssal.yangin.val+'</div>';
-    H+='<div class="ssal-where">'+ssal.yangin.where.join('·')+'에 존재</div>';
+  // 4. 연애/결혼
+  var loveRes, loveMsg;
+  var loveStar=gdr==='M'?'정재':'정관';
+  var hasLoveStar=allStars.some(function(s){return s===loveStar||s==='편재'||s==='편관';});
+  var 세운loveStar=getTenStar(ds,세운stem)===loveStar||getTenStar(ds,세운stem)===(gdr==='M'?'편재':'편관');
+  if(hasDohwa&&(hasLoveStar||세운loveStar)){
+    loveRes='yes'; loveMsg='도화살(桃花殺)이 있고 이성 인연의 별('+loveStar+')이 활성화되어 있습니다. <strong>2026년에 특별한 인연이 찾아올 가능성이 높습니다</strong>. 적극적으로 활동하면 좋은 만남이 이루어집니다.';
+  } else if(hasLoveStar||세운loveStar||hasDohwa){
+    loveRes='wait'; loveMsg='인연의 기운이 흐르고 있습니다. 아직 <strong>완벽한 타이밍은 아니지만</strong>, 2026년 봄(3~5월)과 가을(9~10월)에 새로운 만남의 기회가 올 수 있습니다. 마음을 열어 두세요.';
   } else {
-    H+='<div class="ssal-none">없음</div><div class="ssal-where">해당 없음</div>';
+    loveRes='no'; loveMsg='현재는 연애보다 <strong>나 자신을 성장시키는 시기</strong>입니다. 자신의 매력을 갈고닦으면 다음 대운에 더 좋은 인연이 기다립니다. '+zod.comp+' 별자리를 가진 사람과 잘 맞습니다.';
   }
-  H+='</div>';
 
-  // 공망
-  H+='<div class="ssal-card '+(ssal.gongmang.where.length>0?'has':'')+'">';
-  H+='<div class="ssal-name">✕ 공망(空亡)</div>';
-  H+='<div class="ssal-val" style="color:#607d8b">'+gmBranches.join('·')+'</div>';
-  if(ssal.gongmang.where.length>0){
-    H+='<div class="ssal-where">사주에 '+ssal.gongmang.where.join('·')+' 존재</div>';
+  // 5. 창업/사업
+  var bizRes, bizMsg;
+  if(hasPJae&&curTsIsJae&&str==='신강(身强)'){
+    bizRes='yes'; bizMsg='편재(偏財)가 있고 신강한 사주에 재성 대운까지 맞물렸습니다. <strong>2026년은 창업·사업 확장의 최적 타이밍</strong>입니다. 소규모로 시작해서 검증 후 확장하는 전략이 좋습니다.';
+  } else if(hasPJae||curTsIsJae){
+    bizRes='wait'; bizMsg='사업 기질(편재)은 있지만 타이밍을 조금 더 기다려야 합니다. <strong>2~3년 내에 창업 기회가 찾아오는 흐름</strong>입니다. 지금은 사업 아이디어와 자금을 준비하는 시기로 활용하세요.';
   } else {
-    H+='<div class="ssal-where">사주에 미해당</div>';
+    bizRes='no'; bizMsg='현재 사주와 대운의 흐름은 <strong>창업보다 전문성 강화</strong>가 더 맞습니다. 정재(正財)가 있어 안정적 급여 수입이 체질에 맞습니다. 사업보다 부업이나 투자로 수입을 다양화하세요.';
   }
-  H+='</div>';
 
-  H+='</div>'; // ssal-grid
-
-  H+='<div class="dark-card"><h3>🔮 신살 종합 해설</h3>';
-
-  if(ssal.dohwa.where.length>0){
-    H+='<p>🌸 <strong>도화살</strong>이 '+ssal.dohwa.where.join('·')+'에 있느니라. 도화살은 사람을 끌어당기는 강한 매력과 인기의 기운이다. 이성 관계가 다채롭고 예술적·사교적 재능이 빛난다. 다만 지나치면 감정 기복과 이별수를 조심해야 한다.</p>';
-  }
-  if(ssal.yeokma.where.length>0){
-    H+='<p>🐎 <strong>역마살</strong>이 '+ssal.yeokma.where.join('·')+'에 있느니라. 역마살은 이동·변화·여행의 기운이다. 한곳에 머물지 않고 전국·해외를 다니며 새로운 기회를 만드는 팔자이다. 이민·해외 거주나 잦은 직장 이동 가능성이 있다.</p>';
-  }
-  if(ssal.hwagae.where.length>0){
-    H+='<p>🌸 <strong>화개살</strong>이 '+ssal.hwagae.where.join('·')+'에 있느니라. 화개살은 예술·종교·철학의 기운이다. 창의적이고 고독을 즐기는 성향이 있으며, 예술이나 정신세계에 뛰어난 재능을 지닌다.</p>';
-  }
-  if(ssal.yangin.where.length>0){
-    H+='<p>⚔️ <strong>양인살</strong>이 '+ssal.yangin.where.join('·')+'에 있느니라. 양인살은 강렬한 의지와 투쟁의 기운이다. 강인한 추진력이 있지만 지나치면 폭발적 기질과 사고(事故)에 주의해야 한다. 군·경·의료 분야에 유리하다.</p>';
-  }
-  if(ssal.gongmang.where.length>0){
-    H+='<p>✕ <strong>공망</strong>에 해당하는 '+gmBranches.join('·')+'이 사주에 존재하느니라. 공망이 있는 기둥의 기운이 허(虛)해지므로, 그 기둥에 해당하는 부분(년주=조상·부모, 월주=형제·직업, 시주=자녀·말년)에서 빈 느낌이 들 수 있다.</p>';
+  // 6. 건강 주의
+  var healthRes, healthMsg;
+  var isHealthWarning=(domEl===EL_GEN[de]&&els[domEl]>gTotal*0.35)||(wkEl&&els[wkEl]===0)||(curTs==='편관'&&str==='신약(身弱)');
+  if(isHealthWarning){
+    healthRes='no'; healthMsg='오행 불균형 또는 현재 대운 기운이 건강에 영향을 줄 수 있습니다. <strong>'+({목:'간·담·눈·근육',화:'심장·혈압·혈관',토:'소화기·췌장·혈당',금:'폐·피부·호흡기',수:'신장·방광·허리·뼈'})[wkEl||domEl]+'</strong> 부위를 특히 관리하세요. 정기 검진을 권장합니다.';
+  } else if(str==='신약(身弱)'){
+    healthRes='wait'; healthMsg='신약한 사주는 에너지 관리가 중요합니다. <strong>과로와 스트레스에 주의</strong>하고, 용신 '+yongshin.elem+' 기운의 음식('+({'목':'신맛(사과·레몬)','화':'쓴맛(녹차·커피)','토':'단맛(고구마·꿀)','금':'매운맛(생강·마늘)','수':'짠맛(미역·견과류)'})[yongshin.elem]+')을 즐겨 드세요.';
   } else {
-    H+='<p>✕ 공망('+gmBranches.join('·')+')은 사주에 직접적으로 나타나지 않으니, 공망의 직접적 영향은 덜한 편이니라.</p>';
+    healthRes='yes'; healthMsg='현재 대운과 사주의 흐름이 건강에 크게 불리하지 않습니다. 다만 <strong>'+({목:'봄철 간·담 관리',화:'여름 심장·혈압 관리',토:'환절기 소화기 관리',금:'가을 폐·피부 관리',수:'겨울 신장·허리 관리'})[de]+'</strong>에 꾸준히 신경 써주세요.';
   }
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
 
-  // ═══════════════════════════════════════════
-  //  07. 합충형파해
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">07</div><div><div class="sec-title">합충형파해(合沖刑破害) 분석</div><div class="sec-desc">사주 기둥 간의 역동적 관계 — 기운의 결합·충돌·변환</div></div></div>';
-
-  var hasAnyRel=rels.stemHap.length+rels.stemChung.length+rels.yukHap.length+rels.samHap.length+rels.bangHap.length+rels.branchChung.length+rels.hyung.length+rels.pa.length+rels.hae.length>0;
-
-  H+='<div class="rel-grid">';
-
-  // 천간합/충
-  H+='<div class="rel-card"><h4>天干 합(合)·충(沖)</h4>';
-  if(rels.stemHap.length===0&&rels.stemChung.length===0){
-    H+='<div style="color:#aaa;font-size:12px">해당 없음</div>';
-  }
-  rels.stemHap.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-hap">합</span><span>'+r.a+'·'+r.b+' → '+r.result+'로 화함</span></div>';
-  });
-  rels.stemChung.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-chung">충</span><span>'+r.a+'·'+r.b+' 충돌</span></div>';
-  });
-  H+='</div>';
-
-  // 지지육합·방합·삼합
-  H+='<div class="rel-card"><h4>地支 합(合) — 육합·삼합·방합</h4>';
-  if(rels.yukHap.length===0&&rels.samHap.length===0&&rels.bangHap.length===0){
-    H+='<div style="color:#aaa;font-size:12px">해당 없음</div>';
-  }
-  rels.yukHap.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-hap">육합</span><span>'+r.a+'·'+r.b+' → '+r.result+'(化)</span></div>';
-  });
-  rels.samHap.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-sam">삼합'+(r.full?'':'반')+'</span><span>'+r.members.join('·')+' → '+r.result+'(局)</span></div>';
-  });
-  rels.bangHap.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-sam">방합'+(r.full?'':'반')+'</span><span>'+r.members.join('·')+' → '+r.result+'(方)</span></div>';
-  });
-  H+='</div>';
-
-  // 지지충
-  H+='<div class="rel-card"><h4>地支 충(沖)</h4>';
-  if(rels.branchChung.length===0){
-    H+='<div style="color:#aaa;font-size:12px">해당 없음</div>';
-  }
-  rels.branchChung.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-chung">충</span><span>'+r.a+'·'+r.b+' 정면 충돌</span></div>';
-  });
-  H+='</div>';
-
-  // 형·파·해
-  H+='<div class="rel-card"><h4>地支 형(刑)·파(破)·해(害)</h4>';
-  if(rels.hyung.length===0&&rels.pa.length===0&&rels.hae.length===0){
-    H+='<div style="color:#aaa;font-size:12px">해당 없음</div>';
-  }
-  rels.hyung.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-hyung">형</span><span>'+r.members.join('·')+' 상처·갈등</span></div>';
-  });
-  rels.pa.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-pa">파</span><span>'+r.a+'·'+r.b+' 깨어짐</span></div>';
-  });
-  rels.hae.forEach(function(r){
-    H+='<div class="rel-item"><span class="rel-badge badge-hae">해</span><span>'+r.a+'·'+r.b+' 방해·손상</span></div>';
-  });
-  H+='</div>';
-
-  H+='</div>'; // rel-grid
-
-  H+='<div class="dark-card"><h3>🔗 합충형파해 종합 해설</h3>';
-  if(!hasAnyRel){
-    H+='<p>'+name+'의 사주 기둥 사이에는 주요 합충형파해가 보이지 않느니라. 기운들이 독립적으로 작용하여 각자의 역할을 충실히 수행하는 안정적인 구조이다.</p>';
-  } else {
-    if(rels.stemHap.length>0||rels.yukHap.length>0||rels.samHap.length>0) {
-      H+='<p>사주에 <strong>합(合)</strong>이 있으니 기운들이 화합하고 융합하는 측면이 있느니라. 합은 변화와 화합을 의미하며, 합이 된 기운은 원래의 성질을 잃고 새로운 오행으로 변환되기도 한다.</p>';
-    }
-    if(rels.stemChung.length>0||rels.branchChung.length>0) {
-      H+='<p>사주에 <strong>충(沖)</strong>이 있으니 강한 역동성과 변화의 기운이 있느니라. 충은 갑작스러운 변화·이동·이별·사고 등을 유발할 수 있지만, 막힌 것을 뚫어주는 긍정적 역할도 한다.</p>';
-    }
-    if(rels.hyung.length>0) {
-      H+='<p>사주에 <strong>형(刑)</strong>이 있으니 타인과의 마찰이나 법적 문제, 건강 문제에 주의가 필요하느니라. 형은 불합리한 상황에서 상처를 주고받는 기운이다.</p>';
-    }
-  }
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  08. 대운 타임라인
-  // ═══════════════════════════════════════════
-  var DAEUN_THEMES=['기초 다지기','성장의 계절','비상(飛上)','전성기','결실과 안정','성숙과 여유','전환의 시기','지혜의 원숙','귀환과 마무리'];
-  var DAEUN_DESCS=[
-    '삶의 뿌리를 내리고 내공을 쌓는 시기. 배움에 집중하고 급하게 결과를 바라지 마라. 이 시기의 노력이 후반 인생의 씨앗이 된다.',
-    '역량이 꽃피기 시작하고 기회가 찾아오는 시기. 자신감을 갖고 도전하면 좋은 결과가 따른다. 인적 네트워크를 넓혀라.',
-    '큰 도약의 기운이 찾아오는 시기. 준비된 자에게 기회가 열린다. 사업·승진·결혼 등 삶의 중요한 변화가 일어난다.',
-    '인생의 황금기. 역량과 운이 맞물려 가장 큰 성취를 이룰 수 있는 시기. 전력을 다하되 자만은 금물이다.',
-    '노력의 열매가 맺히는 시기. 안정적 성과를 거두며 주변을 돌아볼 여유가 생긴다. 이 시기의 결정이 후반부를 좌우한다.',
-    '성취를 바탕으로 여유와 성숙이 찾아오는 시기. 나눔과 후학 양성에서 보람을 찾는다.',
-    '새로운 방향으로의 전환이 시작되는 시기. 유연하게 변화를 받아들이는 지혜가 필요하다. 집착을 내려놓아라.',
-    '삶의 지혜가 깊어지는 시기. 후세에 무엇을 남길지 고민하고 감사와 나눔을 실천하라.',
-    '원숙한 삶의 마무리를 준비하는 시기. 과거를 돌아보고 남은 시간을 의미 있게 쓰는 지혜가 필요하다.'
+  var checks=[
+    {label:'직장·부서 이동 타이밍',res:jobRes,msg:jobMsg,icon:{yes:'🚀',wait:'⏳',no:'🛑'}},
+    {label:'이사·이동 타이밍',res:moveRes,msg:moveMsg,icon:{yes:'📦',wait:'⏳',no:'🏠'}},
+    {label:'2026년 재물운',res:wealthRes,msg:wealthMsg,icon:{yes:'💰',wait:'📊',no:'🐢'}},
+    {label:'연애·결혼 인연',res:loveRes,msg:loveMsg,icon:{yes:'💕',wait:'🌱',no:'📚'}},
+    {label:'창업·사업 타이밍',res:bizRes,msg:bizMsg,icon:{yes:'🏆',wait:'📝',no:'💼'}},
+    {label:'건강 주의 신호',res:healthRes,msg:healthMsg,icon:{yes:'✅',wait:'⚠️',no:'🏥'}}
   ];
+  var verdictLabel={yes:'✅ 지금이 타이밍!',wait:'⏳ 조금 더 기다려라',no:'⚠️ 신중하게'};
 
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">08</div><div><div class="sec-title">대운수(大運數) 타임라인</div><div class="sec-desc">대운 시작: '+daeun.startAge+'세 | '+(daeun.fwd?'순행(順行) — 월주 다음 간지로 진행':'역행(逆行) — 월주 이전 간지로 진행')+'</div></div></div>';
-  H+='<div class="timeline">';
-  daeun.list.slice(0,9).forEach(function(u,i){
-    var isActive=(curAge>=u.age&&curAge<=u.end);
-    var ue=S_ELEM[STEMS.indexOf(u.stem)];
-    var ube=B_ELEM[BRANCHES.indexOf(u.branch)];
+  H+='<div class="checklist-grid">';
+  checks.forEach(function(c){
+    H+='<div class="check-item ci-'+c.res+'">';
+    H+='<div class="ci-top"><div class="ci-indicator">'+c.icon[c.res]+'</div><div class="ci-label">'+c.label+'</div></div>';
+    H+='<div class="ci-verdict">'+verdictLabel[c.res]+'</div>';
+    H+='<div class="ci-reason">'+c.msg+'</div>';
+    H+='</div>';
+  });
+  H+='</div>';
+
+  H+='<div class="daemansin-quote" style="margin-top:16px"><blockquote>';
+  H+='하늘의 때(天時)를 알면 절반은 이긴 것이니라. 준비된 자가 기회를 잡고, 기회를 잡은 자가 운명을 바꾼다.<br>';
+  H+=''+name+'이여, 지금 이 순간이 바로 그 준비의 시간임을 잊지 말지어다.';
+  H+='</blockquote><div class="qa-author">— 대만신의 타이밍 조언</div></div>';
+  H+='</div>';
+
+  // ──────────────────────────────────────────────
+  // STEP 04 — 재물운 상세
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>04</div><div><div class="step-title">💰 재물운 심층 분석</div><div class="step-desc">재물 유형 · 2026 재물 흐름 · 투자 전략 · 행운의 타이밍</div></div></div>';
+
+  var incomeType=hasJJae&&!hasPJae?'안정 급여형 💼':hasPJae&&!hasJJae?'사업·투자형 📈':hasJJae&&hasPJae?'복합 수입형 ⚡':hasSik?'기술·창작 수입형 🎨':'노력 축적형 🌱';
+  var incomeDesc={
+    '안정 급여형 💼':'정재(正財)가 있어 안정적이고 꾸준한 수입이 체질입니다. 월급·임대수입·배당처럼 예측 가능한 현금 흐름에서 심리적 안정을 얻습니다. 장기적으로 확실하게 부를 쌓는 유형입니다.',
+    '사업·투자형 📈':'편재(偏財)가 있어 사업 감각과 투자 직관이 탁월합니다. 정해진 틀보다 기회를 포착하는 능력이 뛰어나며, 다양한 채널로 돈을 버는 데 재능이 있습니다. 단, 충동적 결정 주의.',
+    '복합 수입형 ⚡':'정재와 편재를 모두 갖춰 안정성과 도전성을 균형 있게 지녔습니다. 본업 안정 수입 + 투자/부업 추가 수익의 투 트랙 전략이 이상적입니다.',
+    '기술·창작 수입형 🎨':'식상(食傷)이 강해 기술·창의성·전문성으로 수입을 만드는 유형입니다. 남다른 실력이 곧 돈이 되는 구조를 만들어야 합니다.',
+    '노력 축적형 🌱':'한 번에 큰돈보다 꾸준한 노력으로 장기적으로 안정된 자산을 구축합니다. 성실함이 최고의 재물 전략입니다.'
+  }[incomeType]||'';
+
+  H+='<table class="info-table">';
+  H+='<tr><th>나의 수입 유형</th><td><strong>'+incomeType+'</strong><br><span style="font-size:12px;color:#666">'+incomeDesc+'</span></td></tr>';
+  H+='<tr><th>재성(財星) 현황</th><td>'+(hasJJae?'정재(正財) ✅ ':'')+( hasPJae?'편재(偏財) ✅ ':'')+(!hasJJae&&!hasPJae?'<span style="color:#c0392b">재성 없음 — 노력으로 만드는 팔자</span>':'')+'</td></tr>';
+  H+='<tr><th>용신 오행</th><td><strong>'+yongshin.elem+EL_EMOJI[yongshin.elem]+'</strong> — 이 기운이 강한 해·계절·사람이 재물을 가져온다</td></tr>';
+  H+='<tr><th>최적 투자 분야</th><td>'+({목:'성장주·스타트업·교육·출판·임업·원예',화:'엔터·IT·전자·마케팅·에너지·주식 단기',토:'부동산·토지·건설·요식업·농업·호텔',금:'금·귀금속·의료기기·금융상품·보석',수:'무역·해외주식·유통·핀테크·암호화폐'})[de]+'</td></tr>';
+  H+='<tr><th>2026 재물운 점수</th><td><div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:12px;background:#f0ebe0;border-radius:6px;overflow:hidden"><div style="width:'+wPct+'%;height:100%;background:linear-gradient(90deg,#c9a84c,#f0d080);border-radius:6px"></div></div><strong>'+wPct+'점 / 100</strong></div></td></tr>';
+  H+='</table>';
+
+  H+='<div style="margin-top:14px">';
+  H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin-bottom:10px">📈 대운별 재물 피크 타이밍</h4>';
+  daeun.list.slice(0,8).forEach(function(u){
     var ts=getTenStar(ds,u.stem);
-    var s12=getTwelveStage(ds,u.branch);
-    H+='<div class="tl-item">';
-    H+='<div class="tl-left"><div class="tl-dot'+(isActive?' active':'')+'"></div>'+(i<8?'<div class="tl-bar'+(isActive?' active':'')+'"></div>':'')+'</div>';
-    H+='<div class="tl-body'+(isActive?' active':'')+'">';
-    H+='<div class="tl-age">'+u.age+'~'+u.end+'세 ('+(year+u.age)+'~'+(year+u.end)+'년)</div>';
-    H+='<div class="tl-ganji">'+u.stem+u.branch+' '+(isActive?'← 현재':'')+'</div>';
-    H+='<div class="tl-elem">'+ue+'(天干) · '+ube+'(地支) | 십성: '+(ts||'?')+' | 십이운성: '+s12+'</div>';
-    H+='<div class="tl-desc">'+(DAEUN_DESCS[i]||'')+'</div>';
+    var isRich=(ts==='정재'||ts==='편재');
+    var isNow=(curAge>=u.age&&curAge<=u.end);
+    if(!isRich&&!isNow)return;
+    H+='<div style="display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:8px;background:'+(isNow?'#fffbec':'#faf8f4')+';border:1px solid '+(isNow?'#f5c842':'#e8e0d0')+';margin-bottom:6px">';
+    H+='<span style="font-size:18px">'+(isRich?'💰':'📌')+'</span>';
+    H+='<div><strong>'+u.stem+u.branch+' 대운 ('+u.age+'~'+u.end+'세, '+(year+u.age)+'~'+(year+u.end)+'년)</strong>'+(isNow?' ← 현재':'')+' — ';
+    H+=isRich?'<span style="color:#27ae60">재성 대운 — 재물이 들어오는 황금기. 투자·사업 확장·수입 증대의 시기.</span>':'현재 대운이므로 흐름을 잘 읽어야 합니다.';
     H+='</div></div>';
   });
   H+='</div>';
 
-  // 현재 대운 상세
-  H+='<div class="dark-card"><h3>⚡ 현재 대운 ('+curDu.stem+curDu.branch+' · '+curDu.age+'~'+curDu.end+'세) 심층 분석</h3>';
-  var curDuEl=S_ELEM[STEMS.indexOf(curDu.stem)];
-  var curDuBe=B_ELEM[BRANCHES.indexOf(curDu.branch)];
-  var curDuStar=getTenStar(ds,curDu.stem);
-  var curDuS12=getTwelveStage(ds,curDu.branch);
-  H+='<p>현재 '+curAge+'세인 '+name+'은 <strong>'+curDu.stem+curDu.branch+' 대운</strong>('+curDu.age+'~'+curDu.end+'세)을 지나고 있느니라.</p>';
-  H+='<p>이 대운의 천간 <strong>'+curDu.stem+'</strong>('+curDuEl+')이 일간 '+ds+'와 만나 <strong>'+(curDuStar||'기운 중립')+'</strong>의 영향을 미친다. ';
-  if(curDuEl===de||curDuEl===EL_GEN_R[de]){
-    H+='이 기운은 일간에게 우호적이라 전반적으로 힘이 실리는 시기이다.';
-  } else if(curDuEl===EL_CTR[de]){
-    H+='이 기운은 일간을 제약하는 성질이 있으므로, 압박감과 함께 명예·직업 변화의 기회가 찾아올 수 있다.';
-  } else {
-    H+='현재 대운과 일간이 화합하여 비교적 안정적인 흐름이 이어진다.';
-  }
-  H+='</p>';
-  H+='<p>지지 <strong>'+curDu.branch+'</strong>('+curDuBe+')의 십이운성은 <strong>'+curDuS12+'</strong>이니, '+(STAGE_MEANING[curDuS12]||'')+'</p>';
-  var curDuRelYr=analyzeRelations([dp,{stem:curDu.stem,branch:curDu.branch}]);
-  if(curDuRelYr.yukHap.length>0||curDuRelYr.samHap.length>0) H+='<p>현재 대운이 일주와 <strong>합(合)</strong>을 이루니 변화와 인연이 많은 시기이다.</p>';
-  if(curDuRelYr.branchChung.length>0) H+='<p>현재 대운이 일주와 <strong>충(沖)</strong>을 이루니 변동·이동·이별·이사 등 큰 변화의 기운이 강하다.</p>';
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  09. 세운 2024~2035
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">09</div><div><div class="sec-title">세운(歲運) 분석 2024~2035</div><div class="sec-desc">매년 바뀌는 연간 운의 흐름 — 관운·재운·애정운 포인트</div></div></div>';
-  H+='<div class="year-grid">';
-  yfs.forEach(function(yf){
-    var isCur=(yf.yr===2026);
-    var yfe=S_ELEM[STEMS.indexOf(yf.stem)];
-    H+='<div class="year-card'+(isCur?' cur':'')+'">';
-    H+='<div class="yc-year">'+yf.yr+'年 ('+(yf.yr-year)+'세)</div>';
-    H+='<div class="yc-ganji" style="color:'+(isCur?'#f0d080':EL_COLOR[yfe])+'">'+yf.stem+yf.branch+'</div>';
-    H+='<div class="yc-star">'+(yf.star||'-')+' | '+yf.stage+'</div>';
-    H+='</div>';
-  });
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+=dmi.wealth+'<br><br>'+( str==='신강(身强)'?'신강한 그대여, 강한 기운은 잘 쓰면 무기가 되고 잘못 쓰면 독이 되느니라. 적극적 도전과 신중한 분산 투자를 함께 가져가거라.':'신약한 그대여, 재물은 서두르면 도망가느니라. 꾸준함과 성실함으로 천천히 쌓아가는 것이 가장 확실한 부의 길이니라.');
+  H+='</blockquote><div class="qa-author">— 대만신의 재물 조언</div></div>';
   H+='</div>';
 
-  H+='<div class="dark-card"><h3>📅 주요 세운 해설</h3>';
-  yfs.forEach(function(yf){
-    var yfe=S_ELEM[STEMS.indexOf(yf.stem)];
-    var yrel=analyzeRelations([dp,{stem:yf.stem,branch:yf.branch}]);
-    var notes=[];
-    if(yfe===de||yfe===EL_GEN_R[de]) notes.push('일간에 우호적 — 에너지 상승');
-    if(yfe===EL_CTR[de]) notes.push('관성 기운 — 직업·명예 변화 가능');
-    if(yfe===EL_CTR_R[de]) notes.push('재성 기운 — 재물 기회');
-    if(yrel.branchChung.length>0) notes.push('일지와 충(沖) — 변동·이사·이별 주의');
-    if(yrel.yukHap.length>0||yrel.samHap.length>0) notes.push('일지와 합(合) — 인연·변화');
-    if(notes.length>0){
-      H+='<p><strong>'+yf.yr+'년 ('+yf.stem+yf.branch+')</strong>: '+notes.join(', ')+'</p>';
-    }
-  });
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
+  // ──────────────────────────────────────────────
+  // STEP 05 — 직업운 & 커리어
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>05</div><div><div class="step-title">🏢 직업운 & 커리어 분석</div><div class="step-desc">천직 · 직업 DNA · 커리어 전환점 · 최적 환경</div></div></div>';
 
-  // ═══════════════════════════════════════════
-  //  10. 월운
-  // ═══════════════════════════════════════════
-  var curMonth=new Date().getMonth()+1;
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">10</div><div><div class="sec-title">월운(月運) 분석 — 2026년</div><div class="sec-desc">월별 기운의 흐름 · 매달의 행운 포인트</div></div></div>';
-  var MONTH_THEMES=['새 시작·계획','내실 다지기','도약·성장','창의 발현','관계 확장','성찰·점검','결실 수확','변화 수용','재충전','마무리','준비·설계','회고·감사'];
-  H+='<div class="month-grid">';
-  mfs.forEach(function(mf,i){
-    var isCurM=(mf.mn===curMonth);
-    var mfe=S_ELEM[STEMS.indexOf(mf.stem)];
-    var scoreColor=EL_CSS[mfe]||'linear-gradient(90deg,#ccc,#999)';
-    var score=({갑:72,을:70,병:78,정:76,무:68,기:65,경:74,신:72,임:76,계:74})[mf.stem]||70;
-    H+='<div class="month-card'+(isCurM?' cur-m':'')+'">';
-    H+='<div class="mc-hdr"><span class="mc-num">'+(i+1)+'월</span><span class="mc-ganji" style="color:'+EL_COLOR[mfe]+'">'+mf.stem+mf.branch+'</span></div>';
-    H+='<div style="font-size:11px;color:#666">'+(mf.star||'-')+' | '+MONTH_THEMES[i]+'</div>';
-    H+='<div class="mc-score-bar"><div class="mc-score-fill" style="width:'+score+'%;background:'+scoreColor+'"></div></div>';
-    H+='</div>';
-  });
-  H+='</div>';
-  H+='<div class="dark-card"><h3>📆 현재 월 ('+curMonth+'월) 집중 분석</h3>';
-  var curMf=mfs[curMonth-1];
-  if(curMf){
-    var curMfe=S_ELEM[STEMS.indexOf(curMf.stem)];
-    H+='<p>2026년 '+curMonth+'월은 <strong>'+curMf.stem+curMf.branch+' 월</strong>이니라. ';
-    H+='이달의 기운 <strong>'+curMf.stem+'('+curMfe+')</strong>이 일간 '+ds+'와 만나 <strong>'+(curMf.star||'중립')+'</strong>의 영향을 미친다.</p>';
-    H+='<p>이번 달 키워드: <strong>'+MONTH_THEMES[curMonth-1]+'</strong></p>';
-    if(curMfe===EL_CTR[de]) H+='<p>이달은 관성 기운이 강하여 직업·사회적 활동에 중요한 시기이다. 승진·이직·자격증 취득 등에 유리하다.</p>';
-    if(curMfe===EL_CTR_R[de]) H+='<p>이달은 재성 기운이 활발하여 수입 증가나 투자 기회가 올 수 있다.</p>';
-    if(curMfe===de||curMfe===EL_GEN_R[de]) H+='<p>이달은 일간에게 우호적인 기운이 흐르니 전반적으로 힘이 실리고 활기찬 시기이다.</p>';
-  }
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  11. 연애/결혼운
-  // ═══════════════════════════════════════════
-  var lovePct=({목:72,화:78,토:65,금:68,수:74})[de]||70;
-  if(str==='신강(身强)') lovePct=Math.max(55,lovePct-5); else lovePct=Math.min(85,lovePct+5);
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">11</div><div><div class="sec-title">연애 & 결혼운</div><div class="sec-desc">인연의 기운 · 이상적 파트너 · 결혼 시기</div></div></div>';
-  H+='<div class="gauge-row"><div class="gauge-lbl">연애운</div><div class="gauge-track"><div class="gauge-fill" style="width:'+lovePct+'%;background:linear-gradient(90deg,#e91e63,#f48fb1)"></div></div><div class="gauge-pct">'+lovePct+'%</div></div>';
-  H+='<div class="dark-card"><h3>💕 타고난 인연의 기운</h3><p>'+dmi.love+'</p>';
-  H+='<p style="margin-top:10px">점성술 관점에서 '+zod.k+'는 <strong>'+zod.comp+'</strong>와 깊은 인연을 맺습니다. 관계에서 '+zod.wk.split('·')[0]+'을 주의하면 더욱 풍성한 사랑이 될 것이니라.</p>';
-  H+='</div>';
-
-  // 정재/편재가 결혼 인연 (남성), 정관/편관 (여성)
-  var loveStarLabel=(gdr==='M')?'재성(財星 — 배우자성)':'관성(官星 — 배우자성)';
-  var loveStar1=(gdr==='M')?'정재':'정관';
-  var loveStar2=(gdr==='M')?'편재':'편관';
-
-  H+='<div class="dark-card"><h3>💑 배우자성 분석 — '+loveStarLabel+'</h3>';
-  var loveStarPillars=[];
-  [{lb:'년주',p:yp,st:stars.yr},{lb:'월주',p:mp,st:stars.mo},{lb:'시주',p:hp,st:stars.hr}].forEach(function(x){
-    if(x.p&&(x.st===loveStar1||x.st===loveStar2)) loveStarPillars.push(x);
-  });
-  hiddenStars.forEach(function(hs){ if(hs.star===loveStar1||hs.star===loveStar2) loveStarPillars.push({lb:hs.pillar+'(지장간)',hidden:hs.hidden,star:hs.star}); });
-
-  if(loveStarPillars.length>0){
-    H+='<p>'+name+'의 사주에 '+loveStarLabel+'('+loveStar1+'·'+loveStar2+')이 존재하느니라. 이는 배우자 인연이 사주 안에 뚜렷하게 각인되어 있음을 의미한다.</p>';
-    loveStarPillars.forEach(function(lp){
-      H+='<p>· '+lp.lb+' '+(lp.hidden?lp.hidden:'')+'의 '+lp.star+': '+(lp.star==='정재'||lp.star==='정관'?'안정적이고 신뢰할 수 있는 배우자 인연':'활동적이고 자유로운 배우자 인연')+'</p>';
-    });
-  } else {
-    H+='<p>사주 천간에 '+loveStarLabel+'이 직접 보이지 않으니, 지장간이나 대운·세운에서 배우자 인연이 드러나는 경우가 많느니라. 특히 '+(gdr==='M'?EL_CTR[de]:EL_CTR_R[de])+' 기운이 강한 해에 인연이 찾아올 가능성이 높다.</p>';
-  }
-  H+='</div>';
-
-  H+='<div class="dark-card"><h3>🗓️ 인연이 들어오는 시기</h3>';
-  H+='<p>대운 흐름에서 용신('+yongshin.elem+') 기운이 강한 해, 그리고 배우자성 대운 시기에 중요한 인연이 들어올 가능성이 높다.</p>';
-  H+='<ul>';
-  daeun.list.slice(0,7).forEach(function(u){
-    var ue=S_ELEM[STEMS.indexOf(u.stem)];
-    var ts=getTenStar(ds,u.stem);
-    if(ts===loveStar1||ts===loveStar2||ue===EL_GEN[de]||ue===de){
-      H+='<li><strong>'+u.stem+u.branch+' 대운 ('+u.age+'~'+u.end+'세)</strong>: 인연·결혼 기운이 강한 시기 — '+(ts||ue)+'의 기운이 작용</li>';
-    }
-  });
-  H+='</ul></div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  12. 재물운 (전면 확장)
-  // ═══════════════════════════════════════════
-  // 재성 분석
-  var dayStemIdx = STEMS.indexOf(ds);
-  var allStars = pillars.map(function(p){
-    var s=getTenStar(ds,p.stem);
-    var b=getTenStar(ds,HIDDEN[p.branch]?HIDDEN[p.branch][0]:'');
-    return [s,b];
-  }).reduce(function(a,b){return a.concat(b);},[]).filter(Boolean);
-  var hasJJae = allStars.some(function(s){return s==='정재';});
-  var hasPJae = allStars.some(function(s){return s==='편재';});
-  var jaeStar = hasJJae&&hasPJae?'정재+편재 동시':hasJJae?'정재(正財)':hasPJae?'편재(偏財)':'재성 부재';
-  var jaeCount = allStars.filter(function(s){return s==='정재'||s==='편재';}).length;
-  var wlPct = Math.min(95, 50 + jaeCount*10 + (str==='신강(身强)'?5:0) + (hasJJae?5:0) + (hasPJae?3:0));
-
-  // 수입 유형 판별
-  var hasGwan = allStars.some(function(s){return s==='정관'||s==='편관';});
-  var hasSik = allStars.some(function(s){return s==='식신'||s==='상관';});
-  var incomeType = hasJJae&&!hasPJae ? '안정 급여형' : hasPJae&&!hasJJae ? '사업·투자형' : hasJJae&&hasPJae ? '복합 수입형' : hasSik ? '기술·창작 수입형' : '노력 축적형';
-  var incomeDesc = {
-    '안정 급여형':'정재가 있어 안정적이고 꾸준한 수입 구조가 체질입니다. 월급·임대수입·배당처럼 예측 가능한 현금 흐름에서 안정감을 얻으며 장기적으로 확실히 부를 쌓습니다.',
-    '사업·투자형':'편재가 있어 사업 감각과 투자 직관이 탁월합니다. 정해진 틀보다 기회를 포착하는 능력이 뛰어나며, 다양한 채널로 돈을 버는 데 재능이 있습니다.',
-    '복합 수입형':'정재와 편재를 모두 갖춰 안정성과 도전성을 균형 있게 지녔습니다. 본업으로 안정 수입을 유지하면서 사업·투자로 추가 수익을 창출하는 구조가 이상적입니다.',
-    '기술·창작 수입형':'식상이 강해 기술·창의성·전문성으로 수입을 만드는 유형입니다. 남다른 실력이 곧 돈이 되는 구조를 만들어야 합니다.',
-    '노력 축적형':'한 번에 큰돈을 버는 구조보다 꾸준한 노력과 성실함으로 장기적으로 안정된 자산을 구축하는 유형입니다.'
-  }[incomeType]||'';
-
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">12</div><div><div class="sec-title">재물운 심층 분석</div><div class="sec-desc">재물 DNA · 수입 유형 · 투자 성향 · 연도별 재물 타이밍 · 실전 전략</div></div></div>';
-
-  H+='<div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px">';
-  H+='<div style="flex:1;min-width:180px;background:linear-gradient(135deg,#1a3a1a,#2d6a2d);border-radius:12px;padding:16px;color:#fff">';
-  H+='<div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px">재물운 종합 점수</div>';
-  H+='<div style="font-size:38px;font-weight:900;color:#66bb6a">'+wlPct+'<span style="font-size:16px">점</span></div>';
-  H+='<div style="font-size:12px;color:rgba(255,255,255,.7)">재성: '+jaeStar+'</div>';
-  H+='</div>';
-  H+='<div style="flex:1;min-width:180px;background:linear-gradient(135deg,#1a2a3a,#1a3a5c);border-radius:12px;padding:16px;color:#fff">';
-  H+='<div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px">수입 유형</div>';
-  H+='<div style="font-size:18px;font-weight:700;color:#42a5f5">'+incomeType+'</div>';
-  H+='<div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">신강·신약: '+str+'</div>';
-  H+='</div>';
-  H+='<div style="flex:1;min-width:180px;background:linear-gradient(135deg,#3a1a1a,#6a2d1a);border-radius:12px;padding:16px;color:#fff">';
-  H+='<div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px">용신 기운 (행운의 방향)</div>';
-  H+='<div style="font-size:18px;font-weight:700;color:#ffa726">'+yongshin.elem+' 기운 ('+yongshin.type+')</div>';
-  H+='<div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">이 기운이 올 때 재물이 열린다</div>';
-  H+='</div>';
-  H+='</div>';
-
-  H+='<div class="dark-card"><h3>💎 나의 재물 DNA 분석</h3>';
-  H+='<p style="font-size:14px;line-height:1.9">'+incomeDesc+'</p>';
-  H+='<table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:13px">';
-  H+='<tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.1);color:#f0d080;font-weight:700;width:110px">재물 체질</td>';
-  H+='<td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.1)">'+dmi.wealth+'</td></tr>';
-  H+='<tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.1);color:#f0d080;font-weight:700">최적 투자 분야</td>';
-  var investField = {목:'성장주·스타트업·교육·출판·임업',화:'엔터테인먼트·IT·전자·마케팅·주식',토:'부동산·토지·건설·요식업·농업',금:'금·귀금속·고가품·의료·금융상품',수:'무역·해외주식·유통·금융·암호화폐'}[de]||'분산 투자';
-  H+='<td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.1)">'+investField+'</td></tr>';
-  H+='<tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.1);color:#f0d080;font-weight:700">위험 투자</td>';
-  var riskField = {목:'금(金) 관련·철강·제조업 (관성이 제극)','화':'수(水) 관련·냉동·환경사업',토:'목(木) 관련·농업투기·벤처',금:'화(火) 관련·에너지·엔터테인먼트 단기투기',수:'토(土) 관련·부동산 단기매매·토건'}[de]||'고위험 단기투자';
-  H+='<td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.1)">'+riskField+'는 주의 필요 — 상극 오행이 강한 해에 손실 위험</td></tr>';
-  H+='<tr><td style="padding:10px;color:#f0d080;font-weight:700">행운의 숫자</td>';
-  var luckyNum = {목:'1, 2, 8',화:'3, 4, 9',토:'5, 6, 10',금:'7, 8, 1',수:'9, 10, 6'}[de]||'3, 8, 9';
-  H+='<td style="padding:10px">'+luckyNum+' | 행운의 색: '+({'목':'초록·청색','화':'빨강·주황','토':'노랑·황토','금':'흰색·은색','수':'검정·남색'})[yongshin.elem]+'</td></tr>';
-  H+='</table></div>';
-
-  H+='<div class="dark-card"><h3>📊 연령대별 재물 전략</h3>';
-  H+='<table style="width:100%;border-collapse:collapse;font-size:13px">';
-  H+='<tr style="background:rgba(255,255,255,.06)"><th style="padding:10px;text-align:left;color:#f0d080;border-bottom:1px solid rgba(255,255,255,.1)">시기</th>';
-  H+='<th style="padding:10px;text-align:left;color:#f0d080;border-bottom:1px solid rgba(255,255,255,.1)">핵심 전략</th>';
-  H+='<th style="padding:10px;text-align:left;color:#f0d080;border-bottom:1px solid rgba(255,255,255,.1)">주의사항</th></tr>';
-  var ageNow = 2026 - year;
-  var decades = [
-    [20,29,'수입의 30% 이상 강제 저축. 투자 공부와 종잣돈 확보가 최우선','빚 내서 투자 금지. 레버리지 배제'],
-    [30,39,'부동산 또는 장기 주식 포트폴리오 구축. 부업·사이드 인컴 시작','충동적 사업 창업 주의. 사람 보증 절대 금지'],
-    [40,49,'자산 배분 리밸런싱. 안정 자산 40% 이상 확보. 은퇴 설계 시작','고위험 투자 비중 20% 이하로 제한'],
-    [50,59,'배당·임대·연금 수입 구조화. 자산 방어가 공격보다 중요','완전히 새로운 사업 진출 신중히'],
-    [60,99,'자산 보전과 생활비 창출 구조 완성. 가족에게 이전 계획 수립','사기·원금 보장 수익 상품 절대 주의']
-  ];
-  decades.forEach(function(d){
-    var isNow = ageNow>=d[0]&&ageNow<=d[1];
-    H+='<tr style="'+(isNow?'background:rgba(201,168,76,.12)':'')+'">';
-    H+='<td style="padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap">'+(isNow?'▶ ':'')+d[0]+'~'+d[1]+'세'+(isNow?' <span style="color:#f0d080;font-size:10px">(현재)</span>':'')+'</td>';
-    H+='<td style="padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.06)">'+d[2]+'</td>';
-    H+='<td style="padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,120,120,.9)">'+d[3]+'</td></tr>';
-  });
-  H+='</table></div>';
-
-  H+='<div class="dark-card"><h3>🗓️ 대운별 재물 타이밍 예측</h3><ul style="list-style:none;padding:0">';
-  daeun.list.slice(0,8).forEach(function(u){
-    var ts=getTenStar(ds,u.stem);
-    var isRich=(ts==='정재'||ts==='편재');
-    var isStrong=(ts==='비견'||ts==='겁재');
-    var isOff=(ts==='정관'||ts==='편관');
-    var isSik=(ts==='식신'||ts==='상관');
-    var curU=(curAge>=u.age&&curAge<=u.end);
-    var icon, msg, badgeColor;
-    if(isRich){icon='💰';msg='재성 대운 — 재물이 들어오는 황금기. 투자·사업 확장·수입 증대';badgeColor='#27ae60';}
-    else if(isSik){icon='🎨';msg='식상 대운 — 기술·창작·부업으로 수입 채널 다양화. 재물의 씨앗을 뿌리는 시기';badgeColor='#e67e22';}
-    else if(isOff){icon='📋';msg='관성 대운 — 직업·명예 변화. 수입 구조 변동 가능. 무리한 투기 자제';badgeColor='#3498db';}
-    else if(isStrong){icon='⚡';msg='비겁 대운 — 경쟁·독립심 강해짐. 독립창업 또는 분산 위험. 협력이 유리';badgeColor='#8e44ad';}
-    else{icon='📚';msg='인성 대운 — 준비·공부·내공 쌓기. 재물보다 자기계발에 투자가 이득';badgeColor='#95a5a6';}
-    H+='<li style="display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;padding:10px;border-radius:8px;background:'+(curU?'rgba(201,168,76,.1)':'rgba(255,255,255,.04)')+'">';
-    H+='<span style="font-size:20px">'+icon+'</span>';
-    H+='<div><div style="font-size:13px;font-weight:700;color:#f0d080">'+u.stem+u.branch+' 대운 ('+u.age+'~'+u.end+'세, '+(year+u.age)+'~'+(year+u.end)+'년)'+(curU?' ← 현재 진행중':'')+'</div>';
-    H+='<span style="background:'+badgeColor+'30;color:'+badgeColor+';padding:2px 8px;border-radius:10px;font-size:11px">'+( ts||u.stem+' 대운')+'</span>';
-    H+='<div style="margin-top:5px;font-size:12px;color:rgba(255,255,255,.75)">'+msg+'</div></div></li>';
-  });
-  H+='</ul></div>';
-
-  H+='<div class="dark-card"><h3>✅ 지금 당장 실천할 재물 전략 5가지</h3><ol style="padding-left:16px">';
-  var wealthActions = [
-    '수입의 <strong>최소 20%는 자동이체 강제저축</strong> 설정 — "쓰고 남은 돈을 저축"이 아닌 "저축하고 남은 돈을 쓰는" 구조를 만들어라',
-    '용신 오행 <strong>'+yongshin.elem+'('+EL_EMOJI[yongshin.elem]+')</strong> 관련 산업에 우선 투자하라 — 이 기운이 사주를 돕는 에너지이므로 관련 업종의 주식이나 사업에 친숙해져라',
-    ''+incomeType+' 특성에 맞게 <strong>수입 구조를 최적화</strong>하라 — '+incomeDesc.split('。')[0],
-    '재물을 부르는 날: 용신 '+yongshin.elem+' 오행의 <strong>천간일('+STEMS.filter(function(_,i){return S_ELEM[i]===yongshin.elem;}).join('·')+'일)</strong>에 중요한 계약·투자를 진행하라',
-    '반드시 피할 것: <strong>'+({목:'경·신 일간 금 기운이 강한 해, 충동적 단기투기',화:'임·계 일간 수 기운이 강한 해, 냉정한 판단이 필요',토:'갑·을 일간 목 기운이 강한 해, 토지 투기 경계',금:'병·정 일간 화 기운이 강한 해, 보증 및 감정적 투자',수:'무·기 일간 토 기운이 강한 해, 부동산 단타 경계'})[de]+'</strong>'
-  ];
-  wealthActions.forEach(function(a){H+='<li style="margin-bottom:10px;line-height:1.8">'+a+'</li>';});
-  H+='</ol></div>';
-  H+='</div><div class="divider"></div>';
-
-
-  // ═══════════════════════════════════════════
-  //  13. 직업운 (전면 확장)
-  // ═══════════════════════════════════════════
-  var carPct = Math.min(95, 55 + (hasGwan?12:0) + (hasSik?8:0) + (str==='신강(身强)'?5:0));
-  // 직업 성격 분석
-  var workStyle = hasGwan&&!hasSik ? '조직형·관리자형' : hasSik&&!hasGwan ? '창의형·독립형' : hasGwan&&hasSik ? '변화형·전문가형' : hasJJae||hasPJae ? '사업형·기업가형' : '전문성형·실력파형';
-  var workStyleDesc = {
-    '조직형·관리자형':'관성이 강하여 체계적인 조직 안에서 규칙과 질서를 따르며 위로 올라가는 데 탁월합니다. 공무원·대기업·전문직 조직에서 안정적 커리어를 쌓을 수 있습니다.',
-    '창의형·독립형':'식상이 강하여 창의적 아이디어와 자유로운 표현이 생명입니다. 틀에 박힌 조직보다 자유도가 높은 환경에서 진가를 발휘하며, 프리랜서·창업이 잘 맞습니다.',
-    '변화형·전문가형':'관성과 식상 모두 있어 전문성을 갖추면서도 변화와 혁신을 추구합니다. 전문직으로 시작해 독립하거나 새로운 분야를 개척하는 커리어가 이상적입니다.',
-    '사업형·기업가형':'재성이 강하여 사업 감각이 탁월합니다. 남의 밑에서 일하는 것보다 자신이 주도하는 사업에서 능력이 최대로 발휘됩니다.',
-    '전문성형·실력파형':'꾸준한 실력 축적으로 인정받는 유형입니다. 특정 분야의 전문가로 깊이를 쌓으면 독보적 포지션을 만들 수 있습니다.'
-  }[workStyle]||'';
-
-  var leaderStyle = str==='신강(身强)' ?
-    '강한 리더십형 — 추진력이 강하고 결단이 빠릅니다. 상황을 장악하고 팀을 이끄는 역할이 천성에 맞습니다. 단, 일방통행적 소통을 경계하세요.' :
-    '서번트 리더십형 — 구성원을 챙기고 팀의 역량을 끌어내는 능력이 탁월합니다. 독주보다 화합으로 더 큰 결과를 만들어냅니다.';
-
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">13</div><div><div class="sec-title">직업운 & 커리어 심층 분석</div><div class="sec-desc">천직·직업 DNA·커리어 로드맵·대운별 전환점·실전 조언</div></div></div>';
-
-  H+='<div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px">';
-  H+='<div style="flex:1;min-width:180px;background:linear-gradient(135deg,#1a1a3a,#2d2d6a);border-radius:12px;padding:16px;color:#fff">';
-  H+='<div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px">직업운 종합 점수</div>';
-  H+='<div style="font-size:38px;font-weight:900;color:#64b5f6">'+carPct+'<span style="font-size:16px">점</span></div>';
-  H+='<div style="font-size:12px;color:rgba(255,255,255,.7)">'+workStyle+'</div>';
-  H+='</div>';
-  H+='<div style="flex:2;min-width:200px;background:rgba(255,255,255,.06);border-radius:12px;padding:16px;color:#fff;border:1px solid rgba(255,255,255,.1)">';
-  H+='<div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px">리더십 스타일</div>';
-  H+='<div style="font-size:13px;line-height:1.7">'+leaderStyle+'</div>';
-  H+='</div>';
-  H+='</div>';
-
-  H+='<div class="dark-card"><h3>🎯 천직(天職) — '+name+'에게 맞는 직업</h3>';
-  H+='<p style="margin-bottom:12px">'+workStyleDesc+'</p>';
-
-  // 직업 추천 상세
-  var jobCats = {
-    목:{top:['교육·강사·교수','출판·작가·저널리스트','환경·조경·농업','NGO·비영리 리더','성장 컨설턴트'],
-       why:'갑목은 성장과 방향을 제시하는 리더형, 을목은 유연하게 적응하며 감성을 전달하는 예술가형입니다.',
-       env:'자유롭고 성장 지향적인 조직, 수직적 관료제보다 수평적 조직이 맞습니다.',
-       avoid:'단순 반복 업무, 창의성을 억압하는 환경, 강한 통제와 감시 하의 업무'},
-    화:{top:['방송·미디어·크리에이터','마케팅·PR·광고','의료·응급 구조','강사·코치·멘토','정치·사회운동'],
-       why:'병화는 태양처럼 무대 위에서 빛나는 리더형, 정화는 섬세하게 집중하며 전문성을 발휘하는 아티스트형입니다.',
-       env:'활동적이고 사람과의 교류가 많은 환경, 표현과 소통이 가능한 조직',
-       avoid:'혼자 오래 앉아서 하는 단순 반복 업무, 가시성 없는 후방 지원 업무'},
-    토:{top:['부동산·건설·개발','경영·행정·공무원','의료·한의학','요식업·호텔','재무·자산관리'],
-       why:'무토는 산처럼 묵직한 경영자형, 기토는 비옥한 토양처럼 모든 것을 길러내는 양육 전문가형입니다.',
-       env:'안정적이고 체계적인 조직, 명확한 역할과 책임이 있는 환경',
-       avoid:'지나치게 빠른 변화와 불확실성이 높은 스타트업 환경'},
-    금:{top:['법조·검찰·경찰','금융·은행·증권','정밀의료·외과','IT 보안·감사','장인·기계·제조'],
-       why:'경금은 원광석처럼 강인한 원칙주의자형, 신금은 보석처럼 날카로운 완벽주의 전문가형입니다.',
-       env:'명확한 기준과 원칙이 있는 조직, 실력과 성과로 평가받는 공정한 환경',
-       avoid:'불투명하고 관계 위주의 조직, 감으로 움직이는 불확실한 환경'},
-    수:{top:['IT·데이터 분석·AI','무역·국제비즈니스','연구·학술','철학·상담·심리','금융·투자 분석'],
-       why:'임수는 큰 강처럼 전략적 비전가형, 계수는 샘물처럼 깊고 섬세한 연구자형입니다.',
-       env:'지적 자유와 탐구가 허용되는 조직, 다양성과 유연성이 존중받는 환경',
-       avoid:'지나치게 정형화된 틀과 창의성이 없는 단순 실행 업무'}
+  var jobCatData={
+    목:{top:['교육·강의·코치','출판·작가·크리에이터','환경·조경·원예','NGO·사회적기업','컨설턴트·멘토'],why:'성장과 방향을 제시하는 타고난 리더형',env:'자유롭고 수평적인 조직, 성장 지향 문화'},
+    화:{top:['방송·유튜버·크리에이터','마케팅·PR·광고','의료·응급·소방','강사·코치·MC','정치·사회운동'],why:'태양처럼 무대 위에서 빛나는 표현형',env:'사람과의 교류가 많고 활동적인 환경'},
+    토:{top:['부동산·건설·개발','경영·행정·공무원','의료·한의학·영양','요식업·호텔·서비스','재무·자산관리'],why:'든든하고 신뢰받는 포용력의 안정형',env:'체계적이고 명확한 역할과 책임이 있는 조직'},
+    금:{top:['법조·검찰·경찰','금융·은행·증권','정밀의료·외과','IT보안·감사·품질','장인·기계·제조'],why:'날카롭고 강인한 원칙주의 전문가형',env:'실력과 성과로 공정하게 평가받는 환경'},
+    수:{top:['IT·데이터·AI·기획','무역·국제비즈니스','연구·학술·철학','심리상담·의료·코칭','금융분석·투자'],why:'깊은 지혜와 유연한 적응력의 전략가형',env:'지적 자유와 다양성이 허용되는 창의적 조직'}
   };
-  var jc = jobCats[de]||jobCats['토'];
-  H+='<table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:4px">';
-  H+='<tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.08);color:#f0d080;font-weight:700;width:100px">추천 직군 TOP 5</td>';
-  H+='<td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.08)">'+jc.top.map(function(t,i){return (i+1)+'. '+t;}).join(' &nbsp;|&nbsp; ')+'</td></tr>';
-  H+='<tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.08);color:#f0d080;font-weight:700">추천 이유</td>';
-  H+='<td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.08)">'+jc.why+'</td></tr>';
-  H+='<tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.08);color:#f0d080;font-weight:700">최적 환경</td>';
-  H+='<td style="padding:10px;border-bottom:1px solid rgba(255,255,255,.08)">'+jc.env+'</td></tr>';
-  H+='<tr><td style="padding:10px;color:#f0d080;font-weight:700">피할 환경</td>';
-  H+='<td style="padding:10px">'+jc.avoid+'</td></tr>';
-  H+='</table></div>';
+  var jc=jobCatData[de]||jobCatData['토'];
 
-  H+='<div class="dark-card"><h3>🔄 커리어 전환점 & 대운별 로드맵</h3>';
-  H+='<div style="position:relative;padding-left:20px">';
-  daeun.list.slice(0,8).forEach(function(u,idx){
+  H+='<div style="background:#f8f6f2;border-radius:12px;padding:16px;margin-bottom:14px">';
+  H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin-bottom:6px">'+jc.why+'</h4>';
+  H+='<p style="font-size:13px;color:#555;margin-bottom:12px">'+dmi.job+'</p>';
+  H+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
+  jc.top.forEach(function(t,i){H+='<span style="background:linear-gradient(135deg,#1a0a3d,#2d1b69);color:#f0d080;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600">'+(i+1)+'. '+t+'</span>';});
+  H+='</div>';
+  H+='<p style="font-size:12px;color:#888;margin-top:10px">최적 환경: '+jc.env+'</p>';
+  H+='</div>';
+
+  H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin:14px 0 10px">🔄 커리어 전환점 예측</h4>';
+  H+='<div class="tl-wrap">';
+  daeun.list.slice(0,7).forEach(function(u,idx){
     var ts=getTenStar(ds,u.stem);
-    var ue=S_ELEM[STEMS.indexOf(u.stem)];
+    var isNow=(curAge>=u.age&&curAge<=u.end);
     var isMove=['인','신','사','해'].indexOf(u.branch)>=0;
-    var isGwanRun=(ue===EL_CTR[de]||ue===EL_CTR_R[de]);
-    var curU=(curAge>=u.age&&curAge<=u.end);
-    var carIcon,carMsg,dotColor;
-    if(ts==='정관'||ts==='편관'){
-      carIcon='🏆';dotColor='#f0d080';
-      carMsg='관성 대운 — <strong>승진·공식 직함·리더십 포지션</strong> 기회. 조직 내 명예와 인정이 따릅니다. '+(year+u.age)+'~'+(year+u.end)+'년 사이 커리어의 정점을 경험할 가능성.';
-    }else if(ts==='식신'||ts==='상관'){
-      carIcon='💡';dotColor='#42a5f5';
-      carMsg='식상 대운 — <strong>전문성 극대화·창업·독립 전환</strong> 시기. 실력을 외부에 드러내고 새로운 수입 구조를 만들기 좋습니다.';
-    }else if(ts==='편재'||ts==='정재'){
-      carIcon='💼';dotColor='#66bb6a';
-      carMsg='재성 대운 — <strong>사업 확장·수익 극대화·투자 성과</strong>. 커리어보다 수입 증대에 집중할 시기입니다.';
-    }else if(ts==='비견'||ts==='겁재'){
-      carIcon='⚔️';dotColor='#ef5350';
-      carMsg='비겁 대운 — <strong>독립·경쟁·갈등</strong>. 직장 내 경쟁이 심해지거나 독립/창업 충동이 강해집니다. 신중한 판단이 필요합니다.';
-    }else{
-      carIcon='📚';dotColor='#78909c';
-      carMsg='인성 대운 — <strong>자기계발·학습·준비기</strong>. 당장의 성과보다 실력과 자격을 쌓는 데 투자하세요.';
-    }
-    H+='<div style="display:flex;gap:12px;margin-bottom:14px">';
-    H+='<div style="display:flex;flex-direction:column;align-items:center">';
-    H+='<div style="width:14px;height:14px;border-radius:50%;background:'+dotColor+';flex-shrink:0;'+(curU?'box-shadow:0 0 10px '+dotColor:'')+'"></div>';
-    H+=(idx<7?'<div style="width:2px;flex:1;background:rgba(255,255,255,.1);margin:2px auto;min-height:20px"></div>':'');
-    H+='</div>';
-    H+='<div style="flex:1;padding:10px 12px;border-radius:8px;background:'+(curU?'rgba(201,168,76,.1)':'rgba(255,255,255,.03)')+';border:1px solid '+(curU?'rgba(201,168,76,.3)':'rgba(255,255,255,.07)')+'">';
-    H+='<div style="font-size:13px;font-weight:700;color:'+(curU?'#f0d080':'rgba(255,255,255,.8)')+'">'+carIcon+' '+u.stem+u.branch+' 대운 | '+u.age+'~'+u.end+'세 ('+(year+u.age)+'~'+(year+u.end)+'년)'+(curU?' ← 현재':'')+'</div>';
-    H+='<div style="font-size:12px;color:rgba(255,255,255,.65);margin-top:5px;line-height:1.7">'+carMsg;
-    if(isMove) H+='<br><span style="color:#ffa726">🗺️ 역마지지 포함 — 해외·지방·이동이 수반되는 변화 가능성</span>';
-    H+='</div></div></div>';
+    var theme,icon;
+    if(ts==='정관'||ts==='편관'){icon='🏆';theme='관성 대운 — 승진·공직·명예·리더십 포지션. '+(year+u.age)+'년경 커리어의 정점 가능';}
+    else if(ts==='식신'||ts==='상관'){icon='💡';theme='식상 대운 — 창업·프리랜서·전문성 극대화. 새 수입 구조 만들기 최적';}
+    else if(ts==='편재'||ts==='정재'){icon='💼';theme='재성 대운 — 수익 중심, 사업 확장, 영업·판매직에서 빛남';}
+    else if(ts==='비견'||ts==='겁재'){icon='⚔️';theme='비겁 대운 — 독립·경쟁·협업. 창업 충동 강해지는 시기';}
+    else{icon='📚';theme='인성 대운 — 자기계발·학습·내공 쌓기. 다음 도약을 위한 준비기';}
+    H+='<div class="tl-row">';
+    H+='<div class="tl-left"><div class="tl-dot'+(isNow?' cur':'')+'"></div>'+(idx<6?'<div class="tl-line'+(isNow?' active':'')+'"></div>':'')+'</div>';
+    H+='<div class="tl-body'+(isNow?' cur':'')+'">';
+    H+='<div class="tl-period">'+u.stem+u.branch+' 대운 · '+u.age+'~'+u.end+'세 ('+(year+u.age)+'~'+(year+u.end)+'년)'+(isNow?' ◀ 현재 진행중':'')+'</div>';
+    H+='<div class="tl-ganji">'+icon+' '+(ts||u.stem+' 대운')+'</div>';
+    H+='<div class="tl-theme">'+theme+(isMove?' 🗺️ 역마지지 포함 — 이동·해외·지방 변화 가능성':'' )+'</div>';
+    H+='</div></div>';
   });
-  H+='</div></div>';
-
-  H+='<div class="dark-card"><h3>💪 직장 내 강점과 약점</h3>';
-  H+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">';
-  var strengths = {목:['성장 지향적 리더십','명확한 목표 설정 능력','원칙 중심의 신뢰감','장기 비전 제시'],
-    화:['탁월한 표현력과 소통','열정으로 팀을 이끄는 힘','빠른 결단력과 추진력','인맥과 네트워크'],
-    토:['높은 신뢰성과 책임감','안정적 관리 능력','인내심과 꾸준함','팀 통합력'],
-    금:['날카로운 분석력','높은 기준과 완벽주의','원칙 수호 능력','전문성과 기술력'],
-    수:['창의적 문제 해결','유연한 적응력','깊은 통찰력','다각도 사고']};
-  var weaknesses = {목:['지나친 고집','타인 의견 무시 경향','완성보다 시작에 집중','빠른 변화에 취약'],
-    화:['감정적 의사결정','지속력 부족','과장 표현','번아웃 위험'],
-    토:['변화 거부','지나친 신중함','우유부단한 상황 발생','새 아이디어 저항'],
-    금:['지나친 완벽주의','경직된 사고','융통성 부족','날카로운 비판'],
-    수:['집중력 분산','결단 지연','과도한 분석','경계 불명확']};
-  H+='<div><h4 style="color:#66bb6a;margin-bottom:8px">✅ 강점</h4><ul style="padding-left:16px">';
-  (strengths[de]||strengths['토']).forEach(function(s){H+='<li style="margin-bottom:5px;font-size:12px">'+s+'</li>';});
-  H+='</ul></div>';
-  H+='<div><h4 style="color:#ef5350;margin-bottom:8px">⚠️ 개선점</h4><ul style="padding-left:16px">';
-  (weaknesses[de]||weaknesses['토']).forEach(function(s){H+='<li style="margin-bottom:5px;font-size:12px">'+s+'</li>';});
-  H+='</ul></div>';
-  H+='</div></div>';
-
-  H+='<div class="dark-card"><h3>🚀 지금 당장 커리어에서 실천할 것</h3><ol style="padding-left:16px">';
-  var careerActions = [
-    '나의 수입 유형 <strong>'+workStyle+'</strong>에 맞는 커리어 구조를 설계하라 — 체질에 맞지 않는 구조에서 억지로 일하면 재능이 반감된다',
-    '현재 대운 <strong>'+curDu.stem+curDu.branch+'('+curDu.age+'~'+curDu.end+'세)</strong>의 에너지를 분석하고, 이 기운이 직업에 미치는 영향을 파악하라',
-    '추천 직군 <strong>'+jc.top[0]+', '+jc.top[1]+'</strong> 분야에서 전문성을 쌓거나 현재 직업과의 접점을 찾아라',
-    '용신 <strong>'+yongshin.elem+'</strong> 기운이 강한 해(<strong>'+STEMS.filter(function(_,i){return S_ELEM[i]===yongshin.elem;}).join('·')+'년</strong>)에 중요한 커리어 결정을 내려라 — 이직, 창업, 승진 지원 등',
-    '최적 환경 <strong>'+jc.env.split(',')[0]+'</strong>에서 일하고 있는지 점검하라 — 환경이 맞지 않으면 재능의 30%도 발휘되지 않는다'
-  ];
-  careerActions.forEach(function(a){H+='<li style="margin-bottom:10px;line-height:1.8">'+a+'</li>';});
-  H+='</ol></div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  14. 건강운
-  // ═══════════════════════════════════════════
-  var hlPct=({목:75,화:68,토:65,금:78,수:70})[de]||70;
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">14</div><div><div class="sec-title">건강운 & 질병 예방</div><div class="sec-desc">오행으로 보는 취약 부위 · 시기별 건강 주의점</div></div></div>';
-  H+='<div class="gauge-row"><div class="gauge-lbl">건강운</div><div class="gauge-track"><div class="gauge-fill" style="width:'+hlPct+'%;background:linear-gradient(90deg,#2e7d32,#66bb6a)"></div></div><div class="gauge-pct">'+hlPct+'%</div></div>';
-
-  H+='<div class="dark-card"><h3>🌿 오행별 건강 지침</h3>';
-  H+='<p>'+dmi.health+'</p>';
-  H+='<p style="margin-top:10px">사주 오행 분포를 보면 ';
-  if(els[wkEl]===0){
-    H+='<strong>'+wkEl+'</strong> 기운이 전혀 없어 '+({목:'간·담·근육·눈·신경계',화:'심장·소장·혈관·혈압',토:'비위·소화기·췌장',금:'폐·대장·피부·호흡기',수:'신장·방광·뼈·허리'})[wkEl]+' 관련 질환에 특히 주의가 필요하다.';
-  } else if(els[domEl]>gTotal*0.35){
-    H+='<strong>'+domEl+'</strong> 기운이 과다하여 '+({목:'간·담·근육 과부하, 두통',화:'심장·혈관 과부하, 고혈압',토:'소화기 과부하, 당뇨',금:'폐·호흡기 과부하, 피부염',수:'신장 과부하, 냉증'})[domEl]+' 관련 주의가 필요하다.';
-  } else {
-    H+='오행이 비교적 균형을 이루어 전반적 건강은 양호한 편이다.';
-  }
-  H+='</p>';
-
-  H+='<table class="info-table"><tr><th>오행</th><th>관련 장기</th><th>주의점</th></tr>';
-  var orgMap={목:['간·담·근육·눈','봄철 과로와 스트레스'],화:['심장·소장·혈관','여름철 열 관리·수분'],토:['비위·췌장·입','환절기 소화기·당분'],금:['폐·대장·피부','가을 건조한 공기·호흡'],수:['신장·방광·뼈·귀','겨울 보온·수분']};
-  ['목','화','토','금','수'].forEach(function(e){
-    var orgInfo=orgMap[e];
-    var isWeak=(e===wkEl&&els[e]<2);
-    H+='<tr style="'+(isWeak?'background:#fde8e8':'')+'"><td style="color:'+EL_COLOR[e]+'">'+EL_EMOJI[e]+' '+e+'</td><td>'+orgInfo[0]+'</td><td>'+orgInfo[1]+(isWeak?' ⚠️ 주의':'')+'</td></tr>';
-  });
-  H+='</table></div>';
-
-  H+='<div class="dark-card"><h3>⚠️ 건강 주의 시기</h3><ul>';
-  daeun.list.slice(0,7).forEach(function(u){
-    var ue=S_ELEM[STEMS.indexOf(u.stem)];
-    if(ue===EL_CTR_R[de]){
-      H+='<li><strong>'+u.stem+u.branch+' 대운 ('+u.age+'~'+u.end+'세)</strong>: 비겁 충극 — 체력 소모와 심신 피로에 유의</li>';
-    } else if(ue===wkEl){
-      H+='<li><strong>'+u.stem+u.branch+' 대운 ('+u.age+'~'+u.end+'세)</strong>: 약한 오행('+wkEl+') 기운 — 관련 장기 건강 검진 권장</li>';
-    }
-  });
-  H+='</ul></div>';
-  H+='</div><div class="divider"></div>';
-
-  // ═══════════════════════════════════════════
-  //  15. 서양 점성술
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">15</div><div><div class="sec-title">서양 점성술(占星術) 분석</div><div class="sec-desc">태양궁(Sun Sign) · 상승궁(Ascendant) · 수호 행성 · 12하우스</div></div></div>';
-
-  H+='<div class="ast-card" style="text-align:center">';
-  H+='<span class="zodiac-big">'+zod.s+'</span>';
-  H+='<div class="zodiac-name">'+zod.k+' <span style="font-size:14px;opacity:.6">('+zod.e+')</span></div>';
-  H+='<div class="zodiac-sub">원소: '+zod.el+' | 수호 행성: '+zod.planet+' | '+month+'월 '+day+'일 출생</div>';
-  H+='<p style="text-align:left">'+zod.ch+'</p>';
   H+='</div>';
 
-  H+='<div class="ast-card"><h3>☀️ 태양궁 상세 프로필</h3>';
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+=name+'의 천직은 <strong style="color:#f0d080">'+jc.top[0]+'</strong> 또는 <strong style="color:#f0d080">'+jc.top[1]+'</strong> 분야에 있느니라.<br>';
+  H+='지금 하는 일이 천직과 멀다면, 지금 당장 방향을 돌릴 용기가 필요하다.<br>';
+  H+='현재 대운('+curDu.stem+curDu.branch+')의 기운이 그대에게 말하고 있나니 — '+( curTsIsGwan?'지금은 조직에서 인정받고 올라가는 시기니라.':curTsIsSik?'지금은 전문성을 발휘하고 표현하는 시기니라.':curTsIsJae?'지금은 수익을 극대화하는 시기니라.':'지금은 실력을 갈고닦는 시기니라.')+' 흐름에 올라타거라.';
+  H+='</blockquote><div class="qa-author">— 대만신의 커리어 조언</div></div>';
+  H+='</div>';
+
+  // ──────────────────────────────────────────────
+  // STEP 06 — 연애 & 결혼운
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>06</div><div><div class="step-title">💕 연애 & 결혼운</div><div class="step-desc">인연의 기운 · 이상형 · 결혼 시기 · 연애 패턴</div></div></div>';
   H+='<table class="info-table">';
-  H+='<tr><th>별자리</th><td>'+zod.s+' '+zod.k+' ('+zod.e+')</td></tr>';
-  H+='<tr><th>원소</th><td>'+zod.el+'</td></tr>';
-  H+='<tr><th>수호 행성</th><td>'+zod.planet+'</td></tr>';
-  H+='<tr><th>지배 하우스</th><td>'+zod.house+' 하우스</td></tr>';
-  H+='<tr><th>핵심 키워드</th><td>'+zod.kw+'</td></tr>';
-  H+='<tr><th>핵심 강점</th><td>'+zod.str+'</td></tr>';
-  H+='<tr><th>보완할 점</th><td>'+zod.wk+'</td></tr>';
-  H+='<tr><th>궁합 별자리</th><td>'+zod.comp+'</td></tr>';
-  H+='</table></div>';
+  H+='<tr><th>연애 패턴</th><td>'+dmi.love+'</td></tr>';
+  H+='<tr><th>이상적 파트너</th><td>'+yongshin.elem+' 기운을 지닌 사람 ('+STEMS.filter(function(_,i){return S_ELEM[i]===yongshin.elem;}).join('·')+'일주 또는 '+yongshin.elem+' 별자리)'+'</td></tr>';
+  H+='<tr><th>도화살</th><td>'+(hasDohwa?'있음 ✅ — 이성의 눈에 잘 띄는 매력이 있음':'없음 — 자연스러운 인연보다 적극적인 노력이 필요')+' ('+ssal.dohwa.where.join(', ')+')'+'</td></tr>';
+  H+='<tr><th>점성술 궁합</th><td>'+zod.comp+' 별자리와 깊은 인연 가능성</td></tr>';
+  H+='<tr><th>인연 찾아오는 시기</th><td>'+yongshin.elem+' 기운의 해 ('+STEMS.filter(function(_,i){return S_ELEM[i]===yongshin.elem;}).join('·')+'년), 또는 현 대운 중 관성·재성이 들어오는 세운의 해</td></tr>';
+  H+='</table>';
+  H+='<div class="daemansin-quote"><blockquote>'+name+'의 인연은 억지로 만들어지지 않느니라.<br>용신 '+yongshin.elem+' 기운이 강한 장소에 자주 가고, 그 기운을 지닌 사람과 가까이 지내라.<br>하늘이 준비한 인연은 반드시 때가 되면 찾아오나니, 그 순간을 놓치지 않을 준비만 하면 되느니라.</blockquote><div class="qa-author">— 대만신의 인연 조언</div></div>';
+  H+='</div>';
 
-  if(rising){
-    H+='<div class="ast-card">';
-    H+='<h3>↑ 상승궁(Ascendant) — '+rising.s+' '+rising.k+'</h3>';
-    H+='<p>상승궁은 태어난 순간 동쪽 지평선에 떠오르던 별자리로, 타인에게 비치는 겉모습과 첫인상을 나타냅니다. ('+cityName+' 기준 근사값)</p>';
-    H+='<p style="margin-top:8px"><strong>'+name+'</strong>은 외부적으로 <strong>'+rising.kw+'</strong>의 이미지를 풍깁니다. '+rising.str+'의 인상을 주지만, 보완해야 할 점은 '+rising.wk+'입니다.</p>';
-    H+='<p style="margin-top:8px">상승궁 '+rising.k+'의 수호 행성 <strong>'+rising.planet+'</strong>이 삶의 방향성에 큰 영향을 줍니다.</p>';
+  // ──────────────────────────────────────────────
+  // STEP 07 — 건강운
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>07</div><div><div class="step-title">🌿 건강운 & 예방 가이드</div><div class="step-desc">오행으로 보는 취약 부위 · 계절별 관리 · 건강 수칙</div></div></div>';
+  H+='<p style="font-size:13px;line-height:1.9;margin-bottom:12px">'+dmi.health+'</p>';
+  var orgMap2={목:['간·담·근육·눈·신경','봄철 면역, 스트레칭, 스트레스 관리'],화:['심장·소장·혈관·혈압','여름철 수분, 유산소 운동, 흥분 자제'],토:['비위·췌장·소화기·입','규칙적 식사, 과식 금지, 혈당 관리'],금:['폐·대장·피부·호흡기','가을 건조 주의, 복식호흡, 피부 보습'],수:['신장·방광·뼈·허리·귀','겨울 보온, 충분한 수면, 하체 강화']};
+  H+='<table class="info-table"><tr><th>오행</th><th>관련 부위</th><th>핵심 관리법</th></tr>';
+  elArr.forEach(function(e){
+    var isWeak=(e===wkEl&&els[e]===0);
+    var om=orgMap2[e]||['—','—'];
+    H+='<tr style="'+(isWeak?'background:#fde8e8':'')+'">';
+    H+='<td style="color:'+EL_COLOR[e]+';font-weight:700">'+EL_EMOJI[e]+' '+e+(isWeak?' ⚠️':'')+' ('+els[e]+'개)</td>';
+    H+='<td>'+om[0]+'</td><td>'+om[1]+(isWeak?'<br><strong style="color:#c0392b">★ 특별 주의 필요</strong>':'')+'</td></tr>';
+  });
+  H+='</table>';
+  H+='<div class="daemansin-quote"><blockquote>건강은 모든 운의 근본이니라. '+name+'은 특히 <strong style="color:#f0d080">'+({목:'봄철 간·눈 관리',화:'심장·혈압 관리',토:'소화기·혈당 관리',금:'폐·피부·호흡 관리',수:'신장·허리·냉증 관리'})[de]+'</strong>에 신경 쓰거라.<br>꾸준한 운동과 규칙적 생활이 이 팔자에서 가장 강력한 보험이다.</blockquote><div class="qa-author">— 대만신의 건강 조언</div></div>';
+  H+='</div>';
+
+  // ──────────────────────────────────────────────
+  // STEP 08 — 대운 타임라인
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>08</div><div><div class="step-title">🕰 대운(大運) 타임라인</div><div class="step-desc">대운 시작 '+daeun.startAge+'세 · '+(daeun.fwd?'순행(順行)':'역행(逆行)')+'</div></div></div>';
+  H+='<div class="tl-wrap">';
+  daeun.list.slice(0,10).forEach(function(u,idx){
+    var ts=getTenStar(ds,u.stem);
+    var isNow=(curAge>=u.age&&curAge<=u.end);
+    var themeMap={'정관':'명예·승진·리더십의 시기','편관':'도전·시련·강인함의 시기','정재':'안정 재물·착실한 축적의 시기','편재':'사업·투자·기회의 시기','식신':'표현·창작·전문성의 시기','상관':'혁신·자유·변화의 시기','비견':'독립·경쟁·자기계발의 시기','겁재':'도전·승부·협력의 시기','정인':'학습·준비·귀인의 시기','편인':'연구·직관·영감의 시기'};
+    H+='<div class="tl-row">';
+    H+='<div class="tl-left"><div class="tl-dot'+(isNow?' cur':'')+'"></div>'+(idx<9?'<div class="tl-line"></div>':'')+'</div>';
+    H+='<div class="tl-body'+(isNow?' cur':'')+'">';
+    H+='<div class="tl-period">'+u.age+'~'+u.end+'세 · '+(year+u.age)+'~'+(year+u.end)+'년'+(isNow?' ◀ 현재':'')+'</div>';
+    H+='<div class="tl-ganji">'+u.stem+u.branch+'</div>';
+    H+='<div class="tl-theme">'+(themeMap[ts]||ts+' 대운')+' | '+S_ELEM[STEMS.indexOf(u.stem)]+B_ELEM[BRANCHES.indexOf(u.branch)]+' 에너지</div>';
+    H+='</div></div>';
+  });
+  H+='</div>';
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+=''+name+'은 지금 <strong style="color:#f0d080">'+curDu.stem+curDu.branch+' 대운('+curDu.age+'~'+curDu.end+'세)</strong>을 지나고 있느니라.<br>';
+  H+=(curTsIsGwan?'이 시기는 명예와 인정을 받는 시기다. 책임을 회피하지 말고 조직 내에서 최선을 다하면 반드시 보상이 따른다.':curTsIsSik?'이 시기는 재능과 표현력을 발휘할 시기다. 창의적인 일에 과감히 도전하라.':curTsIsJae?'이 시기는 재물이 움직이는 시기다. 기회를 잡을 준비를 하고 있어야 한다.':'이 시기는 내공을 쌓는 귀한 시간이다. 지금의 준비가 다음 대운의 결실이 된다.');
+  H+='</blockquote><div class="qa-author">— 대만신의 대운 조언</div></div>';
+  H+='</div>';
+
+  // ──────────────────────────────────────────────
+  // STEP 09 — 2026 세운 & 월운
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>09</div><div><div class="step-title">📅 2026년 병오년(丙午年) 운세</div><div class="sec-desc">세운 종합 분석 + 월별 상세 운세</div></div></div>';
+
+  var 세운ThemeMap={'비견':'경쟁·독립·자기주도의 한 해','겁재':'승부·모험·도전의 한 해','식신':'창작·표현·안정의 한 해','상관':'혁신·자유·변화의 한 해','편재':'투자·사업·기회의 한 해','정재':'안정·착실·성실의 한 해','편관':'도전·압박·강인함의 한 해','정관':'명예·책임·승진의 한 해','편인':'연구·직관·내면의 한 해','정인':'학습·귀인·준비의 한 해'};
+  H+='<div style="background:#fffbec;border:2px solid #f5c842;border-radius:12px;padding:16px;margin-bottom:14px">';
+  H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin-bottom:8px">2026 병오년(丙午年) 핵심 키워드</h4>';
+  H+='<p style="font-size:13px;line-height:1.8">세운 천간 <strong>병화(丙火)</strong>와 일간의 관계: <strong>'+세운ts+'</strong> — '+( 세운ThemeMap[세운ts]||'변화의 한 해')+'<br>';
+  H+='세운이 용신('+yongshin.elem+')과의 관계: '+(세운isGood?'<strong style="color:#27ae60">✅ 용신 운 — 기운이 열리는 해입니다</strong>':'<strong style="color:#c0392b">주의 — 용신과 충돌하는 에너지이므로 신중하게</strong>')+'</p>';
+  H+='</div>';
+
+  // 월운
+  var monthData=calcMonthun(dp,year,2026);
+  H+='<div class="month-grid">';
+  var curMonth=new Date().getMonth()+1;
+  monthData.forEach(function(m,i){
+    var mn=i+1;
+    var isCur=(mn===curMonth);
+    var mts=getTenStar(ds,m.stem);
+    var score=({비견:55,겁재:50,식신:75,상관:70,편재:80,정재:85,편관:60,정관:65,편인:60,정인:70})[mts]||60;
+    var mColor=score>=80?'#27ae60':score>=65?'#f5c842':'#e74c3c';
+    var mMsg=({비견:'독립심↑ 자기만의 방식 고수',겁재:'경쟁·갈등 주의, 협력으로',식신:'창작·표현 최고 활동기',상관:'혁신 기운, 규칙 벗어나기',편재:'투자 기회, 사업 확장',정재:'안정 수입 좋음, 절약도',편관:'압박↑ 강인하게 버텨라',정관:'명예·승진 기회 잡아라',편인:'직관 연구 공부 집중',정인:'귀인 등장, 배움의 달'})[mts]||'흐름을 잘 읽는 달';
+    H+='<div class="month-card'+(isCur?' mc-cur':'')+'">';
+    H+='<div class="mc-header"><span class="mc-num">'+mn+'월 ('+m.stem+m.branch+')</span><span class="mc-ganji">'+mts+'</span></div>';
+    H+='<div class="mc-score-bar"><div class="mc-score-fill" style="width:'+score+'%;background:'+mColor+'"></div></div>';
+    H+='<div class="mc-desc">'+mMsg+'</div>';
     H+='</div>';
-  } else {
-    H+='<div class="ast-card"><h3>↑ 상승궁(Ascendant)</h3>';
-    H+='<p>정확한 상승궁 계산을 위해 태어난 시간을 입력해 주세요. 상승궁은 약 2시간마다 바뀌므로 시간 정보가 필수입니다.</p></div>';
-  }
-
-  H+='<div class="ast-card"><h3>⚡ 강점과 약점 분석</h3>';
-  H+='<p><strong>핵심 강점:</strong> '+zod.str+'</p>';
-  H+='<p style="margin-top:8px"><strong>보완할 점:</strong> '+zod.wk+'</p>';
-  H+='<p style="margin-top:8px"><strong>이상적 궁합 별자리:</strong> '+zod.comp+'</p>';
-  H+='<p style="margin-top:8px">'+zod.k+'는 '+zod.el+' 원소에 속하며, 이는 동양 사주의 ';
-  var astToSaju={풍:'목(木)','화(Fire)':'화(火)','지(Earth)':'토(土)','수(Water)':'수(水)'};
-  H+=(astToSaju[zod.el]||zod.el)+' 기운과 유사한 성질을 지닙니다.</p>';
+  });
+  H+='</div>';
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+='2026 병오년(丙午年)은 '+name+'에게 <strong style="color:#f0d080">'+(세운isGood?'기운이 열리는 해':세운ts+' 에너지의 해')+'</strong>이니라.<br>';
+  H+=(세운isGood?'씨앗을 뿌리면 반드시 결실이 맺히는 해다. 망설이지 말고 한 발 앞으로 나아가거라.':'흐름에 억지로 거스르지 말고, 준비와 내공 쌓기에 집중하면 다음 해에 더 큰 기회가 온다.');
+  H+='</blockquote><div class="qa-author">— 대만신의 2026 조언</div></div>';
   H+='</div>';
 
-  // 점성술 재물운·직업운·연애운 상세
-  var zodWealth = {
-    '양자리':'주도적 투자, 빠른 결정에서 수익. 선구자 사업·스포츠·군사 분야 강세. 충동적 소비와 단기 투기 주의',
-    '황소자리':'안정적 부동산·예술품·사치품 투자. 감각적 사업 성공률 높음. 집착과 변화 거부가 재물의 걸림돌',
-    '쌍둥이자리':'정보·미디어·커뮤니케이션 사업에서 큰 수익. 다양한 수입 채널 운영이 맞음. 집중력 분산 주의',
-    '게자리':'부동산·요식업·돌봄 분야에서 큰 성과. 가족과 함께하는 사업이 길함. 감정적 투자 결정 조심',
-    '사자자리':'연예·엔터테인먼트·명품 브랜드·리더십 포지션에서 강세. 허영심이 과소비로 이어질 수 있음',
-    '처녀자리':'분석·의료·영양·컨설팅 분야 수익. 철저한 조사 후 투자. 완벽주의로 기회를 놓칠 수 있음',
-    '천칭자리':'파트너십 사업·법률·예술·패션에서 강세. 균형 잡힌 포트폴리오. 우유부단한 결정이 약점',
-    '전갈자리':'투자·상속·보험·비밀 자산에서 강세. 심층 조사 능력으로 저평가 자산 발굴. 집착과 비밀이 독이 될 수 있음',
-    '궁수자리':'국제 비즈니스·교육·출판·여행 분야에서 큰 수익. 철학과 이상을 사업화하는 능력. 낙관주의 과잉 주의',
-    '염소자리':'장기 투자·부동산·대형 기업 운영에서 탁월. 시간이 지날수록 부가 쌓이는 구조. 인색함이 기회를 막음',
-    '물병자리':'IT·테크·혁신 사업·암호화폐 분야 강세. 미래 트렌드를 앞서 읽는 능력. 비현실적 이상주의 주의',
-    '물고기자리':'예술·치유·영성 관련 수익 강세. 직관으로 숨겨진 기회 발견. 경계 불명확, 사기 피해 주의'
-  };
-  var zodCareer = {
-    '양자리':'군인·경찰·소방관·기업가·스포츠·외과의사·선구자적 창업가. 1등이 되는 분야에서 진가 발휘',
-    '황소자리':'금융·은행·부동산·요리·예술·건축·원예·패션. 오감과 안정감이 필요한 직업에서 최고',
-    '쌍둥이자리':'저널리스트·교사·영업·홍보·번역·IT·방송. 다양한 정보를 처리하고 전달하는 직업에서 빛남',
-    '게자리':'간호사·교사·요리사·사회복지사·부동산·역사학자. 돌봄과 기억, 집이 연결된 직업',
-    '사자자리':'배우·감독·정치인·CEO·교사·이벤트 기획자. 무대 위에서 빛나는 리더십 직업',
-    '처녀자리':'의사·영양사·데이터 분석가·편집자·회계사·품질관리. 정밀함과 분석이 필요한 직업',
-    '천칭자리':'판사·변호사·외교관·디자이너·상담사·중재자. 균형과 아름다움을 다루는 직업',
-    '전갈자리':'형사·심리학자·외과의사·연구원·보험 전문가·탐정. 깊이 파고드는 전문직',
-    '궁수자리':'교수·여행가·철학자·법조인·국제 비즈니스맨·작가. 지식과 자유를 추구하는 직업',
-    '염소자리':'경영자·정치인·은행가·건축가·역사학자·관리자. 오르고 오르는 커리어 지향',
-    '물병자리':'과학자·IT 전문가·사회운동가·미래학자·항공우주·혁신가. 시대를 앞서가는 직업',
-    '물고기자리':'예술가·음악가·심리치료사·영적 교사·의료인·영화감독. 직관과 치유의 직업'
-  };
-  var zodLove = {
-    '양자리':'열정적이고 직접적인 연애. 먼저 다가가는 스타일. 天칭자리·사자자리와 깊은 인연',
-    '황소자리':'느리지만 깊고 헌신적인 사랑. 물질적 안정을 사랑에서도 추구. 전갈자리와 강렬한 인연',
-    '쌍둥이자리':'재치 있고 가벼운 연애로 시작. 지적 교류가 사랑을 유지. 사수자리·물병자리와 궁합 好',
-    '게자리':'집과 가족을 중시하는 헌신적 사랑. 정서적 안정이 최우선. 전갈자리·물고기자리와 깊은 연결',
-    '사자자리':'드라마틱하고 로맨틱한 사랑. 파트너를 왕처럼 대접받고 싶어함. 양자리·사수자리와 불같은 궁합',
-    '처녀자리':'실용적이고 헌신적인 사랑. 완벽한 파트너를 찾는 경향. 황소자리·염소자리와 안정적 궁합',
-    '천칭자리':'균형 잡힌 아름다운 연애 추구. 결혼에 대한 강한 욕구. 쌍둥이자리·물병자리와 지적 궁합',
-    '전갈자리':'강렬하고 독점적인 사랑. 영혼까지 연결되는 깊은 사랑을 원함. 게자리·물고기자리와 운명적 인연',
-    '궁수자리':'자유롭고 모험적인 사랑. 구속보다 함께 성장하는 관계. 양자리·사자자리와 신나는 궁합',
-    '염소자리':'현실적이고 장기적인 사랑. 지위와 안정을 함께 원함. 황소자리·처녀자리와 든든한 궁합',
-    '물병자리':'독특하고 자유로운 사랑. 친구에서 연인으로 발전. 쌍둥이자리·천칭자리와 이상적 궁합',
-    '물고기자리':'낭만적이고 헌신적인 사랑. 경계가 녹아드는 깊은 합일을 원함. 게자리·전갈자리와 영혼의 연결'
-  };
-  H+='<div class="ast-card"><h3>💰 점성술로 보는 재물운 — '+zod.k+'</h3>';
-  H+='<p style="line-height:1.9">'+( zodWealth[zod.k]||'탁월한 재물 운용 능력. 직관과 전략을 균형 있게 활용하면 부를 쌓습니다.')+'</p>';
-  H+='<p style="margin-top:10px"><strong style="color:#7ec8e3">행운의 행성 '+zod.planet+'이 활성화될 때</strong> 재물 기회가 찾아옵니다. 특히 목성(Jupiter)이 태양궁을 통과하는 해(약 12년 주기)에 큰 재물운이 열립니다.</p>';
-  H+='</div>';
-  H+='<div class="ast-card"><h3>🏢 점성술로 보는 직업운 — '+zod.k+'</h3>';
-  H+='<p style="line-height:1.9">'+( zodCareer[zod.k]||'다양한 분야에서 능력을 발휘하는 유연한 직업관을 지녔습니다.')+'</p>';
-  H+='</div>';
-  H+='<div class="ast-card"><h3>💕 점성술로 보는 연애운 — '+zod.k+'</h3>';
-  H+='<p style="line-height:1.9">'+( zodLove[zod.k]||'진정성 있고 깊이 있는 사랑을 추구합니다.')+'</p>';
-  H+='<p style="margin-top:10px">사주 연애운('+dmi.love.substring(0,50)+'...)과 점성술 연애 패턴이 결합되면 <strong>'+zod.comp+'</strong> 별자리를 가진 사람과의 만남에서 가장 깊은 인연이 될 가능성이 높습니다.</p>';
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
+  // ──────────────────────────────────────────────
+  // STEP 10 — 서양 점성술
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>10</div><div><div class="step-title">🔭 서양 점성술 심층 분석</div><div class="step-desc">태양궁 · 수호 행성 · 재물·직업·연애 점성술 해석</div></div></div>';
 
-
-  // ═══════════════════════════════════════════
-  //  16. 수비학 (NEW)
-  // ═══════════════════════════════════════════
-  var lifePath = getLifePath(year,month,day);
-  var personalYear = getPersonalYear(month,day,2026);
-  var nmData = NUMO_DATA[lifePath] || NUMO_DATA[9];
-  var pyData = NUMO_DATA[personalYear] || NUMO_DATA[1];
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">16</div><div><div class="sec-title">수비학(數祕學) 분석</div><div class="sec-desc">생명경로수 · 개인연도수 · 수비학으로 보는 운명의 코드</div></div></div>';
-
-  H+='<div class="dark-card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">';
-  H+='<div style="text-align:center;min-width:80px"><div style="font-size:52px;font-weight:900;color:'+nmData.color+';text-shadow:0 0 20px '+nmData.color+'80">'+lifePath+'</div>';
-  H+='<div style="color:rgba(255,255,255,.5);font-size:11px;margin-top:4px">생명경로수</div></div>';
-  H+='<div style="flex:1"><h3 style="color:'+nmData.color+'">'+nmData.emoji+' 생명경로수 '+lifePath+' — '+nmData.title+'</h3>';
-  H+='<p style="margin-top:6px">'+nmData.desc+'</p>';
-  H+='<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">';
-  H+='<span style="background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px;font-size:11px">✅ '+nmData.pos+'</span>';
-  H+='<span style="background:rgba(255,100,100,.15);padding:4px 10px;border-radius:20px;font-size:11px">⚠️ '+nmData.neg+'</span>';
+  H+='<div class="ast-hero">';
+  H+='<div class="ast-sign-big">'+zod.s+'</div>';
+  H+='<div class="ast-info"><h3>'+zod.k+' ('+zod.e+')</h3>';
+  H+='<p>'+zod.ch+'</p>';
+  H+='<div class="ast-tags">';
+  H+='<span class="ast-tag">원소: '+zod.el+'</span>';
+  H+='<span class="ast-tag">수호 행성: '+zod.planet+'</span>';
+  H+='<span class="ast-tag">지배 하우스: '+zod.house+'</span>';
+  H+='<span class="ast-tag">핵심: '+zod.kw+'</span>';
+  H+='<span class="ast-tag">궁합: '+zod.comp+'</span>';
   H+='</div></div></div>';
 
-  H+='<div class="dark-card"><h3>💰 수비학으로 보는 재물·직업 운세</h3>';
-  H+='<p style="margin-top:6px"><strong style="color:#f0d080">재물 에너지:</strong> '+nmData.wealth+'</p>';
-  H+='<p style="margin-top:10px"><strong style="color:#f0d080">천직 방향:</strong> '+nmData.career+'</p>';
-  H+='<p style="margin-top:10px"><strong style="color:#f0d080">사랑과 인연:</strong> '+nmData.love+'</p>';
-  H+='</div>';
-
-  H+='<div class="dark-card"><h3>📅 2026년 개인연도수 '+personalYear+' 운세</h3>';
-  H+='<div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">';
-  H+='<div style="font-size:40px;font-weight:900;color:'+pyData.color+'">'+personalYear+'</div>';
-  H+='<div><div style="color:'+pyData.color+';font-weight:700;font-size:15px">'+pyData.emoji+' '+pyData.title+'</div>';
-  H+='<div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:3px">'+name+'의 2026년은 '+personalYear+'의 에너지가 지배합니다</div></div>';
-  H+='</div>';
-  H+='<p>'+(PERSONAL_YEAR_MSG[personalYear]||'강한 에너지의 한 해입니다.')+'</p>';
-  H+='<table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:12px">';
-  H+='<tr><th style="background:rgba(255,255,255,.08);padding:8px;text-align:left;color:#f0d080;border-bottom:1px solid rgba(255,255,255,.1)">분야</th>';
-  H+='<th style="background:rgba(255,255,255,.08);padding:8px;text-align:left;color:#f0d080;border-bottom:1px solid rgba(255,255,255,.1)">2026년 흐름</th></tr>';
-  var py2026Rows = {
-    1:[['재물','새로운 수입 창구가 열리는 해. 창업·독립 수입 구조를 만들기에 최적'],['직업','리더십을 발휘하거나 독립적 포지션을 잡을 기회'],['연애','새로운 인연의 시작. 먼저 적극적으로 다가가면 성사됨']],
-    2:[['재물','단기 수익보다 장기 파트너십 구축. 서두르면 손해'],['직업','협력과 팀워크가 성과를 만드는 해. 혼자 독주 금지'],['연애','기존 관계를 깊게 발전시키기 좋음. 소통이 핵심']],
-    3:[['재물','콘텐츠·창작·소통 관련 수입 활성화. 소셜 미디어 활용 적극'],['직업','자기표현과 소통 능력이 커리어를 끌어올리는 해'],['연애','화려하고 즐거운 만남. 새로운 인연 가능성 높음']],
-    4:[['재물','꾸준한 저축과 장기 투자. 빠른 수익보다 기반 구축 중심'],['직업','실무 역량을 쌓고 시스템을 정비하는 해'],['연애','관계의 현실적 기반을 점검하고 미래를 설계']],
-    5:[['재물','예상치 못한 수익 기회. 단, 변동성 크므로 분산 투자'],['직업','직업 변화·이직·새로운 기회가 생기는 해. 유연하게 대응'],['연애','새롭고 설레는 만남. 단, 즉흥적 결정은 신중하게']],
-    6:[['재물','가족 관련 지출 증가. 부동산·장기 자산이 안정적'],['직업','책임감 있는 역할이 주어지는 해. 팀 관리 능력 발휘'],['연애','결혼·동거 등 관계의 공식화를 고려할 수 있는 해']],
-    7:[['재물','투자 전 충분한 조사 필수. 성급한 결정 금물'],['직업','전문성을 깊이 쌓고 자격증·학위 취득하기 좋은 해'],['연애','깊은 대화와 정신적 연결을 추구. 외로움을 느낄 수 있음']],
-    8:[['재물','💰 재물 에너지 최고조! 과감한 투자와 사업 확장에 최적의 해'],['직업','승진·사업 확장·대형 프로젝트 성공 가능성 높음'],['연애','파워 커플 에너지. 야망 있는 파트너와의 만남 가능']],
-    9:[['재물','마무리 정리 필요. 불필요한 지출과 투자를 정리하라'],['직업','이전 업무를 마무리하고 다음 단계를 위한 준비 시기'],['연애','인연의 마무리 또는 관계 정화. 새 출발을 위한 정리']],
-    11:[['재물','직관적 투자 기회가 찾아옴. 내 감을 믿어야 할 해'],['직업','영감 넘치는 아이디어로 새로운 방향성 발견'],['연애','깊은 영혼의 연결을 경험할 수 있는 해']],
-    22:[['재물','대형 프로젝트와 큰 수익 구조가 실현되는 해'],['직업','꿈꿔온 커리어의 큰 그림이 현실이 되는 해'],['연애','운명적 만남 또는 관계의 새로운 차원으로 진화']]
+  var zodDetails={
+    '양자리':{w:'빠른 결단·선구자 투자·스포츠·군사·창업',c:'군인·경찰·기업가·외과의·운동선수',l:'열정적이고 직접적. 먼저 고백하는 스타일. 천칭·사자와 강한 인연'},
+    '황소자리':{w:'부동산·예술품·사치품·안정 자산',c:'금융·건축·요리·예술·원예',l:'느리지만 깊고 헌신적. 전갈과 강렬한 인연'},
+    '쌍둥이자리':{w:'정보·미디어·통신·IT',c:'저널리스트·강사·영업·번역·방송',l:'재치 있고 가벼운 시작. 지적 교류가 사랑을 유지. 사수·물병과 궁합'},
+    '게자리':{w:'부동산·요식업·돌봄 서비스',c:'간호사·요리사·교사·사회복지사',l:'가족 같은 헌신적 사랑. 전갈·물고기와 깊은 연결'},
+    '사자자리':{w:'엔터·명품·이벤트·리더십 포지션',c:'배우·감독·정치인·CEO',l:'드라마틱하고 로맨틱. 양자리·사수와 불꽃 궁합'},
+    '처녀자리':{w:'의료·분석·컨설팅·회계',c:'의사·데이터분석가·편집자·품질관리',l:'실용적이고 헌신적. 황소·염소와 안정적 궁합'},
+    '천칭자리':{w:'법률·외교·패션·파트너십 사업',c:'판사·변호사·디자이너·상담사',l:'균형 잡힌 아름다운 연애. 쌍둥이·물병과 지적 궁합'},
+    '전갈자리':{w:'투자·상속·보험·비밀 자산',c:'형사·심리학자·외과의·연구원',l:'강렬하고 독점적. 게자리·물고기와 운명적 인연'},
+    '궁수자리':{w:'국제비즈니스·교육·출판·여행',c:'교수·법조인·국제무역·철학자',l:'자유롭고 모험적. 양자리·사자와 신나는 궁합'},
+    '염소자리':{w:'부동산·대형기업·장기투자',c:'경영자·정치인·은행가·관리자',l:'현실적이고 장기적. 황소·처녀와 든든한 궁합'},
+    '물병자리':{w:'IT·테크·혁신·암호화폐',c:'과학자·IT전문가·사회운동가·미래학자',l:'독특하고 자유로운 사랑. 쌍둥이·천칭과 이상적 궁합'},
+    '물고기자리':{w:'예술·치유·영성',c:'예술가·치료사·의료인·영화감독',l:'낭만적이고 헌신적. 게자리·전갈과 영혼의 연결'}
   };
-  var rows = py2026Rows[personalYear]||py2026Rows[1];
-  rows.forEach(function(r){
-    H+='<tr><td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08);color:#f0d080;font-weight:700;width:60px">'+r[0]+'</td>';
-    H+='<td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">'+r[1]+'</td></tr>';
-  });
-  H+='</table></div>';
+  var zd=zodDetails[zod.k]||{w:'다양한 분야',c:'창의적 직업',l:'깊은 사랑'};
 
-  H+='<div class="dark-card"><h3>🔢 수비학 9년 주기 — '+name+'의 위치</h3>';
-  H+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">';
-  for(var cy2=2020;cy2<=2030;cy2++){
-    var pyCy=getPersonalYear(month,day,cy2);
-    var isCur=(cy2===2026);
-    H+='<div style="text-align:center;padding:8px 12px;border-radius:8px;min-width:58px;';
-    H+=(isCur?'background:linear-gradient(135deg,'+nmData.color+','+nmData.color+'aa);color:#fff;font-weight:700;box-shadow:0 0 12px '+nmData.color+'60':'background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)')+'">';
-    H+='<div style="font-size:11px">'+(isCur?'▼ ':'')+''+cy2+'</div>';
-    H+='<div style="font-size:22px;font-weight:700">'+pyCy+'</div>';
-    H+='<div style="font-size:10px;opacity:.7">'+(NUMO_DATA[pyCy]||{emoji:'✨'}).emoji+'</div>';
+  H+='<div class="ast-cards">';
+  H+='<div class="ast-card-item"><h4>💰 점성술 재물운</h4><p>'+zd.w+'</p><p style="margin-top:6px;font-size:11px;opacity:.7">수호 행성 '+zod.planet+'이 활성화되는 해에 재물 기회가 옵니다.</p></div>';
+  H+='<div class="ast-card-item"><h4>🏢 점성술 직업운</h4><p>'+zd.c+'</p><p style="margin-top:6px;font-size:11px;opacity:.7">'+zod.house+' 하우스의 에너지가 커리어 방향을 결정합니다.</p></div>';
+  H+='<div class="ast-card-item"><h4>💕 점성술 연애운</h4><p>'+zd.l+'</p></div>';
+  H+='</div>';
+
+  if(rising){
+    H+='<div style="background:#0a1a3d;border-radius:12px;padding:16px;margin-top:12px">';
+    H+='<h4 style="color:#7ec8e3;margin-bottom:8px">↑ 상승궁(Ascendant) — '+rising.s+' '+rising.k+'</h4>';
+    H+='<p style="color:rgba(255,255,255,.8);font-size:13px;line-height:1.8">'+cityName+' 기준, '+name+'이 타인에게 처음 풍기는 인상은 <strong style="color:#7ec8e3">'+rising.kw+'</strong>입니다. '+rising.str+'의 인상을 주지만 보완할 점은 '+rising.wk+'입니다. 상승궁 '+rising.k+'의 수호 행성 <strong>'+rising.planet+'</strong>이 삶의 방향성에 영향을 줍니다.</p>';
     H+='</div>';
   }
-  H+='</div>';
-  H+='<p style="font-size:12px;color:rgba(255,255,255,.5);margin-top:10px">▼ 현재 2026년 | 개인연도수가 8인 해는 재물 성취의 해, 1인 해는 새 출발의 해, 9인 해는 마무리의 해입니다.</p>';
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
 
-  // ═══════════════════════════════════════════
-  //  17. 동서양 융합
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">17</div><div><div class="sec-title">동서양 융합 분석</div><div class="sec-desc">사주팔자 × 서양 점성술 — 두 체계가 말하는 나의 본질</div></div></div>';
-
-  H+='<div class="dark-card"><h3>🌐 '+dmi.n+' × '+zod.k+' — 두 운명의 언어</h3>';
-  H+='<p>'+name+'은 동양 사주의 <strong>'+de+' 기운</strong>과 서양 점성술의 <strong>'+zod.k+'('+zod.el+')</strong>이 결합된 독특한 에너지를 지녔습니다.</p>';
-  H+='<ul>';
-  H+='<li><strong>공통 핵심:</strong> '+dmi.kw+' + '+zod.kw.split('·')[0]+' — 이 두 가지가 인생의 나침반이 됩니다.</li>';
-  H+='<li><strong>보완 관계:</strong> 사주에서 약한 '+wkEl+' 기운을 '+zod.k+'의 에너지로 채울 수 있습니다.</li>';
-  H+='<li><strong>추천 라이프스타일:</strong> '+({'목':'자연 친화적이고 성장 지향적인 삶. 끊임없이 배우고 가르치세요.','화':'열정적이고 창의적인 삶. 무대 위에서 빛나는 삶을 추구하세요.','토':'안정적이고 꾸준한 삶. 신뢰를 쌓아가며 묵묵히 성과를 만드세요.','금':'전문성 중심의 삶. 한 분야를 깊이 파고드는 삶이 행복을 줍니다.','수':'유연하고 지혜로운 삶. 흐름에 맡기되 방향을 잃지 마세요.'})[de]+'</li>';
-  H+='<li><strong>수호 원소 조화:</strong> 동양('+de+') + 서양('+zod.el+') 원소의 조화로 독특한 에너지 패턴을 만듭니다.</li>';
-  H+='</ul>';
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+='동양은 <strong style="color:#f0d080">'+dmi.n+'</strong>이라 하고, 서양은 <strong style="color:#7ec8e3">'+zod.k+'</strong>이라 한다.<br>';
+  H+='두 하늘이 '+name+'에게 같은 말을 하고 있나니 — '+dmi.kw+'와 '+zod.kw+'.<br>';
+  H+='이 두 가지를 삶의 나침반으로 삼으면 반드시 빛나는 길이 열릴 것이니라.';
+  H+='</blockquote><div class="qa-author">— 대만신의 동서양 융합 메시지</div></div>';
   H+='</div>';
 
-  H+='<div class="ast-card"><h3>🔮 운명의 큰 그림</h3>';
-  H+='<p>사주에서 본 대운의 흐름과 점성술의 행성 주기가 겹치는 시기에 인생의 큰 변화가 찾아옵니다. 특히 토성(Saturn)이 태양궁과 어려운 각도를 이룰 때(약 29~30세, 58~60세)는 책임과 시련의 시기이지만 동시에 가장 큰 성장의 기회입니다.</p>';
-  H+='<p style="margin-top:8px">'+name+'의 수호 행성 <strong>'+zod.planet+'</strong>이 가장 강하게 작용하는 시기에 맞춰 중요한 결정을 내리면 좋습니다. '+zod.planet+'의 공전 주기와 대운의 흐름이 맞물리는 시점을 잘 활용하세요.</p>';
-  H+='</div>';
-  H+='</div><div class="divider"></div>';
+  // ──────────────────────────────────────────────
+  // STEP 11 — 수비학
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>11</div><div><div class="step-title">🔢 수비학(數祕學) 분석</div><div class="step-desc">생명경로수 · 2026 개인연도수 · 운명의 숫자 코드</div></div></div>';
 
-  // ═══════════════════════════════════════════
-  //  18. 종합 상담
-  // ═══════════════════════════════════════════
-  H+='<div class="section">';
-  H+='<div class="sec-header"><div class="sec-num">18</div><div><div class="sec-title">종합 상담 & 인생 조언</div><div class="sec-desc">대만신의 심층 상담 — 삶의 나침반이 될 핵심 조언</div></div></div>';
+  H+='<div class="numo-hero">';
+  H+='<div class="numo-num-big" style="color:'+nmData.color+'">'+lifePath+'</div>';
+  H+='<div class="numo-info"><h3>생명경로수 '+lifePath+' — '+nmData.title+'</h3>';
+  H+='<p>'+nmData.desc+'</p>';
+  H+='<div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,.6)">✅ '+nmData.pos+'<br>⚠️ '+nmData.neg+'</div>';
+  H+='</div></div>';
 
-  H+='<div class="dark-card"><h3>✦ 천명(天命) 선언</h3>';
-  H+='<p style="font-size:15px;line-height:2.2">';
-  H+=dmi.em+' <strong style="color:#f0d080">'+name+'</strong>이여,<br>';
-  H+='너는 <strong style="color:'+EL_COLOR[de]+'">'+dmi.n+'</strong>으로 태어나 '+dmi.kw+'의 기운을 천성으로 지녔느니라.<br>';
-  H+='동양 사주의 별, 서양 점성술의 별, 두 하늘이 함께 말하기를:<br>';
-  H+='너의 인생은 <strong style="color:#f0d080">'+zod.k+'</strong>의 기운으로 \'<strong>'+zod.kw+'</strong>\'를 꽃피울 운명이니라.<br>';
-  H+='용신 <strong style="color:'+EL_COLOR[yongshin.elem]+'">'+yongshin.elem+'</strong>의 기운을 가까이 하고,<br>';
-  H+='일간의 기운이 '+(str==='신강(身强)'?'강하니 이를 잘 흘려보내는 지혜가 필요하고':'약하니 이를 키우고 보충하는 것이 먼저이며')+',<br>';
-  H+='현재 대운 <strong style="color:#f0d080">'+curDu.stem+curDu.branch+'</strong>의 흐름에 올라타 최선을 다하라.<br>';
-  H+='</p>';
-  H+='</div>';
-
-  H+='<div class="dark-card"><h3>🎯 분야별 핵심 조언</h3>';
-  H+='<table style="width:100%;border-collapse:collapse;font-size:13px">';
-  H+='<tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:10px;font-weight:700;color:#f0d080;width:80px">직업</td><td style="padding:10px;line-height:1.8">'+dmi.job+'. 현재 '+curAge+'세, 대운 '+curDu.stem+curDu.branch+' 시기에 맞는 전략을 세워라.</td></tr>';
-  H+='<tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:10px;font-weight:700;color:#f0d080">재물</td><td style="padding:10px;line-height:1.8">'+dmi.wealth.substring(0,60)+'... 용신 기운의 해에 적극적으로 투자하라.</td></tr>';
-  H+='<tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:10px;font-weight:700;color:#f0d080">연애</td><td style="padding:10px;line-height:1.8">'+dmi.love.substring(0,60)+'... '+zod.comp+'와 특별한 인연이 있을 수 있다.</td></tr>';
-  H+='<tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:10px;font-weight:700;color:#f0d080">건강</td><td style="padding:10px;line-height:1.8">'+dmi.health.substring(0,60)+'... 꾸준한 예방이 최선이다.</td></tr>';
-  H+='<tr><td style="padding:10px;font-weight:700;color:#f0d080">정신</td><td style="padding:10px;line-height:1.8">'+zod.k+'의 기운으로 '+zod.kw+'을 추구하며, 부족한 '+wkEl+' 기운을 의식적으로 보충하라. 내면의 균형이 외적 성공의 기반이 된다.</td></tr>';
+  H+='<table class="info-table">';
+  H+='<tr><th>재물 에너지</th><td>'+nmData.wealth+'</td></tr>';
+  H+='<tr><th>천직 방향</th><td>'+nmData.career+'</td></tr>';
+  H+='<tr><th>사랑과 인연</th><td>'+nmData.love+'</td></tr>';
+  H+='<tr><th>2026 개인연도수</th><td><strong style="font-size:18px;color:'+pyData.color+'">'+personalYear+'</strong> — '+pyData.title+'<br><span style="font-size:12px;color:#666">'+(PERSONAL_YEAR_MSG[personalYear]||'강한 에너지의 한 해')+'</span></td></tr>';
   H+='</table>';
+
+  H+='<div style="margin-top:14px"><h4 style="font-size:13px;font-weight:700;color:#1a0a3d;margin-bottom:8px">📅 수비학 9년 주기 캘린더</h4>';
+  H+='<div class="numo-cycle">';
+  for(var cy3=2020;cy3<=2030;cy3++){
+    var pyCy3=getPersonalYear(month,day,cy3);
+    var nd3=NUMO_DATA[pyCy3]||{emoji:'✨',color:'#888'};
+    var isCur3=(cy3===2026);
+    H+='<div class="nc-item'+(isCur3?' cur':'')+'" style="'+(isCur3?'border:2px solid '+nd3.color:'background:'+(cy3<2026?'rgba(0,0,0,.03)':'rgba(255,255,255,.06)'))+'">';
+    H+='<div class="nc-year">'+cy3+'</div>';
+    H+='<div class="nc-num" style="color:'+(isCur3?nd3.color:'inherit')+'">'+pyCy3+'</div>';
+    H+='<div style="font-size:12px">'+nd3.emoji+'</div>';
+    H+='</div>';
+  }
+  H+='</div></div>';
+
+  H+='<div class="daemansin-quote"><blockquote>';
+  H+='생명경로수 <strong style="color:#f0d080">'+lifePath+' — '+nmData.title+'</strong>이여,<br>';
+  H+=nmData.desc+'<br><br>2026년은 개인연도수 <strong style="color:#f0d080">'+personalYear+'</strong>의 해다. '+(PERSONAL_YEAR_MSG[personalYear]||'강한 에너지를 잘 활용하라.');
+  H+='</blockquote><div class="qa-author">— 대만신의 수비학 메시지</div></div>';
   H+='</div>';
 
-  H+='<div class="dark-card"><h3>📌 지금 당장 실천할 것</h3><ul>';
-  H+='<li>행운의 색 <strong>'+({'목':'초록·청색','화':'빨강·주황','토':'노랑·황토','금':'흰색·은색','수':'검정·남색'})[yongshin.elem]+'</strong>을 생활 속에 가까이 두어라.</li>';
-  H+='<li>행운의 방향 <strong>'+({'목':'동(東)','화':'남(南)','토':'중앙','금':'서(西)','수':'북(北)'})[yongshin.elem]+'</strong>을 향해 중요한 일을 시작하거나 집을 배치하라.</li>';
-  H+='<li>용신 '+yongshin.elem+' 기운의 식품을 즐겨라: '+({'목':'신맛 (식초·레몬·사과)','화':'쓴맛 (커피·녹차·쑥)','토':'단맛 (꿀·단호박·고구마)','금':'매운맛 (생강·마늘·고추)','수':'짠맛 (미역·굴·블루베리)'})[yongshin.elem]+'</li>';
-  H+='<li>현재 대운('+curDu.stem+curDu.branch+') 기간은 '+(new Date().getFullYear())+'년 현재 진행 중. 이 기운의 성질을 이해하고 활용하라.</li>';
-  H+='<li>'+(ssal.yeokma.where.length>0?'역마살이 있으니 해외·지방 활동을 적극적으로 활용하라.':ssal.dohwa.where.length>0?'도화살이 있으니 사교적 활동과 네트워킹을 통해 기회를 만들어라.':'신살의 직접 영향이 적으니 꾸준한 노력과 실력으로 승부하라.')+'</li>';
-  H+='</ul></div>';
+  // ──────────────────────────────────────────────
+  // STEP 12 — 신살 & 합충형파해
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>12</div><div><div class="step-title">⭐ 신살(神殺) & 관계 분석</div><div class="step-desc">타고난 특별한 기운 · 사주 기둥 간 합충형파해</div></div></div>';
 
-  H+='<div class="dark-card" style="text-align:center;padding:24px">';
-  H+='<p style="font-size:14px;line-height:2.4;color:rgba(255,255,255,.8)">';
-  H+='하늘이 주신 팔자는 청사진이지 감옥이 아니니라.<br>';
-  H+='알면 피하고, 알면 준비하고, 알면 이용할 수 있느니라.<br>';
-  H+='<strong style="color:#f0d080">'+name+'</strong>이여, 이 보고서를 나침반 삼아<br>';
-  H+='너의 빛나는 인생을 스스로 개척해 나가길 바라노라.<br>';
-  H+='<span style="color:rgba(255,255,255,.4);font-size:12px">— 대만신(大萬神) 사주 연구원 —</span>';
-  H+='</p></div>';
-
+  var ssalList=[
+    {name:'도화살(桃花殺)',has:hasDohwa,where:ssal.dohwa.where,meaning:'이성의 눈에 띄는 매력. 예술·연예·서비스 분야에서 빛난다. 연애에서 끊임없는 관심을 받는 기운.'},
+    {name:'역마살(驛馬殺)',has:hasYeokma,where:ssal.yeokma.where,meaning:'이동·여행·변화의 별. 해외·지방 활동이 길하고, 한 자리에 오래 있으면 답답함을 느낀다.'},
+    {name:'화개살(華蓋殺)',has:ssal.hwagae.where.length>0,where:ssal.hwagae.where,meaning:'예술·종교·철학의 기운. 창의성이 뛰어나고 남다른 감수성. 혼자만의 세계가 필요한 영적 기질.'},
+    {name:'양인살(羊刃殺)',has:ssal.yangin.where.length>0,where:ssal.yangin.where,meaning:'강한 자존심과 추진력. 위기에서 오히려 빛나는 기질. 날카로운 면이 있어 인간관계에 주의 필요.'},
+    {name:'공망(空亡)',has:gongmang.length>0,where:gongmang.map(function(b){return BRANCHES[b]+'는 공망';}),meaning:'비어있는 기운. 이 지지가 들어오는 해에는 기대한 것이 이루어지지 않는 경우가 있어 신중함이 필요.'}
+  ];
+  H+='<div class="ssal-grid">';
+  ssalList.forEach(function(s){
+    H+='<div class="ssal-card'+(s.has?' has':'')+'">';
+    H+='<div class="ssal-name">'+s.name+'</div>';
+    H+='<div class="ssal-icon">'+(s.has?'✨':'○')+'</div>';
+    H+='<div class="ssal-where">'+(s.has&&s.where.length?s.where.join(', '):'해당 없음')+'</div>';
+    H+='<div class="ssal-meaning" style="font-size:11px;color:#666;margin-top:4px">'+s.meaning+'</div>';
+    H+='</div>';
+  });
+  H+='</div>';
   H+='</div>';
 
-  document.getElementById('report-body').innerHTML = H;
+  // ──────────────────────────────────────────────
+  // STEP 13 — 종합 메시지
+  // ──────────────────────────────────────────────
+  H+='<div class="step-card">';
+  H+='<div class="step-header"><div class="step-badge"><span>STEP</span>13</div><div><div class="step-title">✦ 대만신의 종합 메시지</div><div class="step-desc">'+name+'에게 보내는 진심 어린 조언</div></div></div>';
+
+  H+='<div class="final-letter">';
+  H+='<span class="letter-name">'+dmi.em+' '+name+'이여,</span>';
+  H+='그대는 <strong>'+dmi.n+'('+ds+db+' 일주)</strong>으로 태어났느니라.<br>';
+  H+='동양의 별은 <strong>'+dmi.kw+'</strong>의 기운을, 서양의 별은 <strong>'+zod.k+'('+zod.kw+')</strong>의 기운을 그대에게 주었다.<br><br>';
+  H+='지금 '+ageNow+'세의 그대는 <strong>'+curDu.stem+curDu.branch+' 대운</strong>을 지나고 있으며,<br>';
+  H+=curTsIsGwan?'이 시기는 <strong>명예와 인정을 받는 황금의 시간</strong>이니라. 두려워 말고 앞으로 나아가거라.<br>':curTsIsSik?'이 시기는 <strong>재능을 펼치고 세상과 소통하는 시간</strong>이니라. 그대 안의 빛을 밖으로 드러내거라.<br>':curTsIsJae?'이 시기는 <strong>재물과 기회가 움직이는 시간</strong>이니라. 준비된 자에게 행운이 깃드느니라.<br>':'이 시기는 <strong>깊이 뿌리내리고 내공을 쌓는 시간</strong>이니라. 지금의 준비가 다음 꽃을 피운다.<br>';
+  H+='<br>용신 <strong>'+yongshin.elem+EL_EMOJI[yongshin.elem]+'</strong>의 기운을 곁에 두고,<br>';
+  H+='생명경로수 <strong>'+lifePath+'</strong>의 천성대로 살아가며,<br>';
+  H+='<strong>'+zod.k+'</strong>의 빛나는 기운으로 세상을 마주하거라.<br><br>';
+  H+=coverQuote.replace(/<br>/g,'<br>');
+  H+='</div>';
+
+  H+='<h4 style="font-size:14px;font-weight:700;color:#1a0a3d;margin:16px 0 10px">✅ 지금 당장 실천할 5가지</h4>';
+  var actions=[
+    '용신 <strong>'+yongshin.elem+'('+EL_EMOJI[yongshin.elem]+')</strong> 기운을 생활에 가까이 두어라 — 색상 '+({'목':'초록·청색','화':'빨강·주황','토':'노랑·황토','금':'흰색·은색','수':'검정·남색'})[yongshin.elem]+', 음식 '+({'목':'신맛(사과·레몬·식초)','화':'쓴맛(녹차·커피·쑥)','토':'단맛(꿀·고구마·단호박)','금':'매운맛(생강·마늘·고추)','수':'짠맛(미역·굴·견과류)'})[yongshin.elem]+', 방향 '+({'목':'동(東)','화':'남(南)','토':'중앙','금':'서(西)','수':'북(北)'})[yongshin.elem],
+    jobRes==='yes'?'직장·부서 이동 기회를 적극적으로 잡아라 — 지금이 황금 타이밍':moveRes==='yes'?'이사·이동을 실행할 준비를 하라 — 용신 방향으로':wealthRes==='yes'?'2026년 투자 기회를 놓치지 말고 적극 활용하라':'지금은 준비의 시간 — 씨앗을 심어야 열매를 얻는다',
+    '매일 아침 오늘 날짜의 일진(日辰)을 확인하라 — 용신('+yongshin.elem+') 천간('+STEMS.filter(function(_,i){return S_ELEM[i]===yongshin.elem;}).join('·')+')일에 중요한 일을 진행하라',
+    '부족한 오행 <strong>'+wkEl+(els[wkEl]===0?'(전혀 없음)':'')+EL_EMOJI[wkEl]+'</strong>을 채워라 — '+({'목':'식물 키우기, 숲 산책, 초록 인테리어','화':'따뜻한 조명, 적극적 소통, 봉사활동','토':'규칙적 생활, 명상, 황토·흙과 접촉','금':'정돈된 공간, 금속 소품, 전문성 개발','수':'수영·목욕, 여행, 음악·예술 감상'})[wkEl],
+    '지금 이 리포트에서 가장 중요한 메시지 하나를 골라 메모하고, 1개월 후 얼마나 바뀌었는지 확인하라 — 사주는 알면 피할 수 있고, 알면 준비할 수 있느니라'
+  ];
+  actions.forEach(function(a,i){
+    H+='<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-text">'+a+'</div></div>';
+  });
+
+  H+='<div style="text-align:center;padding:28px 0 8px;color:#aaa;font-size:11px;letter-spacing:2px">✦ 대만신(大萬神) | 입춘 절기 기준 만세력 · 정밀 점성술 · 수비학 융합 리포트 ✦</div>';
+  H+='</div>';
+
+  document.getElementById('report-body').innerHTML=H;
 }
 
-// ================================================
-//  유틸리티
-// ================================================
+function delay(ms){return new Promise(function(r){setTimeout(r,ms);})}
+async function markStep(n){document.getElementById('step'+n).className='step-item done';}
+function goBack(){document.getElementById('pg-report').style.display='none';document.getElementById('pg-intro').style.display='flex';}
+
+// ── 이벤트 리스너 ──
+function attachEventListeners(){
+  var btnSolar=document.getElementById('btn-solar');
+  var btnLunar=document.getElementById('btn-lunar');
+  if(btnSolar)btnSolar.addEventListener('click',function(){selectCal('solar');});
+  if(btnLunar)btnLunar.addEventListener('click',function(){selectCal('lunar');});
+  var btnM=document.getElementById('gbtn-M');
+  var btnF=document.getElementById('gbtn-F');
+  if(btnM)btnM.addEventListener('click',function(){selectGender('M');});
+  if(btnF)btnF.addEventListener('click',function(){selectGender('F');});
+  var submitBtn=document.getElementById('submit-btn-main');
+  if(submitBtn)submitBtn.addEventListener('click',startReport);
+  var backBtn=document.getElementById('back-btn-main');
+  if(backBtn)backBtn.addEventListener('click',goBack);
+  var pdfBtn=document.getElementById('pdf-btn-main');
+  if(pdfBtn)pdfBtn.addEventListener('click',function(){showToast('🖨 인쇄 창에서 PDF로 저장을 선택하세요');setTimeout(function(){window.print();},400);});
+  var shareBtn=document.getElementById('share-btn-main');
+  if(shareBtn)shareBtn.addEventListener('click',function(){document.getElementById('share-modal').classList.add('open');});
+  var copyBtn=document.getElementById('copy-btn-main');
+  if(copyBtn)copyBtn.addEventListener('click',copySummary);
+  var soptHtml=document.getElementById('sopt-html');
+  var soptTxt=document.getElementById('sopt-txt');
+  var soptClose=document.getElementById('sopt-close');
+  if(soptHtml)soptHtml.addEventListener('click',downloadReportHTML);
+  if(soptTxt)soptTxt.addEventListener('click',function(){document.getElementById('share-modal').classList.remove('open');copySummary();});
+  if(soptClose)soptClose.addEventListener('click',function(){document.getElementById('share-modal').classList.remove('open');});
+  var modal=document.getElementById('share-modal');
+  if(modal)modal.addEventListener('click',function(e){if(e.target===modal)modal.classList.remove('open');});
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',attachEventListeners);}else{attachEventListeners();}
+
+function selectCal(mode){
+  calMode=mode;
+  document.getElementById('btn-solar').className='cal-btn'+(mode==='solar'?' active':'');
+  document.getElementById('btn-lunar').className='cal-btn'+(mode==='lunar'?' active':'');
+  document.getElementById('lbl-date').textContent=mode==='solar'?'생년월일 (양력)':'생년월일 (음력)';
+  document.getElementById('leap-row').style.display=mode==='lunar'?'flex':'none';
+}
+
+async function startReport(){
+  var name=document.getElementById('f-name').value.trim();
+  var yearIn=parseInt(document.getElementById('f-year').value)||0;
+  var monthIn=parseInt(document.getElementById('f-month').value)||0;
+  var dayIn=parseInt(document.getElementById('f-day').value)||0;
+  var hour=parseInt(document.getElementById('f-hour').value);
+  var city=document.getElementById('f-city').value;
+  var isLeap=document.getElementById('f-leap').checked;
+  if(!name){alert('이름을 입력해 주세요.');return;}
+  if(yearIn<1930||yearIn>2010){alert('생년은 1930~2010 사이로 입력해 주세요.');return;}
+  if(monthIn<1||monthIn>12){alert('월은 1~12 사이로 입력해 주세요.');return;}
+  if(dayIn<1||dayIn>30){alert('일은 1~30 사이로 입력해 주세요.');return;}
+  if(!selectedGender){alert('성별을 선택해 주세요.');return;}
+  var year=yearIn,month=monthIn,day=dayIn;
+  var isLunarInput=(calMode==='lunar');
+  var lunarYMD=null;
+  if(isLunarInput){
+    var solar=lunarToSolar(yearIn,monthIn,dayIn,isLeap);
+    if(!solar){alert('해당 음력 날짜를 변환할 수 없습니다.');return;}
+    lunarYMD=[yearIn,monthIn,dayIn,isLeap];
+    year=solar[0];month=solar[1];day=solar[2];
+  }
+  currentInput={name,gender:selectedGender,year,month,day,hour,city,isLunarInput,lunarYMD,origYear:yearIn,origMonth:monthIn,origDay:dayIn};
+  document.getElementById('pg-intro').style.display='none';
+  document.getElementById('pg-report').style.display='none';
+  var lp=document.getElementById('pg-loading');
+  lp.style.display='flex';
+  for(var i=1;i<=7;i++)document.getElementById('step'+i).className='step-item';
+  await delay(300);markStep(1);
+  await delay(400);markStep(2);
+  await delay(400);markStep(3);
+  await delay(400);markStep(4);
+  await delay(400);markStep(5);
+  await delay(300);markStep(6);
+  await delay(300);markStep(7);
+  await delay(200);
+  lp.style.display='none';
+  buildReport(name,selectedGender,year,month,day,hour,city,lunarYMD);
+  document.getElementById('pg-report').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function downloadReportHTML(){
+  document.getElementById('share-modal').classList.remove('open');
+  if(!currentInput){showToast('❌ 먼저 분석을 실행하세요');return;}
+  var inp=currentInput;
+  var reportDiv=document.getElementById('report-body');
+  if(!reportDiv||!reportDiv.innerHTML.trim()){showToast('❌ 리포트가 없습니다');return;}
+  var html='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>'+inp.name+' 사주 리포트</title><style>body{font-family:Malgun Gothic,sans-serif;background:#ede9e1;padding:20px}'+document.querySelector('style').innerHTML+'#pg-intro,#pg-loading,#share-modal,#toast,.report-toolbar{display:none!important}#pg-report{display:block!important}</style></head><body><div id="pg-report" style="display:block"><div class="report-wrap">'+reportDiv.innerHTML+'</div></div></body></html>';
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=inp.name+'_사주리포트_대만신.html';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},3000);
+  showToast('💾 '+inp.name+' 님의 리포트를 저장했습니다!');
+}
+
+function copySummary(){
+  if(!currentInput){showToast('❌ 먼저 분석을 실행하세요');return;}
+  var inp=currentInput;
+  var yp=getYearPillar(inp.year,inp.month,inp.day);
+  var mp=getMonthPillar(inp.year,inp.month,inp.day);
+  var dp=getDayPillar(inp.year,inp.month,inp.day);
+  var hp=getHourPillar(dp.stem,inp.hour);
+  var sunSign=getSunSign(inp.month,inp.day);
+  var lifePath=getLifePath(inp.year,inp.month,inp.day);
+  var txt='✦ 대만신 사주리포트 ✦\n━━━━━━━━━━━━\n';
+  txt+='이름: '+inp.name+' ('+(inp.gender==='M'?'남성':'여성')+')\n';
+  txt+='생년월일: '+inp.year+'년 '+inp.month+'월 '+inp.day+'일\n\n';
+  txt+='📌 사주팔자\n  년주: '+yp.stem+yp.branch+'  월주: '+mp.stem+mp.branch+'  일주: '+dp.stem+dp.branch+(inp.hour>=0?'  시주: '+hp.stem+hp.branch:'')+' \n';
+  txt+='🌟 태양궁: '+sunSign.k+' ('+sunSign.e+')\n';
+  txt+='🔢 생명경로수: '+lifePath+'\n';
+  txt+='━━━━━━━━━━━━\n대만신 사주 연구원';
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){showToast('📋 요약이 복사되었습니다!');}).catch(function(){fallbackCopy(txt);});
+  }else{fallbackCopy(txt);}
+}
+function fallbackCopy(txt){
+  var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast('📋 복사되었습니다!');}catch(e){showToast('❌ 복사 실패');}
+  document.body.removeChild(ta);
+}
+var _toastTimer=null;
+function showToast(msg){
+  var t=document.getElementById('toast');if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  if(_toastTimer)clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(function(){t.classList.remove('show');},2600);
+}
 
 </script>
 </body>
